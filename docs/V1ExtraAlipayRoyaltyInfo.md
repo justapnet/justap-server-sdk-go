@@ -1,0 +1,11 @@
+# V1ExtraAlipayRoyaltyInfo
+
+## Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**RoyaltyDetailInfos** | [***ExtraAlipayRoyaltyInfoRoyaltyDetailInfos**](ExtraAlipayRoyaltyInfoRoyaltyDetailInfos.md) |  | [optional] [default to null]
+**RoyaltyType** | **string** |  | [optional] [default to null]
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
