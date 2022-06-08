@@ -9,42 +9,68 @@
  */
 
 package justap
-
-import (
 	"time"
-)
 
 type V1Charge struct {
-	Amount float64 `json:"amount,omitempty"`
-	AmountFee float64 `json:"amount_fee,omitempty"`
-	AmountRefund float64 `json:"amount_refund,omitempty"`
-	AmountRoyalty float64 `json:"amount_royalty,omitempty"`
-	AmountSettle float64 `json:"amount_settle,omitempty"`
-	AppId string `json:"app_id,omitempty"`
-	Body string `json:"body,omitempty"`
-	Channel *V1Channel `json:"channel,omitempty"`
-	ChargeId string `json:"charge_id,omitempty"`
-	ClientIp string `json:"client_ip,omitempty"`
-	Closed bool `json:"closed,omitempty"`
+	// 订单金额
+	Amount float64 `json:"amount"`
+	// 下单金额
+	AmountFee float32 `json:"amount_fee"`
+	// 订单退款总金额
+	AmountRefund float32 `json:"amount_refund"`
+	// 分账金额
+	AmountRoyalty float32 `json:"amount_royalty"`
+	// 结算金额，不一定有，视支付通道情况返回
+	AmountSettle float64 `json:"amount_settle"`
+	// 应用ID
+	AppId string `json:"app_id"`
+	// 订单描述信息
+	Body string `json:"body"`
+	Channel *V1Channel `json:"channel"`
+	// Charge 对象 id
+	ChargeId string `json:"charge_id"`
+	// 顾客IP
+	ClientIp string `json:"client_ip"`
+	// 是否关闭
+	Closed bool `json:"closed"`
+	// 关闭时间
 	ClosedAt time.Time `json:"closed_at,omitempty"`
+	// Charge 对象创建时间
 	CreatedAt time.Time `json:"created_at,omitempty"`
-	Credential *ProtobufAny `json:"credential,omitempty"`
-	Currency string `json:"currency,omitempty"`
-	Description string `json:"description,omitempty"`
+	Credential *map[string]interface{} `json:"credential,omitempty"`
+	// 货币单位，当前仅支持 CNY
+	Currency string `json:"currency"`
+	// 描述信息
+	Description string `json:"description"`
 	Extra *V1ChargeExtra `json:"extra,omitempty"`
-	FailureCode string `json:"failure_code,omitempty"`
-	FailureMsg string `json:"failure_msg,omitempty"`
-	LiveMode bool `json:"live_mode,omitempty"`
-	MerchantTradeId string `json:"merchant_trade_id,omitempty"`
+	// 收单机构错误码
+	FailureCode string `json:"failure_code"`
+	// 收单机构错误描述信息
+	FailureMsg string `json:"failure_msg"`
+	// 表明是否是沙箱环境
+	LiveMode bool `json:"live_mode"`
+	// 商户系统订单号，APP下需唯一
+	MerchantTradeId string `json:"merchant_trade_id"`
+	// 订单元数据，原样返回
 	Metadata map[string]string `json:"metadata,omitempty"`
-	Paid bool `json:"paid,omitempty"`
+	// 表明是否已支付
+	Paid bool `json:"paid"`
+	// 支付时间
 	PaidAt time.Time `json:"paid_at,omitempty"`
-	Refunded bool `json:"refunded,omitempty"`
+	// 表明是否包含退款，含退款失败的
+	Refunded bool `json:"refunded"`
+	// Refund 对象列表
 	Refunds []V1Refund `json:"refunds,omitempty"`
-	Reversed bool `json:"reversed,omitempty"`
+	// 表明是否已经撤销
+	Reversed bool `json:"reversed"`
+	// 冲正时间
 	ReversedAt time.Time `json:"reversed_at,omitempty"`
-	Subject string `json:"subject,omitempty"`
+	// 订单描述主题
+	Subject string `json:"subject"`
+	// 订单过期时间
 	TimeExpire time.Time `json:"time_expire,omitempty"`
-	TransactionNo string `json:"transaction_no,omitempty"`
-	Ttl int32 `json:"ttl,omitempty"`
+	// Charge 的支付单号
+	TransactionNo string `json:"transaction_no"`
+	// 订单生存时间，单位秒
+	Ttl int32 `json:"ttl"`
 }

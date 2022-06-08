@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AppId** | **string** | [REQUIRED] 应用 id | [default to null]
 **ChargeId** | **string** | [REQUIRED] 支付 Charge Id | [default to null]
 **Description** | **string** | [REQUIRED] 退款原因，最多 255 个 Unicode 字符。 | [default to null]
-**Extra** | [***ProtobufAny**](protobufAny.md) | [OPTIONAL] 退款 extra 参数。 | [optional] [default to null]
+**Extra** | [***map[string]interface{}**](map.md) |  | [optional] [default to null]
 **MerchantRefundId** | **string** | [REQUIRED] 商户系统的退款单号，必须保证唯一。由于 charge 支持多次退款，对于失败重试动作确保使用相同的订单号，以避免重复退款造成损失。 | [default to null]
 **Metadata** | **map[string]string** | [OPTIONAL] 参考元数据。 | [optional] [default to null]
 

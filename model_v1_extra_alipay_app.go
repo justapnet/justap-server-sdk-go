@@ -12,18 +12,30 @@ package justap
 
 type V1ExtraAlipayApp struct {
 	AgreementSignParams *V1ExtraAlipayAgreementSignParams `json:"agreement_sign_params,omitempty"`
-	CreditAgreementId string `json:"credit_agreement_id,omitempty"`
-	CreditBizOrderId string `json:"credit_biz_order_id,omitempty"`
-	CreditPayMode string `json:"credit_pay_mode,omitempty"`
-	DisablePayChannels string `json:"disable_pay_channels,omitempty"`
-	EnablePayChannels string `json:"enable_pay_channels,omitempty"`
+	// [ONLY IN RESPONSE] 信用支付协议号
+	CreditAgreementId string `json:"credit_agreement_id"`
+	// [ONLY IN RESPONSE] 信用支付业务订单号
+	CreditBizOrderId string `json:"credit_biz_order_id"`
+	// [ONLY IN RESPONSE] 信用支付模式
+	CreditPayMode string `json:"credit_pay_mode"`
+	// 禁用渠道
+	DisablePayChannels string `json:"disable_pay_channels"`
+	// 可用渠道
+	EnablePayChannels string `json:"enable_pay_channels"`
 	ExtUserInfo *V1ExtraAlipayExtUserInfo `json:"ext_user_info,omitempty"`
 	ExtendParams *V1ExtraAlipayExtendParams `json:"extend_params,omitempty"`
+	// 商品明细列表
 	GoodsDetail []V1ExtraAlipayGoodsDetail `json:"goods_detail,omitempty"`
-	GoodsType string `json:"goods_type,omitempty"`
-	MerchantTradeId string `json:"merchant_trade_id,omitempty"`
-	PayParam string `json:"pay_param,omitempty"`
-	ProductCode string `json:"product_code,omitempty"`
-	SellerId string `json:"seller_id,omitempty"`
-	StoreId string `json:"store_id,omitempty"`
+	// 商品类型
+	GoodsType string `json:"goods_type"`
+	// [ONLY IN RESPONSE] 商户订单号
+	MerchantTradeId string `json:"merchant_trade_id"`
+	// [ONLY IN RESPONSE] App 用于拉起支付的请求字符串
+	PayParam string `json:"pay_param"`
+	// 销售产品码，商家和支付宝签约的产品码
+	ProductCode string `json:"product_code"`
+	// [ONLY IN RESPONSE] 支付宝卖家支付宝用户ID
+	SellerId string `json:"seller_id"`
+	// 商户门店编号
+	StoreId string `json:"store_id"`
 }

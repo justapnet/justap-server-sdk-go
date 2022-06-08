@@ -11,16 +11,25 @@
 package justap
 
 type V1ExtraWechatpayH5 struct {
+	// 元数据
 	Attach string `json:"attach,omitempty"`
 	Detail *V1ExtraWechatpayDetail `json:"detail,omitempty"`
-	GoodsTag string `json:"goods_tag,omitempty"`
-	PaySign string `json:"pay_sign,omitempty"`
-	PayUrl string `json:"pay_url,omitempty"`
-	PrepayId string `json:"prepay_id,omitempty"`
+	// 订单优惠标记
+	GoodsTag string `json:"goods_tag"`
+	// 支付签名
+	PaySign string `json:"pay_sign"`
+	// 支付链接
+	PayUrl string `json:"pay_url"`
+	// 预支付交易会话标识
+	PrepayId string `json:"prepay_id"`
 	SceneInfo *V1ExtraWechatpaySceneInfo `json:"scene_info,omitempty"`
 	SettleInfo *V1ExtraWechatpaySettleInfo `json:"settle_info,omitempty"`
-	TimeExpire string `json:"time_expire,omitempty"`
-	TimeStart string `json:"time_start,omitempty"`
-	WapName string `json:"wap_name,omitempty"`
-	WapUrl string `json:"wap_url,omitempty"`
+	// 交易结束时间
+	TimeExpire string `json:"time_expire"`
+	// 交易起始时间
+	TimeStart string `json:"time_start"`
+	// WAP网站名
+	WapName string `json:"wap_name"`
+	// WAP网站URL
+	WapUrl string `json:"wap_url"`
 }

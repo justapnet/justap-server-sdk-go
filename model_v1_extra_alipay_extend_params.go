@@ -11,10 +11,16 @@
 package justap
 
 type V1ExtraAlipayExtendParams struct {
-	CardType string `json:"card_type,omitempty"`
-	HbFqNum int32 `json:"hb_fq_num,omitempty"`
-	HbFqSellerPercent int32 `json:"hb_fq_seller_percent,omitempty"`
-	IndustryRefluxInfo string `json:"industry_reflux_info,omitempty"`
-	SpecifiedSellerName string `json:"specified_seller_name,omitempty"`
-	SysServiceProviderId string `json:"sys_service_provider_id,omitempty"`
+	// 卡类型
+	CardType string `json:"card_type"`
+	// 使用花呗分期要进行的分期数
+	HbFqNum string `json:"hb_fq_num"`
+	// 使用花呗分期需要卖家承担的手续费比例的百分值，传入100代表100%
+	HbFqSellerPercent float64 `json:"hb_fq_seller_percent"`
+	// 行业数据回流信息
+	IndustryRefluxInfo string `json:"industry_reflux_info"`
+	// 指定收款支付宝用户名
+	SpecifiedSellerName string `json:"specified_seller_name"`
+	// 系统商编号，该参数作为系统商返佣数据提取的依据，请填写系统商签约协议的PID
+	SysServiceProviderId string `json:"sys_service_provider_id"`
 }

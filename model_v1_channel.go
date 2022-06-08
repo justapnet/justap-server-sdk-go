@@ -9,25 +9,25 @@
  */
 
 package justap
-// V1Channel : - BALANCE: 余额  - AlipayQR: 支付宝扫码支付  - AlipayScan: 支付宝条码支付  - AlipayApp: 支付宝 App 支付  - AlipayWap: 支付宝手机网站支付  - AlipayPage: 支付宝电脑网站支付  - AlipayFace: 支付宝刷脸支付  - AlipayLite: 支付宝小程序支付  - WechatpayApp: 微信 App 支付  - WechatpayJSAPI: 微信 JSAPI 支付  - WechatpayH5: 微信 H5 支付  - WechatpayNative: 微信 Native 支付  - WechatpayLite: 微信小程序支付  - WechatpayFace: 刷脸支付  - WechatpayScan: 微信付款码支付
+// V1Channel : - BALANCE: 余额支付  - AlipayQR: 支付宝扫码支付  - AlipayScan: 支付宝条码支付  - AlipayApp: 支付宝 App 支付  - AlipayWap: 支付宝手机网站支付  - AlipayPage: 支付宝电脑网站支付  - AlipayFace: 支付宝刷脸支付  - AlipayLite: 支付宝小程序支付  - WechatpayApp: 微信 App 支付  - WechatpayJSAPI: 微信 JSAPI 支付  - WechatpayH5: 微信 H5 支付  - WechatpayNative: 微信 Native 支付  - WechatpayLite: 微信小程序支付  - WechatpayFace: 刷脸支付  - WechatpayScan: 微信付款码支付
 type V1Channel string
 
 // List of v1Channel
 const (
-	CHANNEL_INVALID_UNSPECIFIED V1Channel = "CHANNEL_INVALID_UNSPECIFIED"
-	BALANCE V1Channel = "BALANCE"
-	ALIPAY_QR V1Channel = "AlipayQR"
-	ALIPAY_SCAN V1Channel = "AlipayScan"
-	ALIPAY_APP V1Channel = "AlipayApp"
-	ALIPAY_WAP V1Channel = "AlipayWap"
-	ALIPAY_PAGE V1Channel = "AlipayPage"
-	ALIPAY_FACE V1Channel = "AlipayFace"
-	ALIPAY_LITE V1Channel = "AlipayLite"
-	WECHATPAY_APP V1Channel = "WechatpayApp"
-	WECHATPAY_JSAPI V1Channel = "WechatpayJSAPI"
-	WECHATPAY_H5 V1Channel = "WechatpayH5"
-	WECHATPAY_NATIVE V1Channel = "WechatpayNative"
-	WECHATPAY_LITE V1Channel = "WechatpayLite"
-	WECHATPAY_FACE V1Channel = "WechatpayFace"
-	WECHATPAY_SCAN V1Channel = "WechatpayScan"
+	CHANNEL_INVALID_UNSPECIFIED_V1Channel V1Channel = "CHANNEL_INVALID_UNSPECIFIED"
+	BALANCE_V1Channel V1Channel = "BALANCE"
+	ALIPAY_QR_V1Channel V1Channel = "AlipayQR"
+	ALIPAY_SCAN_V1Channel V1Channel = "AlipayScan"
+	ALIPAY_APP_V1Channel V1Channel = "AlipayApp"
+	ALIPAY_WAP_V1Channel V1Channel = "AlipayWap"
+	ALIPAY_PAGE_V1Channel V1Channel = "AlipayPage"
+	ALIPAY_FACE_V1Channel V1Channel = "AlipayFace"
+	ALIPAY_LITE_V1Channel V1Channel = "AlipayLite"
+	WECHATPAY_APP_V1Channel V1Channel = "WechatpayApp"
+	WECHATPAY_JSAPI_V1Channel V1Channel = "WechatpayJSAPI"
+	WECHATPAY_H5_V1Channel V1Channel = "WechatpayH5"
+	WECHATPAY_NATIVE_V1Channel V1Channel = "WechatpayNative"
+	WECHATPAY_LITE_V1Channel V1Channel = "WechatpayLite"
+	WECHATPAY_FACE_V1Channel V1Channel = "WechatpayFace"
+	WECHATPAY_SCAN_V1Channel V1Channel = "WechatpayScan"
 )

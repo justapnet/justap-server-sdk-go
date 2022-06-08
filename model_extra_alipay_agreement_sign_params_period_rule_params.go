@@ -11,10 +11,16 @@
 package justap
 
 type ExtraAlipayAgreementSignParamsPeriodRuleParams struct {
-	ExecuteTime string `json:"execute_time,omitempty"`
-	Period string `json:"period,omitempty"`
-	PeriodType string `json:"period_type,omitempty"`
-	SingleAmount string `json:"single_amount,omitempty"`
-	TotalAmount string `json:"total_amount,omitempty"`
-	TotalPayments string `json:"total_payments,omitempty"`
+	// 扣款执行时间execute_time是周期扣款产品必填，枚举值为TIMING和FIXED
+	ExecuteTime string `json:"execute_time"`
+	// 周期数period是周期扣款产品必填。与另一参数period_type组合使用确定扣款周期，例如period_type为DAY，period=90，则扣款周期为90天
+	Period string `json:"period"`
+	// 周期类型period_type是周期扣款产品必填，枚举值为DAY和MONTH
+	PeriodType string `json:"period_type"`
+	// 单笔扣款金额single_amount是周期扣款产品必填，单位为元
+	SingleAmount string `json:"single_amount"`
+	// 扣款总金额total_amount是周期扣款产品必填，单位为元
+	TotalAmount string `json:"total_amount"`
+	// 扣款总笔数total_payments是周期扣款产品必填，单位为笔
+	TotalPayments string `json:"total_payments"`
 }

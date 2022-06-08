@@ -1,4 +1,3 @@
-
 /*
  * Justap API
  *
@@ -11,19 +10,10 @@
 
 package justap
 
-import (
-	"context"
-	"io/ioutil"
-	"net/http"
-	"net/url"
-	"strings"
-	"fmt"
-	"github.com/antihax/optional"
-)
-
-// Linger please
-var (
-	_ context.Context
-)
-
-type DefaultApiService service
+type ExtraWechatpaySceneInfoH5Info struct {
+	AppName string `json:"app_name,omitempty"`
+	AppUrl string `json:"app_url,omitempty"`
+	BundleId string `json:"bundle_id,omitempty"`
+	PackageName string `json:"package_name,omitempty"`
+	Type_ string `json:"type,omitempty"`
+}

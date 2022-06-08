@@ -11,22 +11,37 @@
 package justap
 
 type V1ExtraAlipayWap struct {
-	AuthToken string `json:"auth_token,omitempty"`
-	BusinessParams string `json:"business_params,omitempty"`
-	DisablePayChannels string `json:"disable_pay_channels,omitempty"`
-	EnablePayChannels string `json:"enable_pay_channels,omitempty"`
+	// 授权码
+	AuthToken string `json:"auth_token"`
+	// 业务扩展参数
+	BusinessParams string `json:"business_params"`
+	// 禁用渠道
+	DisablePayChannels string `json:"disable_pay_channels"`
+	// 可用渠道
+	EnablePayChannels string `json:"enable_pay_channels"`
 	ExtUserInfo *V1ExtraAlipayExtUserInfo `json:"ext_user_info,omitempty"`
 	ExtendParams *V1ExtraAlipayExtendParams `json:"extend_params,omitempty"`
+	// 支付金额信息
 	FundBillList []string `json:"fund_bill_list,omitempty"`
+	// 商品明细列表
 	GoodsDetail []V1ExtraAlipayGoodsDetail `json:"goods_detail,omitempty"`
-	GoodsType string `json:"goods_type,omitempty"`
-	MerchantTradeId string `json:"merchant_trade_id,omitempty"`
-	PayUrl string `json:"pay_url,omitempty"`
-	ProductCode string `json:"product_code,omitempty"`
-	PromoParams string `json:"promo_params,omitempty"`
-	QuitUrl string `json:"quit_url,omitempty"`
-	ReturnUrl string `json:"return_url,omitempty"`
-	SellerId string `json:"seller_id,omitempty"`
-	StoreId string `json:"store_id,omitempty"`
+	// 商品类型
+	GoodsType string `json:"goods_type"`
+	// [ONLY IN RESPONSE] 商户订单号
+	MerchantTradeId string `json:"merchant_trade_id"`
+	// [ONLY IN RESPONSE] 支付链接
+	PayUrl string `json:"pay_url"`
+	// 销售产品码
+	ProductCode string `json:"product_code"`
+	// 优惠参数
+	PromoParams string `json:"promo_params"`
+	// 支付取消跳转的地址
+	QuitUrl string `json:"quit_url"`
+	// 支付成功跳转的地址
+	ReturnUrl string `json:"return_url"`
+	// [ONLY IN RESPONSE] 收款支付宝用户ID
+	SellerId string `json:"seller_id"`
+	// 商户门店编号
+	StoreId string `json:"store_id"`
 	VoucherDetailList *V1ExtraAlipayVoucherDetailList `json:"voucher_detail_list,omitempty"`
 }

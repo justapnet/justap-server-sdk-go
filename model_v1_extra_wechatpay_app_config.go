@@ -11,11 +11,18 @@
 package justap
 
 type V1ExtraWechatpayAppConfig struct {
-	Appid string `json:"appid,omitempty"`
-	Noncestr string `json:"noncestr,omitempty"`
-	Package_ string `json:"package,omitempty"`
-	Partnerid string `json:"partnerid,omitempty"`
-	Prepayid string `json:"prepayid,omitempty"`
-	Sign string `json:"sign,omitempty"`
-	Timestamp string `json:"timestamp,omitempty"`
+	// 应用appid
+	Appid string `json:"appid"`
+	// 随机字符串
+	Noncestr string `json:"noncestr"`
+	// 扩展字段
+	Package_ string `json:"package"`
+	// 商户号
+	Partnerid string `json:"partnerid"`
+	// 预支付交易会话标识
+	Prepayid string `json:"prepayid"`
+	// 签名
+	Sign string `json:"sign"`
+	// 时间戳
+	Timestamp string `json:"timestamp"`
 }

@@ -1,6 +1,6 @@
 # \DefaultApi
 
-All URIs are relative to *http://127.0.0.1:21011*
+All URIs are relative to *http://127.0.0.1:21011/*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -21,9 +21,6 @@ Method | HTTP request | Description
 
 ### Required Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**V1CreateChargeRequest**](V1CreateChargeRequest.md)|  | 
 
 ### Return type
@@ -32,7 +29,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+[ApiKeyAuth](../README.md#ApiKeyAuth), 
 
 ### HTTP request headers
 
@@ -49,17 +46,12 @@ Name | Type | Description  | Notes
 
 ### Required Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **chargeId** | **string**| [REQUIRED] Charge 对象 id | 
  **optional** | ***DefaultApiTradeServiceQueryChargeOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 Optional parameters are passed through a pointer to a DefaultApiTradeServiceQueryChargeOpts struct
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
 
  **appId** | **optional.String**| [REQUIRED] 应用 id | 
 
@@ -69,11 +61,11 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+[ApiKeyAuth](../README.md#ApiKeyAuth), 
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -86,16 +78,11 @@ Name | Type | Description  | Notes
 
 ### Required Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
  **optional** | ***DefaultApiTradeServiceQueryChargeListOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 Optional parameters are passed through a pointer to a DefaultApiTradeServiceQueryChargeListOpts struct
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
  **appId** | **optional.String**| [REQUIRED] 应用 id | 
  **limit** | **optional.Int32**| [OPTIONAL] 限制有多少对象可以被返回，限制范围是从 1~100 项，默认是 10 项 | [default to 10]
  **startingAfter** | **optional.String**| [OPTIONAL] 在分页时使用的指针，决定了列表的第一项从何处开始。假设你的一次请求返回列表的最后一项的 id 是 obj_end，你可以使用 starting_after &#x3D; obj_end 去获取下一页 | 
@@ -105,7 +92,7 @@ Name | Type | Description  | Notes
  **createdLte** | **optional.Int64**| 大于或等于 charge 对象的创建时间，用 Unix 时间戳表示 | [default to 0]
  **createdGt** | **optional.Int64**| 小于 charge 对象的创建时间，用 Unix 时间戳表示 | [default to 0]
  **createdGte** | **optional.Int64**| 小于或等于 charge 对象的创建时间，用 Unix 时间戳表示 | [default to 0]
- **channel** | **optional.String**| [OPTIONAL] 渠道名称   - BALANCE: 余额  - AlipayQR: 支付宝扫码支付  - AlipayScan: 支付宝条码支付  - AlipayApp: 支付宝 App 支付  - AlipayWap: 支付宝手机网站支付  - AlipayPage: 支付宝电脑网站支付  - AlipayFace: 支付宝刷脸支付  - AlipayLite: 支付宝小程序支付  - WechatpayApp: 微信 App 支付  - WechatpayJSAPI: 微信 JSAPI 支付  - WechatpayH5: 微信 H5 支付  - WechatpayNative: 微信 Native 支付  - WechatpayLite: 微信小程序支付  - WechatpayFace: 刷脸支付  - WechatpayScan: 微信付款码支付 | [default to CHANNEL_INVALID_UNSPECIFIED]
+ **channel** | **optional.String**| [OPTIONAL] 渠道名称   - BALANCE: 余额支付  - AlipayQR: 支付宝扫码支付  - AlipayScan: 支付宝条码支付  - AlipayApp: 支付宝 App 支付  - AlipayWap: 支付宝手机网站支付  - AlipayPage: 支付宝电脑网站支付  - AlipayFace: 支付宝刷脸支付  - AlipayLite: 支付宝小程序支付  - WechatpayApp: 微信 App 支付  - WechatpayJSAPI: 微信 JSAPI 支付  - WechatpayH5: 微信 H5 支付  - WechatpayNative: 微信 Native 支付  - WechatpayLite: 微信小程序支付  - WechatpayFace: 刷脸支付  - WechatpayScan: 微信付款码支付 | [default to CHANNEL_INVALID_UNSPECIFIED]
  **paid** | **optional.Bool**| [OPTIONAL] 是否已付款 | [default to false]
  **refunded** | **optional.Bool**| [OPTIONAL] 是否存在退款信息，无论退款是否成功。 | [default to false]
  **reversed** | **optional.Bool**| [OPTIONAL] 是否已撤销 | [default to false]
@@ -118,11 +105,11 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+[ApiKeyAuth](../README.md#ApiKeyAuth), 
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -135,9 +122,6 @@ Name | Type | Description  | Notes
 
 ### Required Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **chargeId** | **string**| [REQUIRED] 支付 Charge Id | 
   **refundId** | **string**| [REQUIRED] Refund 对象 id | 
  **optional** | ***DefaultApiTradeServiceQueryRefundOpts** | optional parameters | nil if no parameters
@@ -145,8 +129,6 @@ Name | Type | Description  | Notes
 ### Optional Parameters
 Optional parameters are passed through a pointer to a DefaultApiTradeServiceQueryRefundOpts struct
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
 
 
  **appId** | **optional.String**| [REQUIRED] 应用 id | 
@@ -157,11 +139,11 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+[ApiKeyAuth](../README.md#ApiKeyAuth), 
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -174,17 +156,12 @@ Name | Type | Description  | Notes
 
 ### Required Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **chargeId** | **string**| [REQUIRED] 支付 Charge Id | 
  **optional** | ***DefaultApiTradeServiceQueryRefundListOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 Optional parameters are passed through a pointer to a DefaultApiTradeServiceQueryRefundListOpts struct
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
 
  **appId** | **optional.String**| [REQUIRED] 应用 id | 
  **limit** | **optional.Int32**| [OPTIONAL] 限制有多少对象可以被返回，限制范围是从 1~100 项，默认是 10 项 | [default to 10]
@@ -197,11 +174,11 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+[ApiKeyAuth](../README.md#ApiKeyAuth), 
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -214,9 +191,6 @@ Name | Type | Description  | Notes
 
 ### Required Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**V1CreateRefundRequest**](V1CreateRefundRequest.md)|  | 
 
 ### Return type
@@ -225,7 +199,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+[ApiKeyAuth](../README.md#ApiKeyAuth), 
 
 ### HTTP request headers
 
@@ -242,17 +216,12 @@ Name | Type | Description  | Notes
 
 ### Required Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **chargeId** | **string**| Charge 对象 id | 
  **optional** | ***DefaultApiTradeServiceReverseChargeOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 Optional parameters are passed through a pointer to a DefaultApiTradeServiceReverseChargeOpts struct
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
 
  **appId** | **optional.String**| [REQUIRED] 应用 id | 
 
@@ -262,11 +231,11 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+[ApiKeyAuth](../README.md#ApiKeyAuth), 
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

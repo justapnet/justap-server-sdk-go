@@ -9,27 +9,37 @@
  */
 
 package justap
-
-import (
 	"time"
-)
 
 // Refund 对象允许你可以对已经支付的 charge 对象发起退款请求。
 type V1Refund struct {
-	// 支付渠道退款元参数
 	Account *V1RefundExtra `json:"account,omitempty"`
-	Amount float64 `json:"amount,omitempty"`
-	ChargeId string `json:"charge_id,omitempty"`
-	ChargeMerchantTradeId string `json:"charge_merchant_trade_id,omitempty"`
+	// 退款金额
+	Amount float32 `json:"amount"`
+	// Charge 对象 id
+	ChargeId string `json:"charge_id"`
+	// 商户系统订单号
+	ChargeMerchantTradeId string `json:"charge_merchant_trade_id"`
+	// 退款创建时间
 	CreatedAt time.Time `json:"created_at,omitempty"`
-	Description string `json:"description,omitempty"`
-	FailureCode string `json:"failure_code,omitempty"`
-	FailureMsg string `json:"failure_msg,omitempty"`
-	IsSuccess bool `json:"is_success,omitempty"`
+	// 退款说明
+	Description string `json:"description"`
+	// 支付渠道失败错误码
+	FailureCode string `json:"failure_code"`
+	// 支付渠道失败原因描述
+	FailureMsg string `json:"failure_msg"`
+	// 退款是否成功
+	IsSuccess bool `json:"is_success"`
+	// 元数据，原样返回
 	Metadata map[string]string `json:"metadata,omitempty"`
-	RefundId string `json:"refund_id,omitempty"`
-	RefundNo string `json:"refund_no,omitempty"`
-	Status string `json:"status,omitempty"`
+	// Refund 对象 ID
+	RefundId string `json:"refund_id"`
+	// 退款单号
+	RefundNo string `json:"refund_no"`
+	// 退款状态
+	Status string `json:"status"`
+	// 退款成功时间
 	SuccessAt time.Time `json:"success_at,omitempty"`
-	TransactionNo string `json:"transaction_no,omitempty"`
+	// 交易号
+	TransactionNo string `json:"transaction_no"`
 }

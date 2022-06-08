@@ -12,25 +12,40 @@ package justap
 
 type V1ExtraAlipayPage struct {
 	AgreementSignParams *V1ExtraAlipayAgreementSignParams `json:"agreement_sign_params,omitempty"`
-	BusinessParams int32 `json:"business_params,omitempty"`
-	DisablePayChannels string `json:"disable_pay_channels,omitempty"`
-	EnablePayChannels string `json:"enable_pay_channels,omitempty"`
+	// 业务扩展参数
+	BusinessParams float64 `json:"business_params"`
+	// 禁用渠道
+	DisablePayChannels string `json:"disable_pay_channels"`
+	// 可用渠道
+	EnablePayChannels string `json:"enable_pay_channels"`
 	ExtUserInfo *V1ExtraAlipayExtUserInfo `json:"ext_user_info,omitempty"`
 	ExtendParams *V1ExtraAlipayExtendParams `json:"extend_params,omitempty"`
+	// 商品明细列表
 	GoodsDetail []V1ExtraAlipayGoodsDetail `json:"goods_detail,omitempty"`
-	GoodsType string `json:"goods_type,omitempty"`
-	IntegrationType int32 `json:"integration_type,omitempty"`
+	// 商品类型
+	GoodsType string `json:"goods_type"`
+	// 支付宝用户ID
+	IntegrationType float64 `json:"integration_type"`
 	InvoiceInfo *V1ExtraAlipayInvoiceInfo `json:"invoice_info,omitempty"`
-	MerchantTradeId string `json:"merchant_trade_id,omitempty"`
-	PayUrl string `json:"pay_url,omitempty"`
-	PromoParams string `json:"promo_params,omitempty"`
-	QrPayMode string `json:"qr_pay_mode,omitempty"`
-	QrcodeWidth int32 `json:"qrcode_width,omitempty"`
-	RequestFromUrl int32 `json:"request_from_url,omitempty"`
+	// [ONLY IN RESPONSE] 商户订单号
+	MerchantTradeId string `json:"merchant_trade_id"`
+	// [ONLY IN RESPONSE] 支付链接
+	PayUrl string `json:"pay_url"`
+	// 优惠参数
+	PromoParams string `json:"promo_params"`
+	// 扫码支付模式
+	QrPayMode string `json:"qr_pay_mode"`
+	// 二维码宽度
+	QrcodeWidth float64 `json:"qrcode_width"`
+	// 请求来源地址
+	RequestFromUrl float64 `json:"request_from_url"`
 	RoyaltyInfo *V1ExtraAlipayRoyaltyInfo `json:"royalty_info,omitempty"`
-	SellerId string `json:"seller_id,omitempty"`
+	// [ONLY IN RESPONSE] 收款支付宝用户ID
+	SellerId string `json:"seller_id"`
 	SettleInfo *V1ExtraAlipaySettleInfo `json:"settle_info,omitempty"`
-	StoreId string `json:"store_id,omitempty"`
+	// 商户门店编号
+	StoreId string `json:"store_id"`
 	SubMerchant *V1ExtraAlipaySubMerchant `json:"sub_merchant,omitempty"`
+	// 订单失效时间
 	TimeExpire int32 `json:"time_expire,omitempty"`
 }

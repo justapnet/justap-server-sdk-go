@@ -11,39 +11,67 @@
 package justap
 
 type V1ExtraAlipayScan struct {
-	AdvancePaymentType string `json:"advance_payment_type,omitempty"`
+	// 预授权类型
+	AdvancePaymentType string `json:"advance_payment_type"`
 	AgreementParams *V1ExtraAlipayAgreementParams `json:"agreement_params,omitempty"`
-	AuthCode string `json:"auth_code,omitempty"`
-	AuthConfirmMode string `json:"auth_confirm_mode,omitempty"`
-	AuthNo string `json:"auth_no,omitempty"`
-	BuyerId string `json:"buyer_id,omitempty"`
-	BuyerLogonId string `json:"buyer_logon_id,omitempty"`
-	BuyerPayAmount string `json:"buyer_pay_amount,omitempty"`
-	BuyerUserId string `json:"buyer_user_id,omitempty"`
-	DiscountAmount string `json:"discount_amount,omitempty"`
-	DiscountGoodsDetail string `json:"discount_goods_detail,omitempty"`
-	DiscountableAmount float64 `json:"discountable_amount,omitempty"`
+	// 用户的条码
+	AuthCode string `json:"auth_code"`
+	// 授权确认方式
+	AuthConfirmMode string `json:"auth_confirm_mode"`
+	// 授权号
+	AuthNo string `json:"auth_no"`
+	// 买家的支付宝用户id
+	BuyerId string `json:"buyer_id"`
+	// [ONLY IN RESPONSE] 买家支付宝账号
+	BuyerLogonId string `json:"buyer_logon_id"`
+	// [ONLY IN RESPONSE] 付款金额
+	BuyerPayAmount float64 `json:"buyer_pay_amount"`
+	// [ONLY IN RESPONSE] 买家在支付宝的用户id
+	BuyerUserId string `json:"buyer_user_id"`
+	// [ONLY IN RESPONSE] 商家优惠金额
+	DiscountAmount float64 `json:"discount_amount"`
+	// [ONLY IN RESPONSE] 商家优惠商品明细
+	DiscountGoodsDetail string `json:"discount_goods_detail"`
+	// 可打折金额
+	DiscountableAmount float64 `json:"discountable_amount"`
 	ExtendParams *V1ExtraAlipayExtendParams `json:"extend_params,omitempty"`
 	FundBillList *V1ExtraAlipayFundBillList `json:"fund_bill_list,omitempty"`
-	GmtPayment string `json:"gmt_payment,omitempty"`
+	// [ONLY IN RESPONSE] 支付时间
+	GmtPayment string `json:"gmt_payment"`
+	// 商品明细列表
 	GoodsDetail []V1ExtraAlipayGoodsDetail `json:"goods_detail,omitempty"`
-	InvoiceAmount string `json:"invoice_amount,omitempty"`
+	// [ONLY IN RESPONSE] 开票金额
+	InvoiceAmount float64 `json:"invoice_amount"`
 	IsAsyncPay *V1ExtraAlipayPayParams `json:"is_async_pay,omitempty"`
-	MdiscountAmount string `json:"mdiscount_amount,omitempty"`
-	OperatorId string `json:"operator_id,omitempty"`
-	PayParams string `json:"pay_params,omitempty"`
-	PointAmount string `json:"point_amount,omitempty"`
-	ProductCode string `json:"product_code,omitempty"`
-	QueryOptions string `json:"query_options,omitempty"`
-	ReceiptAmount string `json:"receipt_amount,omitempty"`
-	RequestOrgPid string `json:"request_org_pid,omitempty"`
-	Scene string `json:"scene,omitempty"`
+	// [ONLY IN RESPONSE] 平台优惠金额
+	MdiscountAmount float64 `json:"mdiscount_amount"`
+	// 商户操作员编号
+	OperatorId string `json:"operator_id"`
+	// [ONLY IN RESPONSE] 支付宝返回的支付参数
+	PayParams string `json:"pay_params"`
+	// [ONLY IN RESPONSE] 集分宝金额
+	PointAmount float64 `json:"point_amount"`
+	// 销售产品码
+	ProductCode string `json:"product_code"`
+	// 商户授权查询类型
+	QueryOptions string `json:"query_options"`
+	// [ONLY IN RESPONSE] 实收金额
+	ReceiptAmount float64 `json:"receipt_amount"`
+	// 请求方机构id
+	RequestOrgPid string `json:"request_org_pid"`
+	// 支付场景
+	Scene string `json:"scene"`
 	SettleInfo *V1ExtraAlipaySettleInfo `json:"settle_info,omitempty"`
-	StoreId string `json:"store_id,omitempty"`
-	StoreName string `json:"store_name,omitempty"`
+	// 商户门店编号
+	StoreId string `json:"store_id"`
+	// [ONLY IN RESPONSE] 商户门店名称
+	StoreName string `json:"store_name"`
 	SubMerchant *V1ExtraAlipaySubMerchant `json:"sub_merchant,omitempty"`
-	TerminalId string `json:"terminal_id,omitempty"`
-	TotalAmount string `json:"total_amount,omitempty"`
-	UndiscountableAmount float64 `json:"undiscountable_amount,omitempty"`
+	// 商户机具终端编号
+	TerminalId string `json:"terminal_id"`
+	// [ONLY IN RESPONSE] 订单金额
+	TotalAmount float64 `json:"total_amount"`
+	// 不可打折金额
+	UndiscountableAmount float64 `json:"undiscountable_amount"`
 	VoucherDetailList *V1ExtraAlipayVoucherDetailList `json:"voucher_detail_list,omitempty"`
 }

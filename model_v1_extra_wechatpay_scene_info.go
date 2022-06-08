@@ -12,6 +12,7 @@ package justap
 
 type V1ExtraWechatpaySceneInfo struct {
 	DeviceId string `json:"device_id,omitempty"`
+	H5Info *ExtraWechatpaySceneInfoH5Info `json:"h5_info,omitempty"`
 	PayerClientIp string `json:"payer_client_ip,omitempty"`
 	StoreInfo *ExtraWechatpaySceneInfoStoreInfo `json:"store_info,omitempty"`
 }

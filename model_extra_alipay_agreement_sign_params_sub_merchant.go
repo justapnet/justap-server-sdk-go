@@ -11,8 +11,12 @@
 package justap
 
 type ExtraAlipayAgreementSignParamsSubMerchant struct {
-	SubMerchantId string `json:"sub_merchant_id,omitempty"`
-	SubMerchantName string `json:"sub_merchant_name,omitempty"`
-	SubMerchantServiceDescription string `json:"sub_merchant_service_description,omitempty"`
-	SubMerchantServiceName string `json:"sub_merchant_service_name,omitempty"`
+	// 子商户id
+	SubMerchantId string `json:"sub_merchant_id"`
+	// 子商户名称
+	SubMerchantName string `json:"sub_merchant_name"`
+	// 子商户服务描述
+	SubMerchantServiceDescription string `json:"sub_merchant_service_description"`
+	// 子商户服务名称
+	SubMerchantServiceName string `json:"sub_merchant_service_name"`
 }

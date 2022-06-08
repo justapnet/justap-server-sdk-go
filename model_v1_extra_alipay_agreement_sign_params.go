@@ -12,11 +12,16 @@ package justap
 
 type V1ExtraAlipayAgreementSignParams struct {
 	AccessParams *ExtraAlipayAgreementSignParamsAccessParams `json:"access_params,omitempty"`
-	ExternalAgreementNo string `json:"external_agreement_no,omitempty"`
-	ExternalLogonId string `json:"external_logon_id,omitempty"`
+	// 外部协议号
+	ExternalAgreementNo string `json:"external_agreement_no"`
+	// 外部用户唯一标识
+	ExternalLogonId string `json:"external_logon_id"`
 	PeriodRuleParams *ExtraAlipayAgreementSignParamsPeriodRuleParams `json:"period_rule_params,omitempty"`
-	PersonalProductCode string `json:"personal_product_code,omitempty"`
-	SignNotifyUrl string `json:"sign_notify_url,omitempty"`
-	SignScene string `json:"sign_scene,omitempty"`
+	// 个人签约产品码
+	PersonalProductCode string `json:"personal_product_code"`
+	// 签约回调地址
+	SignNotifyUrl string `json:"sign_notify_url"`
+	// 签约场景
+	SignScene string `json:"sign_scene"`
 	SubMerchant *ExtraAlipayAgreementSignParamsSubMerchant `json:"sub_merchant,omitempty"`
 }

@@ -68,7 +68,7 @@ type Configuration struct {
 }
 
 func NewConfiguration() *Configuration {
-    var host = "http://127.0.0.1:21011"
+    var host = "http://127.0.0.1:21011/"
     host = strings.TrimRight(host, "/")
 	cfg := &Configuration{
 		BasePath:      host,

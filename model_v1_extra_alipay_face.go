@@ -11,5 +11,4 @@
 package justap
 
 type V1ExtraAlipayFace struct {
-	Hahaha string `json:"hahaha,omitempty"`
 }

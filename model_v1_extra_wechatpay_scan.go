@@ -11,23 +11,38 @@
 package justap
 
 type V1ExtraWechatpayScan struct {
+	// 元数据
 	Attach string `json:"attach,omitempty"`
-	AuthCode string `json:"auth_code,omitempty"`
-	BankType string `json:"bank_type,omitempty"`
-	CashFee string `json:"cash_fee,omitempty"`
-	CashFeeType string `json:"cash_fee_type,omitempty"`
+	// 授权码
+	AuthCode string `json:"auth_code"`
+	// 付款银行
+	BankType string `json:"bank_type"`
+	// 现金支付金额
+	CashFee string `json:"cash_fee"`
+	// 现金支付币种
+	CashFeeType string `json:"cash_fee_type"`
 	Detail *V1ExtraWechatpayDetail `json:"detail,omitempty"`
-	FeeType string `json:"fee_type,omitempty"`
-	GoodsTag string `json:"goods_tag,omitempty"`
-	IsSubscribe bool `json:"is_subscribe,omitempty"`
+	// 货币种类
+	FeeType string `json:"fee_type"`
+	// 订单优惠标记
+	GoodsTag string `json:"goods_tag"`
+	// 是否关注公众账号
+	IsSubscribe bool `json:"is_subscribe"`
 	Payer *V1ExtraWechatpayPayer `json:"payer,omitempty"`
 	SceneInfo *V1ExtraWechatpaySceneInfo `json:"scene_info,omitempty"`
 	SettleInfo *V1ExtraWechatpaySettleInfo `json:"settle_info,omitempty"`
-	SettlementTotalFee string `json:"settlement_total_fee,omitempty"`
-	SpbillCreateIp string `json:"spbill_create_ip,omitempty"`
-	SubIsSubscribe bool `json:"sub_is_subscribe,omitempty"`
-	SubOpenid string `json:"sub_openid,omitempty"`
-	TimeEnd string `json:"time_end,omitempty"`
-	TimeExpire string `json:"time_expire,omitempty"`
-	TimeStart string `json:"time_start,omitempty"`
+	// 应结订单金额
+	SettlementTotalFee float64 `json:"settlement_total_fee"`
+	// 终端IP
+	SpbillCreateIp string `json:"spbill_create_ip"`
+	// 子商户是否关注公众账号
+	SubIsSubscribe bool `json:"sub_is_subscribe"`
+	// 子商户openid
+	SubOpenid string `json:"sub_openid"`
+	// 支付完成时间
+	TimeEnd string `json:"time_end"`
+	// 交易结束时间
+	TimeExpire string `json:"time_expire"`
+	// 交易起始时间
+	TimeStart string `json:"time_start"`
 }

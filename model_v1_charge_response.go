@@ -12,7 +12,6 @@ package justap
 
 // 返回一个支付凭据 charge 对象。
 type V1ChargeResponse struct {
-	// Charge 对象
 	Data *V1Charge `json:"data,omitempty"`
 	// 对象类型
 	Object string `json:"object"`

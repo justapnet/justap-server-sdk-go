@@ -12,5 +12,6 @@ package justap
 
 type V1ExtraAlipayRoyaltyInfo struct {
 	RoyaltyDetailInfos *ExtraAlipayRoyaltyInfoRoyaltyDetailInfos `json:"royalty_detail_infos,omitempty"`
-	RoyaltyType string `json:"royalty_type,omitempty"`
+	// 周期类型period_type是周期扣款产品必填，枚举值为DAY和MONTH
+	RoyaltyType string `json:"royalty_type"`
 }

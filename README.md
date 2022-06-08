@@ -1,7 +1,7 @@
 # Go API client for justap
 - API version: 1.0
 - Package version: 1.0.0
-- Build package: io.swagger.codegen.languages.GoClientCodegen
+- Build package: io.swagger.codegen.v3.generators.go.GoClientCodegen
 
 ## Document
 
@@ -15,7 +15,7 @@ import "./justap"
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://127.0.0.1:21011*
+All URIs are relative to *http://127.0.0.1:21011/*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -37,10 +37,9 @@ Class | Method | HTTP request | Description
  - [ExtraAlipayRoyaltyInfoRoyaltyDetailInfos](docs/ExtraAlipayRoyaltyInfoRoyaltyDetailInfos.md)
  - [ExtraAlipaySettleInfoSettleDetailInfos](docs/ExtraAlipaySettleInfoSettleDetailInfos.md)
  - [ExtraWechatpayDetailGoodsDetail](docs/ExtraWechatpayDetailGoodsDetail.md)
+ - [ExtraWechatpaySceneInfoH5Info](docs/ExtraWechatpaySceneInfoH5Info.md)
  - [ExtraWechatpaySceneInfoStoreInfo](docs/ExtraWechatpaySceneInfoStoreInfo.md)
- - [HealthCheckResponseServingStatus](docs/HealthCheckResponseServingStatus.md)
  - [OpenApiRoyaltyDetailInfoPojoTradeFundBillItem](docs/OpenApiRoyaltyDetailInfoPojoTradeFundBillItem.md)
- - [ProtobufAny](docs/ProtobufAny.md)
  - [QueryChargeListRequestCreated](docs/QueryChargeListRequestCreated.md)
  - [RefundExtraAlipayOpenApiRoyaltyDetailInfoPojo](docs/RefundExtraAlipayOpenApiRoyaltyDetailInfoPojo.md)
  - [RefundExtraWechatPayAccount](docs/RefundExtraWechatPayAccount.md)
@@ -91,7 +90,6 @@ Class | Method | HTTP request | Description
  - [V1ExtraWechatpayScan](docs/V1ExtraWechatpayScan.md)
  - [V1ExtraWechatpaySceneInfo](docs/V1ExtraWechatpaySceneInfo.md)
  - [V1ExtraWechatpaySettleInfo](docs/V1ExtraWechatpaySettleInfo.md)
- - [V1HealthCheckResponse](docs/V1HealthCheckResponse.md)
  - [V1Refund](docs/V1Refund.md)
  - [V1RefundExtra](docs/V1RefundExtra.md)
  - [V1RefundExtraAlipay](docs/V1RefundExtraAlipay.md)
