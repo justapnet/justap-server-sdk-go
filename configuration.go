@@ -67,8 +67,12 @@ type Configuration struct {
     MerchantRsaPrivateKey *rsa.PrivateKey
 }
 
-func NewConfiguration() *Configuration {
+func NewConfiguration(url string) *Configuration {
     var host = "http://127.0.0.1:21011/"
+    if url != "" {
+        host = url
+    }
+
     host = strings.TrimRight(host, "/")
 	cfg := &Configuration{
 		BasePath:      host,
