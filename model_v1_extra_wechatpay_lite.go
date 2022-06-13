@@ -11,16 +11,21 @@
 package justap
 
 type V1ExtraWechatpayLite struct {
+	// 小程序拉起支付配置信息
 	AppletConfig *V1ExtraWechatpayAppletConfig `json:"applet_config,omitempty"`
 	// 元数据
 	Attach string `json:"attach,omitempty"`
+	// 商品详情
 	Detail *V1ExtraWechatpayDetail `json:"detail,omitempty"`
 	// 订单优惠标记
 	GoodsTag string `json:"goods_tag"`
+	// 付款人信息
 	Payer *V1ExtraWechatpayPayer `json:"payer,omitempty"`
 	// 预支付交易会话标识
 	PrepayId string `json:"prepay_id"`
+	// 场景信息
 	SceneInfo *V1ExtraWechatpaySceneInfo `json:"scene_info,omitempty"`
+	// 结算信息
 	SettleInfo *V1ExtraWechatpaySettleInfo `json:"settle_info,omitempty"`
 	// 交易结束时间
 	TimeExpire string `json:"time_expire"`

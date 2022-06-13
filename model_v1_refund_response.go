@@ -11,6 +11,7 @@
 package justap
 
 type V1RefundResponse struct {
+	// Refund 对象
 	Data *V1Refund `json:"data,omitempty"`
 	// 对象类型
 	Object string `json:"object"`

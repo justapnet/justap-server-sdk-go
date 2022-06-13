@@ -11,17 +11,30 @@
 package justap
 
 type V1CreateChargeRequestExtra struct {
+	// 支付宝 APP 支付元数据
 	AlipayApp *V1ExtraAlipayApp `json:"alipay_app,omitempty"`
+	// 支付宝刷脸支付元数据
 	AlipayFace *V1ExtraAlipayFace `json:"alipay_face,omitempty"`
+	// 支付宝小程序支付元数据
 	AlipayLite *V1ExtraAlipayLite `json:"alipay_lite,omitempty"`
+	// 支付宝电脑网站支付元数据
 	AlipayPage *V1ExtraAlipayPage `json:"alipay_page,omitempty"`
+	// 支付宝二维码支付元数据
 	AlipayQr *V1ExtraAlipayQr `json:"alipay_qr,omitempty"`
+	// 支付宝扫码（被扫）支付元数据
 	AlipayScan *V1ExtraAlipayScan `json:"alipay_scan,omitempty"`
+	// 支付宝手机网站支付元数据
 	AlipayWap *V1ExtraAlipayWap `json:"alipay_wap,omitempty"`
+	// 微信支付 APP 支付元数据
 	WechatpayApp *V1ExtraWechatpayApp `json:"wechatpay_app,omitempty"`
+	// 微信支付 H5 支付元数据
 	WechatpayH5 *V1ExtraWechatpayH5 `json:"wechatpay_h5,omitempty"`
+	// 微信支付 JSAPI 支付元数据
 	WechatpayJsapi *V1ExtraWechatpayJsapi `json:"wechatpay_jsapi,omitempty"`
+	// 微信支付小程序支付元数据
 	WechatpayLite *V1ExtraWechatpayLite `json:"wechatpay_lite,omitempty"`
+	// 微信支付二维码支付元数据
 	WechatpayNative *V1ExtraWechatpayNative `json:"wechatpay_native,omitempty"`
+	// 微信支付扫码（被扫）支付元数据
 	WechatpayScan *V1ExtraWechatpayScan `json:"wechatpay_scan,omitempty"`
 }

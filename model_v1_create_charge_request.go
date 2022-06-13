@@ -20,6 +20,7 @@ type V1CreateChargeRequest struct {
 	Body string `json:"body"`
 	// [OPTIONAL] 回调地址，如不传则使用 APP 设置中的回调地址。若都为空，则无法跳回原页面
 	CallbackUrl string `json:"callback_url"`
+	// [REQUIRED] 渠道名称
 	Channel *V1Channel `json:"channel"`
 	// [REQUIRED] 客户端机器 IP
 	ClientIp string `json:"client_ip"`
@@ -27,6 +28,7 @@ type V1CreateChargeRequest struct {
 	Currency string `json:"currency"`
 	// [OPTIONAL] 交易描述
 	Description string `json:"description"`
+	// [OPTIONAL] 各支付渠道元数据
 	Extra *V1CreateChargeRequestExtra `json:"extra,omitempty"`
 	// [REQUIRED] 客户系统的交易单号（订单号），必须在应用下唯一。长度不超过30个字符
 	MerchantTradeId string `json:"merchant_trade_id"`

@@ -11,21 +11,25 @@
 package justap
 
 type V1ExtraAlipayPage struct {
+	// 签约参数。如果希望在sdk中支付并签约，需要在这里传入签约信息。周期扣款场景 product_code 为 CYCLE_PAY_AUTH 时必填。
 	AgreementSignParams *V1ExtraAlipayAgreementSignParams `json:"agreement_sign_params,omitempty"`
 	// 业务扩展参数
-	BusinessParams float64 `json:"business_params"`
+	BusinessParams float32 `json:"business_params"`
 	// 禁用渠道
 	DisablePayChannels string `json:"disable_pay_channels"`
 	// 可用渠道
 	EnablePayChannels string `json:"enable_pay_channels"`
+	// 支付宝用户信息
 	ExtUserInfo *V1ExtraAlipayExtUserInfo `json:"ext_user_info,omitempty"`
+	// 业务扩展参数
 	ExtendParams *V1ExtraAlipayExtendParams `json:"extend_params,omitempty"`
 	// 商品明细列表
 	GoodsDetail []V1ExtraAlipayGoodsDetail `json:"goods_detail,omitempty"`
 	// 商品类型
 	GoodsType string `json:"goods_type"`
 	// 支付宝用户ID
-	IntegrationType float64 `json:"integration_type"`
+	IntegrationType float32 `json:"integration_type"`
+	// 发票信息
 	InvoiceInfo *V1ExtraAlipayInvoiceInfo `json:"invoice_info,omitempty"`
 	// [ONLY IN RESPONSE] 商户订单号
 	MerchantTradeId string `json:"merchant_trade_id"`
@@ -36,15 +40,18 @@ type V1ExtraAlipayPage struct {
 	// 扫码支付模式
 	QrPayMode string `json:"qr_pay_mode"`
 	// 二维码宽度
-	QrcodeWidth float64 `json:"qrcode_width"`
+	QrcodeWidth float32 `json:"qrcode_width"`
 	// 请求来源地址
-	RequestFromUrl float64 `json:"request_from_url"`
+	RequestFromUrl float32 `json:"request_from_url"`
+	// 分账类型卖家的分账类型，目前只支持传入ROYALTY（普通分账类型）。
 	RoyaltyInfo *V1ExtraAlipayRoyaltyInfo `json:"royalty_info,omitempty"`
 	// [ONLY IN RESPONSE] 收款支付宝用户ID
 	SellerId string `json:"seller_id"`
+	// 结算信息
 	SettleInfo *V1ExtraAlipaySettleInfo `json:"settle_info,omitempty"`
 	// 商户门店编号
 	StoreId string `json:"store_id"`
+	// 二级商户信息
 	SubMerchant *V1ExtraAlipaySubMerchant `json:"sub_merchant,omitempty"`
 	// 订单失效时间
 	TimeExpire int32 `json:"time_expire,omitempty"`

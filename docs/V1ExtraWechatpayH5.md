@@ -4,13 +4,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Attach** | **string** | 元数据 | [optional] [default to null]
-**Detail** | [***V1ExtraWechatpayDetail**](v1ExtraWechatpayDetail.md) |  | [optional] [default to null]
+**Detail** | [***V1ExtraWechatpayDetail**](v1ExtraWechatpayDetail.md) | 商品详情 | [optional] [default to null]
 **GoodsTag** | **string** | 订单优惠标记 | [default to null]
 **PaySign** | **string** | 支付签名 | [default to null]
 **PayUrl** | **string** | 支付链接 | [default to null]
 **PrepayId** | **string** | 预支付交易会话标识 | [default to null]
-**SceneInfo** | [***V1ExtraWechatpaySceneInfo**](v1ExtraWechatpaySceneInfo.md) |  | [optional] [default to null]
-**SettleInfo** | [***V1ExtraWechatpaySettleInfo**](v1ExtraWechatpaySettleInfo.md) |  | [optional] [default to null]
+**SceneInfo** | [***V1ExtraWechatpaySceneInfo**](v1ExtraWechatpaySceneInfo.md) | 场景信息 | [optional] [default to null]
+**SettleInfo** | [***V1ExtraWechatpaySettleInfo**](v1ExtraWechatpaySettleInfo.md) | 结算信息 | [optional] [default to null]
 **TimeExpire** | **string** | 交易结束时间 | [default to null]
 **TimeStart** | **string** | 交易起始时间 | [default to null]
 **WapName** | **string** | WAP网站名 | [default to null]

@@ -9,10 +9,14 @@
  */
 
 package justap
+
+import (
 	"time"
+)
 
 // Refund 对象允许你可以对已经支付的 charge 对象发起退款请求。
 type V1Refund struct {
+	// 支付渠道退款元参数
 	Account *V1RefundExtra `json:"account,omitempty"`
 	// 退款金额
 	Amount float32 `json:"amount"`

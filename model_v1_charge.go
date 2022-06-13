@@ -9,7 +9,10 @@
  */
 
 package justap
+
+import (
 	"time"
+)
 
 type V1Charge struct {
 	// 订单金额
@@ -26,6 +29,7 @@ type V1Charge struct {
 	AppId string `json:"app_id"`
 	// 订单描述信息
 	Body string `json:"body"`
+	// 支付渠道
 	Channel *V1Channel `json:"channel"`
 	// Charge 对象 id
 	ChargeId string `json:"charge_id"`
@@ -37,11 +41,13 @@ type V1Charge struct {
 	ClosedAt time.Time `json:"closed_at,omitempty"`
 	// Charge 对象创建时间
 	CreatedAt time.Time `json:"created_at,omitempty"`
-	Credential *map[string]interface{} `json:"credential,omitempty"`
+	// 支付凭证
+	Credential *ProtobufAny `json:"credential,omitempty"`
 	// 货币单位，当前仅支持 CNY
 	Currency string `json:"currency"`
 	// 描述信息
 	Description string `json:"description"`
+	// 支付渠道元数据
 	Extra *V1ChargeExtra `json:"extra,omitempty"`
 	// 收单机构错误码
 	FailureCode string `json:"failure_code"`

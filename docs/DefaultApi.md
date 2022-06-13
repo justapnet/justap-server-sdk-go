@@ -1,6 +1,6 @@
 # \DefaultApi
 
-All URIs are relative to *http://127.0.0.1:21011/*
+All URIs are relative to *http://127.0.0.1:21011*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -21,6 +21,9 @@ Method | HTTP request | Description
 
 ### Required Parameters
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**V1CreateChargeRequest**](V1CreateChargeRequest.md)|  | 
 
 ### Return type
@@ -29,7 +32,7 @@ Method | HTTP request | Description
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth), 
+[ApiKeyAuth](../README.md#ApiKeyAuth)
 
 ### HTTP request headers
 
@@ -46,12 +49,17 @@ Method | HTTP request | Description
 
 ### Required Parameters
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **chargeId** | **string**| [REQUIRED] Charge 对象 id | 
  **optional** | ***DefaultApiTradeServiceQueryChargeOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 Optional parameters are passed through a pointer to a DefaultApiTradeServiceQueryChargeOpts struct
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
  **appId** | **optional.String**| [REQUIRED] 应用 id | 
 
@@ -61,11 +69,11 @@ Optional parameters are passed through a pointer to a DefaultApiTradeServiceQuer
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth), 
+[ApiKeyAuth](../README.md#ApiKeyAuth)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -78,11 +86,16 @@ Optional parameters are passed through a pointer to a DefaultApiTradeServiceQuer
 
 ### Required Parameters
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
  **optional** | ***DefaultApiTradeServiceQueryChargeListOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 Optional parameters are passed through a pointer to a DefaultApiTradeServiceQueryChargeListOpts struct
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **appId** | **optional.String**| [REQUIRED] 应用 id | 
  **limit** | **optional.Int32**| [OPTIONAL] 限制有多少对象可以被返回，限制范围是从 1~100 项，默认是 10 项 | [default to 10]
  **startingAfter** | **optional.String**| [OPTIONAL] 在分页时使用的指针，决定了列表的第一项从何处开始。假设你的一次请求返回列表的最后一项的 id 是 obj_end，你可以使用 starting_after &#x3D; obj_end 去获取下一页 | 
@@ -105,11 +118,11 @@ Optional parameters are passed through a pointer to a DefaultApiTradeServiceQuer
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth), 
+[ApiKeyAuth](../README.md#ApiKeyAuth)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -122,6 +135,9 @@ Optional parameters are passed through a pointer to a DefaultApiTradeServiceQuer
 
 ### Required Parameters
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **chargeId** | **string**| [REQUIRED] 支付 Charge Id | 
   **refundId** | **string**| [REQUIRED] Refund 对象 id | 
  **optional** | ***DefaultApiTradeServiceQueryRefundOpts** | optional parameters | nil if no parameters
@@ -129,6 +145,8 @@ Optional parameters are passed through a pointer to a DefaultApiTradeServiceQuer
 ### Optional Parameters
 Optional parameters are passed through a pointer to a DefaultApiTradeServiceQueryRefundOpts struct
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 
  **appId** | **optional.String**| [REQUIRED] 应用 id | 
@@ -139,11 +157,11 @@ Optional parameters are passed through a pointer to a DefaultApiTradeServiceQuer
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth), 
+[ApiKeyAuth](../README.md#ApiKeyAuth)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -156,12 +174,17 @@ Optional parameters are passed through a pointer to a DefaultApiTradeServiceQuer
 
 ### Required Parameters
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **chargeId** | **string**| [REQUIRED] 支付 Charge Id | 
  **optional** | ***DefaultApiTradeServiceQueryRefundListOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 Optional parameters are passed through a pointer to a DefaultApiTradeServiceQueryRefundListOpts struct
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
  **appId** | **optional.String**| [REQUIRED] 应用 id | 
  **limit** | **optional.Int32**| [OPTIONAL] 限制有多少对象可以被返回，限制范围是从 1~100 项，默认是 10 项 | [default to 10]
@@ -174,11 +197,11 @@ Optional parameters are passed through a pointer to a DefaultApiTradeServiceQuer
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth), 
+[ApiKeyAuth](../README.md#ApiKeyAuth)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -191,6 +214,9 @@ Optional parameters are passed through a pointer to a DefaultApiTradeServiceQuer
 
 ### Required Parameters
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **body** | [**V1CreateRefundRequest**](V1CreateRefundRequest.md)|  | 
 
 ### Return type
@@ -199,7 +225,7 @@ Optional parameters are passed through a pointer to a DefaultApiTradeServiceQuer
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth), 
+[ApiKeyAuth](../README.md#ApiKeyAuth)
 
 ### HTTP request headers
 
@@ -216,12 +242,17 @@ Optional parameters are passed through a pointer to a DefaultApiTradeServiceQuer
 
 ### Required Parameters
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **chargeId** | **string**| Charge 对象 id | 
  **optional** | ***DefaultApiTradeServiceReverseChargeOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
 Optional parameters are passed through a pointer to a DefaultApiTradeServiceReverseChargeOpts struct
 
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
  **appId** | **optional.String**| [REQUIRED] 应用 id | 
 
@@ -231,11 +262,11 @@ Optional parameters are passed through a pointer to a DefaultApiTradeServiceReve
 
 ### Authorization
 
-[ApiKeyAuth](../README.md#ApiKeyAuth), 
+[ApiKeyAuth](../README.md#ApiKeyAuth)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

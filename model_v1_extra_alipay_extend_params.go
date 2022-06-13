@@ -16,7 +16,7 @@ type V1ExtraAlipayExtendParams struct {
 	// 使用花呗分期要进行的分期数
 	HbFqNum string `json:"hb_fq_num"`
 	// 使用花呗分期需要卖家承担的手续费比例的百分值，传入100代表100%
-	HbFqSellerPercent float64 `json:"hb_fq_seller_percent"`
+	HbFqSellerPercent float32 `json:"hb_fq_seller_percent"`
 	// 行业数据回流信息
 	IndustryRefluxInfo string `json:"industry_reflux_info"`
 	// 指定收款支付宝用户名

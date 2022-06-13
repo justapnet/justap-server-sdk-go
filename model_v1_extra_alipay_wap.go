@@ -19,7 +19,9 @@ type V1ExtraAlipayWap struct {
 	DisablePayChannels string `json:"disable_pay_channels"`
 	// 可用渠道
 	EnablePayChannels string `json:"enable_pay_channels"`
+	// 支付宝用户信息
 	ExtUserInfo *V1ExtraAlipayExtUserInfo `json:"ext_user_info,omitempty"`
+	// 业务扩展参数
 	ExtendParams *V1ExtraAlipayExtendParams `json:"extend_params,omitempty"`
 	// 支付金额信息
 	FundBillList []string `json:"fund_bill_list,omitempty"`

@@ -13,6 +13,7 @@ package justap
 type V1ExtraAlipayScan struct {
 	// 预授权类型
 	AdvancePaymentType string `json:"advance_payment_type"`
+	// 协议参数
 	AgreementParams *V1ExtraAlipayAgreementParams `json:"agreement_params,omitempty"`
 	// 用户的条码
 	AuthCode string `json:"auth_code"`
@@ -34,7 +35,9 @@ type V1ExtraAlipayScan struct {
 	DiscountGoodsDetail string `json:"discount_goods_detail"`
 	// 可打折金额
 	DiscountableAmount float64 `json:"discountable_amount"`
+	// 业务扩展参数
 	ExtendParams *V1ExtraAlipayExtendParams `json:"extend_params,omitempty"`
+	// [ONLY IN RESPONSE] 支付金额信息
 	FundBillList *V1ExtraAlipayFundBillList `json:"fund_bill_list,omitempty"`
 	// [ONLY IN RESPONSE] 支付时间
 	GmtPayment string `json:"gmt_payment"`
@@ -42,6 +45,7 @@ type V1ExtraAlipayScan struct {
 	GoodsDetail []V1ExtraAlipayGoodsDetail `json:"goods_detail,omitempty"`
 	// [ONLY IN RESPONSE] 开票金额
 	InvoiceAmount float64 `json:"invoice_amount"`
+	// 是否异步支付
 	IsAsyncPay *V1ExtraAlipayPayParams `json:"is_async_pay,omitempty"`
 	// [ONLY IN RESPONSE] 平台优惠金额
 	MdiscountAmount float64 `json:"mdiscount_amount"`
@@ -61,11 +65,13 @@ type V1ExtraAlipayScan struct {
 	RequestOrgPid string `json:"request_org_pid"`
 	// 支付场景
 	Scene string `json:"scene"`
+	// 结算信息
 	SettleInfo *V1ExtraAlipaySettleInfo `json:"settle_info,omitempty"`
 	// 商户门店编号
 	StoreId string `json:"store_id"`
 	// [ONLY IN RESPONSE] 商户门店名称
 	StoreName string `json:"store_name"`
+	// 子商户信息
 	SubMerchant *V1ExtraAlipaySubMerchant `json:"sub_merchant,omitempty"`
 	// 商户机具终端编号
 	TerminalId string `json:"terminal_id"`
@@ -73,5 +79,6 @@ type V1ExtraAlipayScan struct {
 	TotalAmount float64 `json:"total_amount"`
 	// 不可打折金额
 	UndiscountableAmount float64 `json:"undiscountable_amount"`
+	// [ONLY IN RESPONSE] 商家优惠明细列表
 	VoucherDetailList *V1ExtraAlipayVoucherDetailList `json:"voucher_detail_list,omitempty"`
 }

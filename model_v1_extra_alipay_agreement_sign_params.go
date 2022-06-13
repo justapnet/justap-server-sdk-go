@@ -11,11 +11,13 @@
 package justap
 
 type V1ExtraAlipayAgreementSignParams struct {
+	// 请按当前接入的方式进行填充，且输入值必须为文档中的参数取值范围
 	AccessParams *ExtraAlipayAgreementSignParamsAccessParams `json:"access_params,omitempty"`
 	// 外部协议号
 	ExternalAgreementNo string `json:"external_agreement_no"`
 	// 外部用户唯一标识
 	ExternalLogonId string `json:"external_logon_id"`
+	// 周期管控规则参数period_rule_params，在签约周期扣款产品（如CYCLE_PAY_AUTH_P）时必传，在签约其他产品时无需传入。 周期扣款产品，会按照这里传入的参数提示用户，并对发起扣款的时间、金额、次数等做相应限制。
 	PeriodRuleParams *ExtraAlipayAgreementSignParamsPeriodRuleParams `json:"period_rule_params,omitempty"`
 	// 个人签约产品码
 	PersonalProductCode string `json:"personal_product_code"`
@@ -23,5 +25,6 @@ type V1ExtraAlipayAgreementSignParams struct {
 	SignNotifyUrl string `json:"sign_notify_url"`
 	// 签约场景
 	SignScene string `json:"sign_scene"`
+	// 此参数用于传递子商户信息，无特殊需求时不用关注。目前商户代扣、海外代扣、淘旅行信用住产品支持传入该参数（在销售方案中“是否允许自定义子商户信息”需要选是）。
 	SubMerchant *ExtraAlipayAgreementSignParamsSubMerchant `json:"sub_merchant,omitempty"`
 }

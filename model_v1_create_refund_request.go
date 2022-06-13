@@ -20,7 +20,8 @@ type V1CreateRefundRequest struct {
 	ChargeId string `json:"charge_id"`
 	// [REQUIRED] 退款原因，最多 255 个 Unicode 字符。
 	Description string `json:"description"`
-	Extra *map[string]interface{} `json:"extra,omitempty"`
+	// [OPTIONAL] 退款 extra 参数。
+	Extra *ProtobufAny `json:"extra,omitempty"`
 	// [REQUIRED] 商户系统的退款单号，必须保证唯一。由于 charge 支持多次退款，对于失败重试动作确保使用相同的订单号，以避免重复退款造成损失。
 	MerchantRefundId string `json:"merchant_refund_id"`
 	// [OPTIONAL] 参考元数据。

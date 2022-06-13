@@ -26,7 +26,7 @@ type V1ExtraAlipayGoodsDetail struct {
 	// 价格
 	Price float32 `json:"price"`
 	// 商品数量
-	Quantity float64 `json:"quantity"`
+	Quantity float32 `json:"quantity"`
 	// 商品显示链接
 	ShowUrl string `json:"show_url"`
 }

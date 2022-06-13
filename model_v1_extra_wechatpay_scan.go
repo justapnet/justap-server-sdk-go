@@ -21,6 +21,7 @@ type V1ExtraWechatpayScan struct {
 	CashFee string `json:"cash_fee"`
 	// 现金支付币种
 	CashFeeType string `json:"cash_fee_type"`
+	// 商品详情
 	Detail *V1ExtraWechatpayDetail `json:"detail,omitempty"`
 	// 货币种类
 	FeeType string `json:"fee_type"`
@@ -28,11 +29,14 @@ type V1ExtraWechatpayScan struct {
 	GoodsTag string `json:"goods_tag"`
 	// 是否关注公众账号
 	IsSubscribe bool `json:"is_subscribe"`
+	// 付款人信息
 	Payer *V1ExtraWechatpayPayer `json:"payer,omitempty"`
+	// 场景信息
 	SceneInfo *V1ExtraWechatpaySceneInfo `json:"scene_info,omitempty"`
+	// 结算信息
 	SettleInfo *V1ExtraWechatpaySettleInfo `json:"settle_info,omitempty"`
 	// 应结订单金额
-	SettlementTotalFee float64 `json:"settlement_total_fee"`
+	SettlementTotalFee float32 `json:"settlement_total_fee"`
 	// 终端IP
 	SpbillCreateIp string `json:"spbill_create_ip"`
 	// 子商户是否关注公众账号

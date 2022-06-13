@@ -12,6 +12,6 @@ package justap
 
 type RpcStatus struct {
 	Code int32 `json:"code,omitempty"`
-	Details []map[string]interface{} `json:"details,omitempty"`
+	Details []ProtobufAny `json:"details,omitempty"`
 	Message string `json:"message,omitempty"`
 }

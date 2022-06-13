@@ -13,6 +13,7 @@ package justap
 type V1ExtraWechatpayNative struct {
 	// 元数据
 	Attach string `json:"attach,omitempty"`
+	// 商品详情
 	Detail *V1ExtraWechatpayDetail `json:"detail,omitempty"`
 	// 订单优惠标记
 	GoodsTag string `json:"goods_tag"`
@@ -20,7 +21,9 @@ type V1ExtraWechatpayNative struct {
 	QrCode string `json:"qr_code"`
 	// 二维码链接
 	QrLink string `json:"qr_link"`
+	// 场景信息
 	SceneInfo *V1ExtraWechatpaySceneInfo `json:"scene_info,omitempty"`
+	// 结算信息
 	SettleInfo *V1ExtraWechatpaySettleInfo `json:"settle_info,omitempty"`
 	// 交易过期时间
 	TimeExpire string `json:"time_expire"`

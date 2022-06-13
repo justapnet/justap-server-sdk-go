@@ -11,6 +11,7 @@
 package justap
 
 type V1RefundExtraWechatPay struct {
+	// 出资账户信息
 	Account *RefundExtraWechatPayAccount `json:"account,omitempty"`
 	// 退款商品
 	GoodsDetail []RefundExtraWechatPayGoodsDetailItem `json:"goods_detail,omitempty"`

@@ -11,6 +11,7 @@
 package justap
 
 type V1ExtraAlipayApp struct {
+	// 签约参数。如果希望在sdk中支付并签约，需要在这里传入签约信息。周期扣款场景 product_code 为 CYCLE_PAY_AUTH 时必填。
 	AgreementSignParams *V1ExtraAlipayAgreementSignParams `json:"agreement_sign_params,omitempty"`
 	// [ONLY IN RESPONSE] 信用支付协议号
 	CreditAgreementId string `json:"credit_agreement_id"`
@@ -22,7 +23,9 @@ type V1ExtraAlipayApp struct {
 	DisablePayChannels string `json:"disable_pay_channels"`
 	// 可用渠道
 	EnablePayChannels string `json:"enable_pay_channels"`
+	// 外部指定买家
 	ExtUserInfo *V1ExtraAlipayExtUserInfo `json:"ext_user_info,omitempty"`
+	// 业务扩展参数
 	ExtendParams *V1ExtraAlipayExtendParams `json:"extend_params,omitempty"`
 	// 商品明细列表
 	GoodsDetail []V1ExtraAlipayGoodsDetail `json:"goods_detail,omitempty"`

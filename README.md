@@ -1,7 +1,7 @@
 # Go API client for justap
 - API version: 1.0
 - Package version: 1.0.0
-- Build package: io.swagger.codegen.v3.generators.go.GoClientCodegen
+- Build package: io.swagger.codegen.languages.GoClientCodegen
 
 ## Document
 
@@ -15,7 +15,7 @@ import "./justap"
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://127.0.0.1:21011/*
+All URIs are relative to *http://127.0.0.1:21011*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -40,6 +40,7 @@ Class | Method | HTTP request | Description
  - [ExtraWechatpaySceneInfoH5Info](docs/ExtraWechatpaySceneInfoH5Info.md)
  - [ExtraWechatpaySceneInfoStoreInfo](docs/ExtraWechatpaySceneInfoStoreInfo.md)
  - [OpenApiRoyaltyDetailInfoPojoTradeFundBillItem](docs/OpenApiRoyaltyDetailInfoPojoTradeFundBillItem.md)
+ - [ProtobufAny](docs/ProtobufAny.md)
  - [QueryChargeListRequestCreated](docs/QueryChargeListRequestCreated.md)
  - [RefundExtraAlipayOpenApiRoyaltyDetailInfoPojo](docs/RefundExtraAlipayOpenApiRoyaltyDetailInfoPojo.md)
  - [RefundExtraWechatPayAccount](docs/RefundExtraWechatPayAccount.md)

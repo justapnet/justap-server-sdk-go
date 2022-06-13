@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Account** | [***V1RefundExtra**](v1RefundExtra.md) |  | [optional] [default to null]
+**Account** | [***V1RefundExtra**](v1RefundExtra.md) | 支付渠道退款元参数 | [optional] [default to null]
 **Amount** | **float32** | 退款金额 | [default to null]
 **ChargeId** | **string** | Charge 对象 id | [default to null]
 **ChargeMerchantTradeId** | **string** | 商户系统订单号 | [default to null]
@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Description** | **string** | 退款说明 | [default to null]
 **FailureCode** | **string** | 支付渠道失败错误码 | [default to null]
 **FailureMsg** | **string** | 支付渠道失败原因描述 | [default to null]
-**IsSuccess** | **bool** | 退款是否成功 | [default to false]
+**IsSuccess** | **bool** | 退款是否成功 | [default to null]
 **Metadata** | **map[string]string** | 元数据，原样返回 | [optional] [default to null]
 **RefundId** | **string** | Refund 对象 ID | [default to null]
 **RefundNo** | **string** | 退款单号 | [default to null]
