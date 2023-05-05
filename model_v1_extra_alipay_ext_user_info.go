@@ -12,17 +12,17 @@ package justap
 
 type V1ExtraAlipayExtUserInfo struct {
 	// 真实用户的证件号码
-	CertNo string `json:"cert_no"`
+	CertNo string `json:"cert_no,omitempty"`
 	// 真实用户的证件类型
-	CertType string `json:"cert_type"`
+	CertType string `json:"cert_type,omitempty"`
 	// 是否是实名用户
-	FixBuyer string `json:"fix_buyer"`
+	FixBuyer string `json:"fix_buyer,omitempty"`
 	// 真实用户的证件有效期的起始时间
-	MinAge string `json:"min_age"`
+	MinAge string `json:"min_age,omitempty"`
 	// 真实用户的手机号码
-	Mobile string `json:"mobile"`
+	Mobile string `json:"mobile,omitempty"`
 	// 真实用户的姓名
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 	// 是否需要补充身份信息
-	NeedCheckInfo string `json:"need_check_info"`
+	NeedCheckInfo string `json:"need_check_info,omitempty"`
 }

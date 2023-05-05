@@ -14,21 +14,21 @@ type V1ExtraWechatpayScan struct {
 	// 元数据
 	Attach string `json:"attach,omitempty"`
 	// 授权码
-	AuthCode string `json:"auth_code"`
+	AuthCode string `json:"auth_code,omitempty"`
 	// 付款银行
-	BankType string `json:"bank_type"`
+	BankType string `json:"bank_type,omitempty"`
 	// 现金支付金额
-	CashFee string `json:"cash_fee"`
+	CashFee string `json:"cash_fee,omitempty"`
 	// 现金支付币种
-	CashFeeType string `json:"cash_fee_type"`
+	CashFeeType string `json:"cash_fee_type,omitempty"`
 	// 商品详情
 	Detail *V1ExtraWechatpayDetail `json:"detail,omitempty"`
 	// 货币种类
-	FeeType string `json:"fee_type"`
+	FeeType string `json:"fee_type,omitempty"`
 	// 订单优惠标记
-	GoodsTag string `json:"goods_tag"`
+	GoodsTag string `json:"goods_tag,omitempty"`
 	// 是否关注公众账号
-	IsSubscribe bool `json:"is_subscribe"`
+	IsSubscribe bool `json:"is_subscribe,omitempty"`
 	// 付款人信息
 	Payer *V1ExtraWechatpayPayer `json:"payer,omitempty"`
 	// 场景信息
@@ -36,17 +36,17 @@ type V1ExtraWechatpayScan struct {
 	// 结算信息
 	SettleInfo *V1ExtraWechatpaySettleInfo `json:"settle_info,omitempty"`
 	// 应结订单金额
-	SettlementTotalFee float32 `json:"settlement_total_fee"`
+	SettlementTotalFee float32 `json:"settlement_total_fee,omitempty"`
 	// 终端IP
-	SpbillCreateIp string `json:"spbill_create_ip"`
+	SpbillCreateIp string `json:"spbill_create_ip,omitempty"`
 	// 子商户是否关注公众账号
-	SubIsSubscribe bool `json:"sub_is_subscribe"`
+	SubIsSubscribe bool `json:"sub_is_subscribe,omitempty"`
 	// 子商户openid
-	SubOpenid string `json:"sub_openid"`
+	SubOpenid string `json:"sub_openid,omitempty"`
 	// 支付完成时间
-	TimeEnd string `json:"time_end"`
+	TimeEnd string `json:"time_end,omitempty"`
 	// 交易结束时间
-	TimeExpire string `json:"time_expire"`
+	TimeExpire string `json:"time_expire,omitempty"`
 	// 交易起始时间
-	TimeStart string `json:"time_start"`
+	TimeStart string `json:"time_start,omitempty"`
 }

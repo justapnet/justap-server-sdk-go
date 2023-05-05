@@ -12,15 +12,15 @@ package justap
 
 type V1ExtraWechatpayAppletConfig struct {
 	// 小程序appid
-	AppId string `json:"appId"`
+	AppId string `json:"appId,omitempty"`
 	// 随机字符串
-	NonceStr string `json:"nonceStr"`
+	NonceStr string `json:"nonceStr,omitempty"`
 	// 扩展字段
-	Package_ string `json:"package"`
+	Package_ string `json:"package,omitempty"`
 	// 签名
-	PaySign string `json:"paySign"`
+	PaySign string `json:"paySign,omitempty"`
 	// 签名类型
-	SignType string `json:"signType"`
+	SignType string `json:"signType,omitempty"`
 	// 时间戳
-	TimeStamp string `json:"timeStamp"`
+	TimeStamp string `json:"timeStamp,omitempty"`
 }

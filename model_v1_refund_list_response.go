@@ -14,9 +14,9 @@ type V1RefundListResponse struct {
 	// Refund 对象
 	Data []V1Refund `json:"data,omitempty"`
 	// 表明获取列表之后是否还有更多的元素实体。如果值为 false，表明当前页是最后一页
-	HasMore bool `json:"has_more"`
+	HasMore bool `json:"has_more,omitempty"`
 	// 对象类型
-	Object string `json:"object"`
+	Object string `json:"object,omitempty"`
 	// 总数据条数
-	Total int32 `json:"total"`
+	Total int32 `json:"total,omitempty"`
 }

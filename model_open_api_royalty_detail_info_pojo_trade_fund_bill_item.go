@@ -12,11 +12,11 @@ package justap
 
 type OpenApiRoyaltyDetailInfoPojoTradeFundBillItem struct {
 	// 金额
-	Amount float32 `json:"amount"`
+	Amount float32 `json:"amount,omitempty"`
 	// 资金渠道
-	FundChannel string `json:"fund_channel"`
+	FundChannel string `json:"fund_channel,omitempty"`
 	// 渠道所使用的资金类型
-	FundType string `json:"fund_type"`
+	FundType string `json:"fund_type,omitempty"`
 	// 渠道实际付款金额
-	RealAmount float32 `json:"real_amount"`
+	RealAmount float32 `json:"real_amount,omitempty"`
 }

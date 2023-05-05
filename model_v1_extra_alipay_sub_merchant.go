@@ -12,7 +12,7 @@ package justap
 
 type V1ExtraAlipaySubMerchant struct {
 	// 商户的支付宝user_id
-	MerchantId string `json:"merchant_id"`
+	MerchantId string `json:"merchant_id,omitempty"`
 	// 商户类型，1：支付宝服务窗，2：第三方App，目前只支持支付宝服务窗，默认为1
-	MerchantType string `json:"merchant_type"`
+	MerchantType string `json:"merchant_type,omitempty"`
 }

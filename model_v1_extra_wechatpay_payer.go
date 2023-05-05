@@ -11,6 +11,8 @@
 package justap
 
 type V1ExtraWechatpayPayer struct {
+	// 应用下的 appid，必需和 Openid 一致
 	Appid string `json:"appid,omitempty"`
+	// 下单前需获取到用户的 Openid。必需和 appid 一致
 	Openid string `json:"openid,omitempty"`
 }

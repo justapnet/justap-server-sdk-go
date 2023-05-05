@@ -12,35 +12,35 @@ package justap
 
 type RefundExtraAlipayOpenApiRoyaltyDetailInfoPojo struct {
 	// 分账的金额，单位为元
-	Amount float32 `json:"amount"`
+	Amount float32 `json:"amount,omitempty"`
 	// 买家支付宝账号
-	BuyerLogonId string `json:"buyer_logon_id"`
+	BuyerLogonId string `json:"buyer_logon_id,omitempty"`
 	// 买家在支付宝的用户id
-	BuyerUserId string `json:"buyer_user_id"`
+	BuyerUserId string `json:"buyer_user_id,omitempty"`
 	// 分账描述
-	Desc string `json:"desc"`
+	Desc string `json:"desc,omitempty"`
 	// 分账变更消息
-	FundChange string `json:"fund_change"`
+	FundChange string `json:"fund_change,omitempty"`
 	// 退款使用的资金渠道
 	RefundDetailItemList []OpenApiRoyaltyDetailInfoPojoTradeFundBillItem `json:"refund_detail_item_list,omitempty"`
 	// 总退款金额
-	RefundFee float32 `json:"refund_fee"`
+	RefundFee float32 `json:"refund_fee,omitempty"`
 	// 可选值：达人佣金、平台服务费、技术服务费、其他
-	RoyaltyScene string `json:"royalty_scene"`
+	RoyaltyScene string `json:"royalty_scene,omitempty"`
 	// 分账类型
-	RoyaltyType string `json:"royalty_type"`
+	RoyaltyType string `json:"royalty_type,omitempty"`
 	// 买家实际退款金额
-	SendBackFee string `json:"send_back_fee"`
+	SendBackFee string `json:"send_back_fee,omitempty"`
 	// 交易场景
-	StoreName string `json:"store_name"`
+	StoreName string `json:"store_name,omitempty"`
 	// 收入方账户
-	TransIn string `json:"trans_in"`
+	TransIn string `json:"trans_in,omitempty"`
 	// 分账收款方姓名
-	TransInName string `json:"trans_in_name"`
+	TransInName string `json:"trans_in_name,omitempty"`
 	// 收入方账户类型
-	TransInType string `json:"trans_in_type"`
+	TransInType string `json:"trans_in_type,omitempty"`
 	// 支出方账户
-	TransOut string `json:"trans_out"`
+	TransOut string `json:"trans_out,omitempty"`
 	// 支出方账户类型
-	TransOutType string `json:"trans_out_type"`
+	TransOutType string `json:"trans_out_type,omitempty"`
 }

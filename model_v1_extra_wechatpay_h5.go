@@ -16,23 +16,23 @@ type V1ExtraWechatpayH5 struct {
 	// 商品详情
 	Detail *V1ExtraWechatpayDetail `json:"detail,omitempty"`
 	// 订单优惠标记
-	GoodsTag string `json:"goods_tag"`
+	GoodsTag string `json:"goods_tag,omitempty"`
 	// 支付签名
-	PaySign string `json:"pay_sign"`
+	PaySign string `json:"pay_sign,omitempty"`
 	// 支付链接
-	PayUrl string `json:"pay_url"`
+	PayUrl string `json:"pay_url,omitempty"`
 	// 预支付交易会话标识
-	PrepayId string `json:"prepay_id"`
+	PrepayId string `json:"prepay_id,omitempty"`
 	// 场景信息
 	SceneInfo *V1ExtraWechatpaySceneInfo `json:"scene_info,omitempty"`
 	// 结算信息
 	SettleInfo *V1ExtraWechatpaySettleInfo `json:"settle_info,omitempty"`
 	// 交易结束时间
-	TimeExpire string `json:"time_expire"`
+	TimeExpire string `json:"time_expire,omitempty"`
 	// 交易起始时间
-	TimeStart string `json:"time_start"`
+	TimeStart string `json:"time_start,omitempty"`
 	// WAP网站名
-	WapName string `json:"wap_name"`
+	WapName string `json:"wap_name,omitempty"`
 	// WAP网站URL
-	WapUrl string `json:"wap_url"`
+	WapUrl string `json:"wap_url,omitempty"`
 }

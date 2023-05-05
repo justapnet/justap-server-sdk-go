@@ -11,18 +11,16 @@
 package justap
 
 type V1ExtraAlipayApp struct {
-	// 签约参数。如果希望在sdk中支付并签约，需要在这里传入签约信息。周期扣款场景 product_code 为 CYCLE_PAY_AUTH 时必填。
-	AgreementSignParams *V1ExtraAlipayAgreementSignParams `json:"agreement_sign_params,omitempty"`
 	// [ONLY IN RESPONSE] 信用支付协议号
-	CreditAgreementId string `json:"credit_agreement_id"`
+	CreditAgreementId string `json:"credit_agreement_id,omitempty"`
 	// [ONLY IN RESPONSE] 信用支付业务订单号
-	CreditBizOrderId string `json:"credit_biz_order_id"`
+	CreditBizOrderId string `json:"credit_biz_order_id,omitempty"`
 	// [ONLY IN RESPONSE] 信用支付模式
-	CreditPayMode string `json:"credit_pay_mode"`
+	CreditPayMode string `json:"credit_pay_mode,omitempty"`
 	// 禁用渠道
-	DisablePayChannels string `json:"disable_pay_channels"`
+	DisablePayChannels string `json:"disable_pay_channels,omitempty"`
 	// 可用渠道
-	EnablePayChannels string `json:"enable_pay_channels"`
+	EnablePayChannels string `json:"enable_pay_channels,omitempty"`
 	// 外部指定买家
 	ExtUserInfo *V1ExtraAlipayExtUserInfo `json:"ext_user_info,omitempty"`
 	// 业务扩展参数
@@ -30,15 +28,15 @@ type V1ExtraAlipayApp struct {
 	// 商品明细列表
 	GoodsDetail []V1ExtraAlipayGoodsDetail `json:"goods_detail,omitempty"`
 	// 商品类型
-	GoodsType string `json:"goods_type"`
+	GoodsType string `json:"goods_type,omitempty"`
 	// [ONLY IN RESPONSE] 商户订单号
-	MerchantTradeId string `json:"merchant_trade_id"`
+	MerchantTradeId string `json:"merchant_trade_id,omitempty"`
 	// [ONLY IN RESPONSE] App 用于拉起支付的请求字符串
-	PayParam string `json:"pay_param"`
+	PayParam string `json:"pay_param,omitempty"`
 	// 销售产品码，商家和支付宝签约的产品码
-	ProductCode string `json:"product_code"`
+	ProductCode string `json:"product_code,omitempty"`
 	// [ONLY IN RESPONSE] 支付宝卖家支付宝用户ID
-	SellerId string `json:"seller_id"`
+	SellerId string `json:"seller_id,omitempty"`
 	// 商户门店编号
-	StoreId string `json:"store_id"`
+	StoreId string `json:"store_id,omitempty"`
 }

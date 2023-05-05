@@ -12,11 +12,11 @@ package justap
 
 type V1ExtraAlipayLite struct {
 	// 商品描述
-	Body string `json:"body"`
+	Body string `json:"body,omitempty"`
 	// 业务扩展参数
 	BusinessParams *V1ExtraAlipayBusinessParams `json:"business_params,omitempty"`
 	// 买家的支付宝唯一用户号（2088开头的16位纯数字）
-	BuyerId string `json:"buyer_id"`
+	BuyerId string `json:"buyer_id,omitempty"`
 	// 可打折金额. 参与优惠计算的金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000] 如果该值未传入，但传入了【订单总金额】，【不可打折金额】则该值默认为【订单总金额】-【不可打折金额】
 	DiscountableAmount float64 `json:"discountable_amount,omitempty"`
 	// 业务扩展参数
@@ -24,25 +24,25 @@ type V1ExtraAlipayLite struct {
 	// 物流信息
 	LogisticsDetail *V1ExtraAlipayLogisticsDetail `json:"logistics_detail,omitempty"`
 	// 商户操作员编号
-	OperatorId string `json:"operator_id"`
+	OperatorId string `json:"operator_id,omitempty"`
 	// 销售产品码，商家和支付宝签约的产品码，为固定值 FACE_TO_FACE_PAYMENT
-	ProductCode string `json:"product_code"`
+	ProductCode string `json:"product_code,omitempty"`
 	// 收货信息
 	ReceiverAddressInfo *V1ExtraAlipayReceiverAddressInfo `json:"receiver_address_info,omitempty"`
 	// 卖家支付宝用户号
-	SellerId string `json:"seller_id"`
+	SellerId string `json:"seller_id,omitempty"`
 	// 结算信息
 	SettleInfo *V1ExtraAlipaySettleInfo `json:"settle_info,omitempty"`
 	// 商户门店编号
-	StoreId string `json:"store_id"`
+	StoreId string `json:"store_id,omitempty"`
 	// 商户机具终端编号
-	TerminalId string `json:"terminal_id"`
+	TerminalId string `json:"terminal_id,omitempty"`
 	// 绝对超时时间，格式为yyyy-MM-dd HH:mm:ss
-	TimeExpire string `json:"time_expire"`
+	TimeExpire string `json:"time_expire,omitempty"`
 	// 订单有效时间，该时间段内订单可以进行支付，结束后订单将关闭，天数为0表示永久有效
-	TimeoutExpress string `json:"timeout_express"`
+	TimeoutExpress string `json:"timeout_express,omitempty"`
 	// [ONLY IN RESPONSE] 支付宝交易号
-	TradeNo string `json:"trade_no"`
+	TradeNo string `json:"trade_no,omitempty"`
 	// 不可打折金额. 不参与优惠计算的金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000] 如果该值未传入，但传入了【订单总金额】,【可打折金额】，则该值默认为【订单总金额】-【可打折金额】
 	UndiscountableAmount float64 `json:"undiscountable_amount,omitempty"`
 }

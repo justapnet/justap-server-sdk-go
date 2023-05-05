@@ -13,17 +13,17 @@ package justap
 // 通过发起一次退款请求创建一个新的 refund 对象，只能对已经发生交易并且没有全额退款的 charge 对象发起退款。当进行全额退款之前，可以进行多次退款，直至全额退款。当一次退款成功后，会发送 Webhooks 通知。
 type V1CreateRefundRequest struct {
 	// [OPTIONAL] 退款金额大于 0, 单位为对应币种的最小货币单位，例如：人民币为分（如退款金额为 1 元，此处请填 100）。必须小于等于可退款金额，默认为全额退款。
-	Amount float32 `json:"amount"`
+	Amount float32 `json:"amount,omitempty"`
 	// [REQUIRED] 应用 id
-	AppId string `json:"app_id"`
+	AppId string `json:"app_id,omitempty"`
 	// [REQUIRED] 支付 Charge Id
-	ChargeId string `json:"charge_id"`
+	ChargeId string `json:"charge_id,omitempty"`
 	// [REQUIRED] 退款原因，最多 255 个 Unicode 字符。
-	Description string `json:"description"`
+	Description string `json:"description,omitempty"`
 	// [OPTIONAL] 退款 extra 参数。
 	Extra *ProtobufAny `json:"extra,omitempty"`
 	// [REQUIRED] 商户系统的退款单号，必须保证唯一。由于 charge 支持多次退款，对于失败重试动作确保使用相同的订单号，以避免重复退款造成损失。
-	MerchantRefundId string `json:"merchant_refund_id"`
+	MerchantRefundId string `json:"merchant_refund_id,omitempty"`
 	// [OPTIONAL] 参考元数据。
 	Metadata map[string]string `json:"metadata,omitempty"`
 }

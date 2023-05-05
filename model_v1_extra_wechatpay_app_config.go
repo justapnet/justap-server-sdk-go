@@ -12,17 +12,17 @@ package justap
 
 type V1ExtraWechatpayAppConfig struct {
 	// 应用appid
-	Appid string `json:"appid"`
+	Appid string `json:"appid,omitempty"`
 	// 随机字符串
-	Noncestr string `json:"noncestr"`
+	Noncestr string `json:"noncestr,omitempty"`
 	// 扩展字段
-	Package_ string `json:"package"`
+	Package_ string `json:"package,omitempty"`
 	// 商户号
-	Partnerid string `json:"partnerid"`
+	Partnerid string `json:"partnerid,omitempty"`
 	// 预支付交易会话标识
-	Prepayid string `json:"prepayid"`
+	Prepayid string `json:"prepayid,omitempty"`
 	// 签名
-	Sign string `json:"sign"`
+	Sign string `json:"sign,omitempty"`
 	// 时间戳
-	Timestamp string `json:"timestamp"`
+	Timestamp string `json:"timestamp,omitempty"`
 }

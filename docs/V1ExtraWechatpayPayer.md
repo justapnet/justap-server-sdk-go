@@ -3,8 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Appid** | **string** |  | [optional] [default to null]
-**Openid** | **string** |  | [optional] [default to null]
+**Appid** | **string** | 应用下的 appid，必需和 Openid 一致 | [optional] [default to null]
+**Openid** | **string** | 下单前需获取到用户的 Openid。必需和 appid 一致 | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

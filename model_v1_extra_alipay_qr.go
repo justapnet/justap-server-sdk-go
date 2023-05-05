@@ -12,25 +12,23 @@ package justap
 
 type V1ExtraAlipayQr struct {
 	// 买家的支付宝唯一用户号（2088开头的16位纯数字）
-	BuyerId string `json:"buyer_id"`
+	BuyerId string `json:"buyer_id,omitempty"`
 	// 可打折金额. 参与优惠计算的金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000] 如果该值未传入，但传入了【订单总金额】，【不可打折金额】则该值默认为【订单总金额】-【不可打折金额】
 	DiscountableAmount string `json:"discountable_amount,omitempty"`
 	// 商品明细列表
 	GoodsDetail []V1ExtraAlipayGoodsDetail `json:"goods_detail,omitempty"`
 	// 商户操作员编号
-	OperatorId string `json:"operator_id"`
+	OperatorId string `json:"operator_id,omitempty"`
 	// 销售产品码，商家和支付宝签约的产品码，为固定值QUICK_MSECURITY_PAY
-	ProductCode string `json:"product_code"`
+	ProductCode string `json:"product_code,omitempty"`
 	// [ONLY IN RESPONSE] 二维码
-	QrCode string `json:"qr_code"`
+	QrCode string `json:"qr_code,omitempty"`
 	// 支付场景。 条码支付，取值：bar_code； 声波支付，取值：wave_code
-	QrCodeTimeoutExpress string `json:"qr_code_timeout_express"`
+	QrCodeTimeoutExpress string `json:"qr_code_timeout_express,omitempty"`
 	// [ONLY IN RESPONSE] 二维码图片的URL地址
-	QrLink string `json:"qr_link"`
-	// 该笔订单允许的最晚付款时间，逾期将关闭交易。取值范围：1m～15d。m-分钟，h-小时，d-天，1c-当天（1c-当天的情况下，无论交易何时创建，都在0点关闭）。 该参数数值不接受小数点， 如 1.5h，可转换为 90m。注：若为空，则默认为15d。
-	QueryOptions string `json:"query_options,omitempty"`
+	QrLink string `json:"qr_link,omitempty"`
 	// 商户门店编号
-	StoreId string `json:"store_id"`
+	StoreId string `json:"store_id,omitempty"`
 	// 商户机具终端编号
-	TerminalId string `json:"terminal_id"`
+	TerminalId string `json:"terminal_id,omitempty"`
 }

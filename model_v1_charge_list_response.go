@@ -15,7 +15,7 @@ type V1ChargeListResponse struct {
 	// 包含一个由请求参数分页后的返回对象实体
 	Data []V1Charge `json:"data,omitempty"`
 	// 表明获取列表之后是否还有更多的元素实体。如果值为 false，表明当前页是最后一页
-	HasMore bool `json:"has_more"`
-	// 对象类型
-	Object string `json:"object"`
+	HasMore bool `json:"has_more,omitempty"`
+	// 返回对象的类型，此值为 ChargeList
+	Object string `json:"object,omitempty"`
 }

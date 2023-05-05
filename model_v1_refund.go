@@ -19,31 +19,35 @@ type V1Refund struct {
 	// 支付渠道退款元参数
 	Account *V1RefundExtra `json:"account,omitempty"`
 	// 退款金额
-	Amount float32 `json:"amount"`
+	Amount float32 `json:"amount,omitempty"`
 	// Charge 对象 id
-	ChargeId string `json:"charge_id"`
+	ChargeId string `json:"charge_id,omitempty"`
 	// 商户系统订单号
-	ChargeMerchantTradeId string `json:"charge_merchant_trade_id"`
+	ChargeMerchantTradeId string `json:"charge_merchant_trade_id,omitempty"`
+	// 退款创建时间
+	Created float32 `json:"created,omitempty"`
 	// 退款创建时间
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	// 退款说明
-	Description string `json:"description"`
+	Description string `json:"description,omitempty"`
 	// 支付渠道失败错误码
-	FailureCode string `json:"failure_code"`
+	FailureCode string `json:"failure_code,omitempty"`
 	// 支付渠道失败原因描述
-	FailureMsg string `json:"failure_msg"`
+	FailureMsg string `json:"failure_msg,omitempty"`
 	// 退款是否成功
-	IsSuccess bool `json:"is_success"`
+	IsSuccess bool `json:"is_success,omitempty"`
 	// 元数据，原样返回
 	Metadata map[string]string `json:"metadata,omitempty"`
 	// Refund 对象 ID
-	RefundId string `json:"refund_id"`
+	RefundId string `json:"refund_id,omitempty"`
 	// 退款单号
-	RefundNo string `json:"refund_no"`
+	RefundNo string `json:"refund_no,omitempty"`
 	// 退款状态
-	Status string `json:"status"`
+	Status string `json:"status,omitempty"`
+	// 退款成功时间
+	SucceedTs float32 `json:"succeed_ts,omitempty"`
 	// 退款成功时间
 	SuccessAt time.Time `json:"success_at,omitempty"`
 	// 交易号
-	TransactionNo string `json:"transaction_no"`
+	TransactionNo string `json:"transaction_no,omitempty"`
 }

@@ -12,15 +12,13 @@ package justap
 
 type V1ExtraAlipayWap struct {
 	// 授权码
-	AuthToken string `json:"auth_token"`
+	AuthToken string `json:"auth_token,omitempty"`
 	// 业务扩展参数
-	BusinessParams string `json:"business_params"`
+	BusinessParams string `json:"business_params,omitempty"`
 	// 禁用渠道
-	DisablePayChannels string `json:"disable_pay_channels"`
+	DisablePayChannels string `json:"disable_pay_channels,omitempty"`
 	// 可用渠道
-	EnablePayChannels string `json:"enable_pay_channels"`
-	// 支付宝用户信息
-	ExtUserInfo *V1ExtraAlipayExtUserInfo `json:"ext_user_info,omitempty"`
+	EnablePayChannels string `json:"enable_pay_channels,omitempty"`
 	// 业务扩展参数
 	ExtendParams *V1ExtraAlipayExtendParams `json:"extend_params,omitempty"`
 	// 支付金额信息
@@ -28,22 +26,22 @@ type V1ExtraAlipayWap struct {
 	// 商品明细列表
 	GoodsDetail []V1ExtraAlipayGoodsDetail `json:"goods_detail,omitempty"`
 	// 商品类型
-	GoodsType string `json:"goods_type"`
+	GoodsType string `json:"goods_type,omitempty"`
 	// [ONLY IN RESPONSE] 商户订单号
-	MerchantTradeId string `json:"merchant_trade_id"`
+	MerchantTradeId string `json:"merchant_trade_id,omitempty"`
 	// [ONLY IN RESPONSE] 支付链接
-	PayUrl string `json:"pay_url"`
+	PayUrl string `json:"pay_url,omitempty"`
 	// 销售产品码
-	ProductCode string `json:"product_code"`
+	ProductCode string `json:"product_code,omitempty"`
 	// 优惠参数
-	PromoParams string `json:"promo_params"`
+	PromoParams string `json:"promo_params,omitempty"`
 	// 支付取消跳转的地址
-	QuitUrl string `json:"quit_url"`
+	QuitUrl string `json:"quit_url,omitempty"`
 	// 支付成功跳转的地址
-	ReturnUrl string `json:"return_url"`
+	ReturnUrl string `json:"return_url,omitempty"`
 	// [ONLY IN RESPONSE] 收款支付宝用户ID
-	SellerId string `json:"seller_id"`
+	SellerId string `json:"seller_id,omitempty"`
 	// 商户门店编号
-	StoreId string `json:"store_id"`
+	StoreId string `json:"store_id,omitempty"`
 	VoucherDetailList *V1ExtraAlipayVoucherDetailList `json:"voucher_detail_list,omitempty"`
 }

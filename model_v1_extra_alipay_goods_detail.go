@@ -12,21 +12,21 @@ package justap
 
 type V1ExtraAlipayGoodsDetail struct {
 	// 支付宝商品编号
-	AlipayGoodsId string `json:"alipay_goods_id"`
+	AlipayGoodsId string `json:"alipay_goods_id,omitempty"`
 	// 商品描述
-	Body string `json:"body"`
+	Body string `json:"body,omitempty"`
 	// 商品类目树
-	CategoriesTree string `json:"categories_tree"`
+	CategoriesTree string `json:"categories_tree,omitempty"`
 	// 商品类目
-	GoodsCategory string `json:"goods_category"`
+	GoodsCategory string `json:"goods_category,omitempty"`
 	// 商品编号
-	GoodsId string `json:"goods_id"`
+	GoodsId string `json:"goods_id,omitempty"`
 	// 商品名称
-	GoodsName string `json:"goods_name"`
+	GoodsName string `json:"goods_name,omitempty"`
 	// 价格
-	Price float32 `json:"price"`
+	Price float32 `json:"price,omitempty"`
 	// 商品数量
-	Quantity float32 `json:"quantity"`
+	Quantity float32 `json:"quantity,omitempty"`
 	// 商品显示链接
-	ShowUrl string `json:"show_url"`
+	ShowUrl string `json:"show_url,omitempty"`
 }

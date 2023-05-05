@@ -13,33 +13,33 @@ package justap
 // 你可以创建一个 charge 对象向用户收款。charge 是一个支付凭据对象，所有和支付相关的要素信息都存储在这个对象中，你的服务端可以通过发起支付请求来创建一个新的 charge 对象，也可以随时查询一个或者多个 charge 对象的状态。每个 charge 对象都拥有一个标识 id，该 id 在系统内唯一。
 type V1CreateChargeRequest struct {
 	// [REQUIRED] 订单金额，单位元， 如 0.01
-	Amount float32 `json:"amount"`
+	Amount float32 `json:"amount,omitempty"`
 	// [REQUIRED] 应用 id
-	AppId string `json:"app_id"`
+	AppId string `json:"app_id,omitempty"`
 	// [REQUIRED] 服务明细
-	Body string `json:"body"`
+	Body string `json:"body,omitempty"`
 	// [OPTIONAL] 回调地址，如不传则使用 APP 设置中的回调地址。若都为空，则无法跳回原页面
-	CallbackUrl string `json:"callback_url"`
+	CallbackUrl string `json:"callback_url,omitempty"`
 	// [REQUIRED] 渠道名称
-	Channel *V1Channel `json:"channel"`
+	Channel *Tradev1Channel `json:"channel,omitempty"`
 	// [REQUIRED] 客户端机器 IP
-	ClientIp string `json:"client_ip"`
+	ClientIp string `json:"client_ip,omitempty"`
 	// 货币单位。国内收单机构仅支持 CNY
-	Currency string `json:"currency"`
+	Currency string `json:"currency,omitempty"`
 	// [OPTIONAL] 交易描述
-	Description string `json:"description"`
+	Description string `json:"description,omitempty"`
 	// [OPTIONAL] 各支付渠道元数据
 	Extra *V1CreateChargeRequestExtra `json:"extra,omitempty"`
 	// [REQUIRED] 客户系统的交易单号（订单号），必须在应用下唯一。长度不超过30个字符
-	MerchantTradeId string `json:"merchant_trade_id"`
+	MerchantTradeId string `json:"merchant_trade_id,omitempty"`
 	// [OPTIONAL] 订单元数据，原样返回
 	Metadata map[string]string `json:"metadata,omitempty"`
 	// [OPTIONAL] 接受通知服务器所在区域，为确保消息能够送达，请选择服务器所在国家的国家码。如不填默认为 CN
-	NotificationArea string `json:"notification_area"`
+	NotificationArea string `json:"notification_area,omitempty"`
 	// [OPTIONAL] 通知地址，如不传则使用 APP 设置中的通知地址。若都为空，则不发送通知
-	NotifyUrl string `json:"notify_url"`
+	NotifyUrl string `json:"notify_url,omitempty"`
 	// [REQUIRED] 物品或服务名称（交易标题）
-	Subject string `json:"subject"`
+	Subject string `json:"subject,omitempty"`
 	// [OPTIONAL] 订单超时时间，单位秒
-	Ttl int32 `json:"ttl"`
+	Ttl int32 `json:"ttl,omitempty"`
 }
