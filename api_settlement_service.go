@@ -41,6 +41,7 @@ SettlementServiceApiService 创建 SettlementAccount 对象
      * @param "RecipientWechatpayChannelRecipientForceCheck" (optional.Bool) -  是否强制校验收款人姓名
      * @param "RecipientWechatpayChannelRecipientType" (optional.String) -  微信支付分账接收方类型
      * @param "RecipientWechatpayChannelRecipientAccountType" (optional.String) -  微信支付分账接收方账户类型   - ACCOUNT_TYPE_UNSET: 未设置  - MERCHANT_ID: 分账到微信商户号  - OPENID: 分账到个人微信号（父公众号的openid，或服务商的openid））  - SUB_OPENID: 分账到个人微信号，子账号的  - LOGIN_NAME: 分账到微信登录号
+     * @param "RecipientWechatpayChannelRecipientAppId" (optional.String) -  微信支付分账接收方 openid 所对应的公众号 ID
      * @param "RecipientAlipayChannelRecipientAccount" (optional.String) -  支付宝账号，账号ID或者登录邮箱
      * @param "RecipientAlipayChannelRecipientName" (optional.String) -  支付宝账号真实姓名
      * @param "RecipientAlipayChannelRecipientType" (optional.String) -  支付宝账号类型
@@ -66,6 +67,7 @@ type SettlementServiceApiSettlementServiceCreateSettlementAccountOpts struct {
 	RecipientWechatpayChannelRecipientForceCheck optional.Bool
 	RecipientWechatpayChannelRecipientType optional.String
 	RecipientWechatpayChannelRecipientAccountType optional.String
+	RecipientWechatpayChannelRecipientAppId optional.String
 	RecipientAlipayChannelRecipientAccount optional.String
 	RecipientAlipayChannelRecipientName optional.String
 	RecipientAlipayChannelRecipientType optional.String
@@ -121,6 +123,9 @@ func (a *SettlementServiceApiService) SettlementServiceCreateSettlementAccount(c
 	}
 	if localVarOptionals != nil && localVarOptionals.RecipientWechatpayChannelRecipientAccountType.IsSet() {
 		localVarQueryParams.Add("recipient.wechatpay_channel_recipient.account_type", parameterToString(localVarOptionals.RecipientWechatpayChannelRecipientAccountType.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.RecipientWechatpayChannelRecipientAppId.IsSet() {
+		localVarQueryParams.Add("recipient.wechatpay_channel_recipient.app_id", parameterToString(localVarOptionals.RecipientWechatpayChannelRecipientAppId.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.RecipientAlipayChannelRecipientAccount.IsSet() {
 		localVarQueryParams.Add("recipient.alipay_channel_recipient.account", parameterToString(localVarOptionals.RecipientAlipayChannelRecipientAccount.Value(), ""))
@@ -710,6 +715,7 @@ SettlementServiceApiService 查询 SettlementAccount 对象
      * @param "DataRecipientWechatpayChannelRecipientForceCheck" (optional.Bool) -  是否强制校验收款人姓名
      * @param "DataRecipientWechatpayChannelRecipientType" (optional.String) -  微信支付分账接收方类型
      * @param "DataRecipientWechatpayChannelRecipientAccountType" (optional.String) -  微信支付分账接收方账户类型   - ACCOUNT_TYPE_UNSET: 未设置  - MERCHANT_ID: 分账到微信商户号  - OPENID: 分账到个人微信号（父公众号的openid，或服务商的openid））  - SUB_OPENID: 分账到个人微信号，子账号的  - LOGIN_NAME: 分账到微信登录号
+     * @param "DataRecipientWechatpayChannelRecipientAppId" (optional.String) -  微信支付分账接收方 openid 所对应的公众号 ID
      * @param "DataRecipientAlipayChannelRecipientAccount" (optional.String) -  支付宝账号，账号ID或者登录邮箱
      * @param "DataRecipientAlipayChannelRecipientName" (optional.String) -  支付宝账号真实姓名
      * @param "DataRecipientAlipayChannelRecipientType" (optional.String) -  支付宝账号类型
@@ -740,6 +746,7 @@ type SettlementServiceApiSettlementServiceRetrieveSettlementAccountOpts struct {
 	DataRecipientWechatpayChannelRecipientForceCheck optional.Bool
 	DataRecipientWechatpayChannelRecipientType optional.String
 	DataRecipientWechatpayChannelRecipientAccountType optional.String
+	DataRecipientWechatpayChannelRecipientAppId optional.String
 	DataRecipientAlipayChannelRecipientAccount optional.String
 	DataRecipientAlipayChannelRecipientName optional.String
 	DataRecipientAlipayChannelRecipientType optional.String
@@ -805,6 +812,9 @@ func (a *SettlementServiceApiService) SettlementServiceRetrieveSettlementAccount
 	}
 	if localVarOptionals != nil && localVarOptionals.DataRecipientWechatpayChannelRecipientAccountType.IsSet() {
 		localVarQueryParams.Add("data.recipient.wechatpay_channel_recipient.account_type", parameterToString(localVarOptionals.DataRecipientWechatpayChannelRecipientAccountType.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.DataRecipientWechatpayChannelRecipientAppId.IsSet() {
+		localVarQueryParams.Add("data.recipient.wechatpay_channel_recipient.app_id", parameterToString(localVarOptionals.DataRecipientWechatpayChannelRecipientAppId.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.DataRecipientAlipayChannelRecipientAccount.IsSet() {
 		localVarQueryParams.Add("data.recipient.alipay_channel_recipient.account", parameterToString(localVarOptionals.DataRecipientAlipayChannelRecipientAccount.Value(), ""))
@@ -1180,6 +1190,7 @@ SettlementServiceApiService 更新 SettlementAccount 对象
      * @param "RecipientWechatpayChannelRecipientForceCheck" (optional.Bool) -  是否强制校验收款人姓名
      * @param "RecipientWechatpayChannelRecipientType" (optional.String) -  微信支付分账接收方类型
      * @param "RecipientWechatpayChannelRecipientAccountType" (optional.String) -  微信支付分账接收方账户类型   - ACCOUNT_TYPE_UNSET: 未设置  - MERCHANT_ID: 分账到微信商户号  - OPENID: 分账到个人微信号（父公众号的openid，或服务商的openid））  - SUB_OPENID: 分账到个人微信号，子账号的  - LOGIN_NAME: 分账到微信登录号
+     * @param "RecipientWechatpayChannelRecipientAppId" (optional.String) -  微信支付分账接收方 openid 所对应的公众号 ID
      * @param "RecipientAlipayChannelRecipientAccount" (optional.String) -  支付宝账号，账号ID或者登录邮箱
      * @param "RecipientAlipayChannelRecipientName" (optional.String) -  支付宝账号真实姓名
      * @param "RecipientAlipayChannelRecipientType" (optional.String) -  支付宝账号类型
@@ -1204,6 +1215,7 @@ type SettlementServiceApiSettlementServiceUpdateSettlementAccountOpts struct {
 	RecipientWechatpayChannelRecipientForceCheck optional.Bool
 	RecipientWechatpayChannelRecipientType optional.String
 	RecipientWechatpayChannelRecipientAccountType optional.String
+	RecipientWechatpayChannelRecipientAppId optional.String
 	RecipientAlipayChannelRecipientAccount optional.String
 	RecipientAlipayChannelRecipientName optional.String
 	RecipientAlipayChannelRecipientType optional.String
@@ -1257,6 +1269,9 @@ func (a *SettlementServiceApiService) SettlementServiceUpdateSettlementAccount(c
 	}
 	if localVarOptionals != nil && localVarOptionals.RecipientWechatpayChannelRecipientAccountType.IsSet() {
 		localVarQueryParams.Add("recipient.wechatpay_channel_recipient.account_type", parameterToString(localVarOptionals.RecipientWechatpayChannelRecipientAccountType.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.RecipientWechatpayChannelRecipientAppId.IsSet() {
+		localVarQueryParams.Add("recipient.wechatpay_channel_recipient.app_id", parameterToString(localVarOptionals.RecipientWechatpayChannelRecipientAppId.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.RecipientAlipayChannelRecipientAccount.IsSet() {
 		localVarQueryParams.Add("recipient.alipay_channel_recipient.account", parameterToString(localVarOptionals.RecipientAlipayChannelRecipientAccount.Value(), ""))

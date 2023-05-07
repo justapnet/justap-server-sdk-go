@@ -37,6 +37,7 @@ Name | Type | Description  | Notes
  **recipientWechatpayChannelRecipientForceCheck** | **optional.Bool**| 是否强制校验收款人姓名 | [default to false]
  **recipientWechatpayChannelRecipientType** | **optional.String**| 微信支付分账接收方类型 | [default to TYPE_UNSET]
  **recipientWechatpayChannelRecipientAccountType** | **optional.String**| 微信支付分账接收方账户类型   - ACCOUNT_TYPE_UNSET: 未设置  - MERCHANT_ID: 分账到微信商户号  - OPENID: 分账到个人微信号（父公众号的openid，或服务商的openid））  - SUB_OPENID: 分账到个人微信号，子账号的  - LOGIN_NAME: 分账到微信登录号 | [default to ACCOUNT_TYPE_UNSET]
+ **recipientWechatpayChannelRecipientAppId** | **optional.String**| 微信支付分账接收方 openid 所对应的公众号 ID | 
  **recipientAlipayChannelRecipientAccount** | **optional.String**| 支付宝账号，账号ID或者登录邮箱 | 
  **recipientAlipayChannelRecipientName** | **optional.String**| 支付宝账号真实姓名 | 
  **recipientAlipayChannelRecipientType** | **optional.String**| 支付宝账号类型 | [default to TYPE_UNSET]
@@ -171,6 +172,7 @@ Name | Type | Description  | Notes
  **dataRecipientWechatpayChannelRecipientForceCheck** | **optional.Bool**| 是否强制校验收款人姓名 | [default to false]
  **dataRecipientWechatpayChannelRecipientType** | **optional.String**| 微信支付分账接收方类型 | [default to TYPE_UNSET]
  **dataRecipientWechatpayChannelRecipientAccountType** | **optional.String**| 微信支付分账接收方账户类型   - ACCOUNT_TYPE_UNSET: 未设置  - MERCHANT_ID: 分账到微信商户号  - OPENID: 分账到个人微信号（父公众号的openid，或服务商的openid））  - SUB_OPENID: 分账到个人微信号，子账号的  - LOGIN_NAME: 分账到微信登录号 | [default to ACCOUNT_TYPE_UNSET]
+ **dataRecipientWechatpayChannelRecipientAppId** | **optional.String**| 微信支付分账接收方 openid 所对应的公众号 ID | 
  **dataRecipientAlipayChannelRecipientAccount** | **optional.String**| 支付宝账号，账号ID或者登录邮箱 | 
  **dataRecipientAlipayChannelRecipientName** | **optional.String**| 支付宝账号真实姓名 | 
  **dataRecipientAlipayChannelRecipientType** | **optional.String**| 支付宝账号类型 | [default to TYPE_UNSET]
@@ -261,6 +263,7 @@ Name | Type | Description  | Notes
  **recipientWechatpayChannelRecipientForceCheck** | **optional.Bool**| 是否强制校验收款人姓名 | [default to false]
  **recipientWechatpayChannelRecipientType** | **optional.String**| 微信支付分账接收方类型 | [default to TYPE_UNSET]
  **recipientWechatpayChannelRecipientAccountType** | **optional.String**| 微信支付分账接收方账户类型   - ACCOUNT_TYPE_UNSET: 未设置  - MERCHANT_ID: 分账到微信商户号  - OPENID: 分账到个人微信号（父公众号的openid，或服务商的openid））  - SUB_OPENID: 分账到个人微信号，子账号的  - LOGIN_NAME: 分账到微信登录号 | [default to ACCOUNT_TYPE_UNSET]
+ **recipientWechatpayChannelRecipientAppId** | **optional.String**| 微信支付分账接收方 openid 所对应的公众号 ID | 
  **recipientAlipayChannelRecipientAccount** | **optional.String**| 支付宝账号，账号ID或者登录邮箱 | 
  **recipientAlipayChannelRecipientName** | **optional.String**| 支付宝账号真实姓名 | 
  **recipientAlipayChannelRecipientType** | **optional.String**| 支付宝账号类型 | [default to TYPE_UNSET]

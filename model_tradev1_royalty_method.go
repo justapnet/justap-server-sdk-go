@@ -9,28 +9,13 @@
  */
 
 package justap
+// Tradev1RoyaltyMethod : - Alipay: 支付宝  - Wechatpay: 对应 MERCHANT_ID
+type Tradev1RoyaltyMethod string
 
-type V1RoyaltySettlement struct {
-	Amount float64 `json:"amount,omitempty"`
-	AmountCanceled float64 `json:"amount_canceled,omitempty"`
-	AmountFailed float64 `json:"amount_failed,omitempty"`
-	AmountSucceeded float64 `json:"amount_succeeded,omitempty"`
-	AppId string `json:"app_id,omitempty"`
-	Count string `json:"count,omitempty"`
-	CountCanceled string `json:"count_canceled,omitempty"`
-	CountFailed string `json:"count_failed,omitempty"`
-	CountSucceeded string `json:"count_succeeded,omitempty"`
-	Created string `json:"created,omitempty"`
-	Fee float64 `json:"fee,omitempty"`
-	Id string `json:"id,omitempty"`
-	Livemode bool `json:"livemode,omitempty"`
-	Metadata map[string]string `json:"metadata,omitempty"`
-	Method *Tradev1RoyaltyMethod `json:"method,omitempty"`
-	// 对象类型
-	Object string `json:"object,omitempty"`
-	OperationUrl string `json:"operation_url,omitempty"`
-	Source *V1RoyaltySettlementSource `json:"source,omitempty"`
-	Status string `json:"status,omitempty"`
-	TimeFinished string `json:"time_finished,omitempty"`
-	Transactions []V1RoyaltySettlementTransaction `json:"transactions,omitempty"`
-}
+// List of tradev1RoyaltyMethod
+const (
+	ROYALTY_METHOD_UNSET Tradev1RoyaltyMethod = "RoyaltyMethodUnset"
+	BALANCE Tradev1RoyaltyMethod = "Balance"
+	ALIPAY Tradev1RoyaltyMethod = "Alipay"
+	WECHATPAY Tradev1RoyaltyMethod = "Wechatpay"
+)

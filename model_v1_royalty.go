@@ -18,7 +18,7 @@ type V1Royalty struct {
 	Id string `json:"id,omitempty"`
 	Livemode bool `json:"livemode,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
-	Method *V1RoyaltyMethod `json:"method,omitempty"`
+	Method *Tradev1RoyaltyMethod `json:"method,omitempty"`
 	// 对象类型
 	Object string `json:"object,omitempty"`
 	OrderId string `json:"order_id,omitempty"`

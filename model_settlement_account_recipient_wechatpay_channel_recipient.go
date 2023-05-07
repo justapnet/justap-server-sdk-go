@@ -15,6 +15,8 @@ type SettlementAccountRecipientWechatpayChannelRecipient struct {
 	Account string `json:"account,omitempty"`
 	// 微信支付分账接收方账户类型
 	AccountType *SettlementAccountRecipientAccountType `json:"account_type,omitempty"`
+	// 微信支付分账接收方 openid 所对应的公众号 ID
+	AppId string `json:"app_id,omitempty"`
 	// 是否强制校验收款人姓名
 	ForceCheck bool `json:"force_check,omitempty"`
 	// 微信支付分账接收方姓名或名称

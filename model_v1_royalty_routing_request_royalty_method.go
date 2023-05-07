@@ -10,27 +10,13 @@
 
 package justap
 
-type V1RoyaltySettlement struct {
-	Amount float64 `json:"amount,omitempty"`
-	AmountCanceled float64 `json:"amount_canceled,omitempty"`
-	AmountFailed float64 `json:"amount_failed,omitempty"`
-	AmountSucceeded float64 `json:"amount_succeeded,omitempty"`
-	AppId string `json:"app_id,omitempty"`
-	Count string `json:"count,omitempty"`
-	CountCanceled string `json:"count_canceled,omitempty"`
-	CountFailed string `json:"count_failed,omitempty"`
-	CountSucceeded string `json:"count_succeeded,omitempty"`
-	Created string `json:"created,omitempty"`
-	Fee float64 `json:"fee,omitempty"`
-	Id string `json:"id,omitempty"`
-	Livemode bool `json:"livemode,omitempty"`
-	Metadata map[string]string `json:"metadata,omitempty"`
-	Method *Tradev1RoyaltyMethod `json:"method,omitempty"`
-	// 对象类型
-	Object string `json:"object,omitempty"`
-	OperationUrl string `json:"operation_url,omitempty"`
-	Source *V1RoyaltySettlementSource `json:"source,omitempty"`
-	Status string `json:"status,omitempty"`
-	TimeFinished string `json:"time_finished,omitempty"`
-	Transactions []V1RoyaltySettlementTransaction `json:"transactions,omitempty"`
-}
+type V1RoyaltyRoutingRequestRoyaltyMethod string
+
+// List of v1RoyaltyRoutingRequestRoyaltyMethod
+const (
+	ROYALTY_METHOD_UNKNOWN V1RoyaltyRoutingRequestRoyaltyMethod = "ROYALTY_METHOD_UNKNOWN"
+	CREATE_ROYALTY V1RoyaltyRoutingRequestRoyaltyMethod = "CREATE_ROYALTY"
+	QUERY_ROYALTY V1RoyaltyRoutingRequestRoyaltyMethod = "QUERY_ROYALTY"
+	FINISH_ROYALTY V1RoyaltyRoutingRequestRoyaltyMethod = "Finish_ROYALTY"
+	RETURN_ROYALTY V1RoyaltyRoutingRequestRoyaltyMethod = "RETURN_ROYALTY"
+)

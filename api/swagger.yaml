@@ -60,11 +60,11 @@ info:
 host: "127.0.0.1:21011"
 tags:
 - name: "聚合支付"
-- name: "CustomerService"
-- name: "SettlementService"
 - name: "BusinessUserService"
-- name: "RoyaltyService"
+- name: "SettlementService"
 - name: "CheckoutService"
+- name: "CustomerService"
+- name: "RoyaltyService"
 schemes:
 - "http"
 consumes:
@@ -2366,6 +2366,14 @@ paths:
         - "USER_ID"
         x-exportParamName: "RecipientWechatpayChannelRecipientAccountType"
         x-optionalDataType: "String"
+      - name: "recipient.wechatpay_channel_recipient.app_id"
+        in: "query"
+        description: "微信支付分账接收方 openid 所对应的公众号 ID"
+        required: false
+        type: "string"
+        format: "string"
+        x-exportParamName: "RecipientWechatpayChannelRecipientAppId"
+        x-optionalDataType: "String"
       - name: "recipient.alipay_channel_recipient.account"
         in: "query"
         description: "支付宝账号，账号ID或者登录邮箱"
@@ -2671,6 +2679,14 @@ paths:
         - "USER_ID"
         x-exportParamName: "DataRecipientWechatpayChannelRecipientAccountType"
         x-optionalDataType: "String"
+      - name: "data.recipient.wechatpay_channel_recipient.app_id"
+        in: "query"
+        description: "微信支付分账接收方 openid 所对应的公众号 ID"
+        required: false
+        type: "string"
+        format: "string"
+        x-exportParamName: "DataRecipientWechatpayChannelRecipientAppId"
+        x-optionalDataType: "String"
       - name: "data.recipient.alipay_channel_recipient.account"
         in: "query"
         description: "支付宝账号，账号ID或者登录邮箱"
@@ -2923,6 +2939,14 @@ paths:
         - "LOGIN_NAME"
         - "USER_ID"
         x-exportParamName: "RecipientWechatpayChannelRecipientAccountType"
+        x-optionalDataType: "String"
+      - name: "recipient.wechatpay_channel_recipient.app_id"
+        in: "query"
+        description: "微信支付分账接收方 openid 所对应的公众号 ID"
+        required: false
+        type: "string"
+        format: "string"
+        x-exportParamName: "RecipientWechatpayChannelRecipientAppId"
         x-optionalDataType: "String"
       - name: "recipient.alipay_channel_recipient.account"
         in: "query"
@@ -3503,6 +3527,10 @@ definitions:
       account_type:
         description: "微信支付分账接收方账户类型"
         $ref: "#/definitions/SettlementAccountRecipientAccountType"
+      app_id:
+        type: "string"
+        format: "string"
+        description: "微信支付分账接收方 openid 所对应的公众号 ID"
       force_check:
         type: "boolean"
         format: "boolean"
@@ -3517,6 +3545,7 @@ definitions:
         $ref: "#/definitions/SettlementAccountRecipientRecipientType"
     example:
       name: "name"
+      app_id: "app_id"
       account: "account"
       force_check: false
   protobufAny:
@@ -3613,6 +3642,22 @@ definitions:
     - "WechatpayFace"
     - "WechatpayScan"
     default: "CHANNEL_INVALID_UNSPECIFIED"
+  tradev1RoyaltyMethod:
+    type: "string"
+    title: "--------------------------------------------------\nRoyalties"
+    description: "- Alipay: 支付宝\n - Wechatpay: 对应 MERCHANT_ID"
+    enum:
+    - "RoyaltyMethodUnset"
+    - "Balance"
+    - "Alipay"
+    - "Wechatpay"
+    default: "RoyaltyMethodUnset"
+  v1AcquirerCreateRoyaltyResponse:
+    type: "object"
+  v1AcquirerQueryRoyaltyResponse:
+    type: "object"
+  v1AcquirerRoyaltyNotifyResponse:
+    type: "object"
   v1AlipayCallbackResponse:
     type: "object"
     properties:
@@ -10407,7 +10452,7 @@ definitions:
         additionalProperties:
           type: "string"
       method:
-        $ref: "#/definitions/v1RoyaltyMethod"
+        $ref: "#/definitions/tradev1RoyaltyMethod"
       object:
         type: "string"
         format: "string"
@@ -10461,16 +10506,6 @@ definitions:
         type: "boolean"
       object:
         type: "string"
-  v1RoyaltyMethod:
-    type: "string"
-    title: "--------------------------------------------------\nRoyalties"
-    description: "- Alipay: 支付宝\n - Wechatpay: 对应 MERCHANT_ID"
-    enum:
-    - "RoyaltyMethodUnset"
-    - "Balance"
-    - "Alipay"
-    - "Wechatpay"
-    default: "RoyaltyMethodUnset"
   v1RoyaltyMode:
     type: "string"
     title: "- royalty_mode_unset: 未设置\n - fixed: 固定金额\n - rate: 比例"
@@ -10511,6 +10546,17 @@ definitions:
         object: "Royalty"
         status: "status"
       object: "Royalty"
+  v1RoyaltyRoutingRequestRoyaltyMethod:
+    type: "string"
+    title: "- CREATE_ROYALTY: 请求分账\n - QUERY_ROYALTY: 查询分账\n - Finish_ROYALTY: 完结分\
+      账\n - RETURN_ROYALTY: 退还分账"
+    enum:
+    - "ROYALTY_METHOD_UNKNOWN"
+    - "CREATE_ROYALTY"
+    - "QUERY_ROYALTY"
+    - "Finish_ROYALTY"
+    - "RETURN_ROYALTY"
+    default: "ROYALTY_METHOD_UNKNOWN"
   v1RoyaltyRoutingResponse:
     type: "object"
   v1RoyaltySettlement:
@@ -10557,7 +10603,7 @@ definitions:
         additionalProperties:
           type: "string"
       method:
-        $ref: "#/definitions/v1RoyaltyMethod"
+        $ref: "#/definitions/tradev1RoyaltyMethod"
       object:
         type: "string"
         format: "string"
@@ -10767,6 +10813,7 @@ definitions:
           bank_city: "bank_city"
         wechatpay_channel_recipient:
           name: "name"
+          app_id: "app_id"
           account: "account"
           force_check: false
       id: "0"
@@ -10816,6 +10863,7 @@ definitions:
             bank_city: "bank_city"
           wechatpay_channel_recipient:
             name: "name"
+            app_id: "app_id"
             account: "account"
             force_check: false
         id: "0"
@@ -10841,6 +10889,7 @@ definitions:
             bank_city: "bank_city"
           wechatpay_channel_recipient:
             name: "name"
+            app_id: "app_id"
             account: "account"
             force_check: false
         id: "0"
@@ -10874,6 +10923,7 @@ definitions:
         bank_city: "bank_city"
       wechatpay_channel_recipient:
         name: "name"
+        app_id: "app_id"
         account: "account"
         force_check: false
   v1SettlementAccountResponse:
@@ -10904,6 +10954,7 @@ definitions:
             bank_city: "bank_city"
           wechatpay_channel_recipient:
             name: "name"
+            app_id: "app_id"
             account: "account"
             force_check: false
         id: "0"
@@ -11122,10 +11173,4 @@ definitions:
     properties:
       success:
         type: "boolean"
-  v1WechatpayV3PartnerNotifyResponse:
-    type: "object"
-  v1WechatpayV3PartnerQueryRoyaltyResponse:
-    type: "object"
-  v1WechatpayV3PartnerRoyaltyResponse:
-    type: "object"
 x-webhooks: "## Webhooks 回调\n"
