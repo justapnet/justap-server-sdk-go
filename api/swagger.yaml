@@ -59,11 +59,11 @@ info:
     url: "https://www.justap.cn/assets/img/logo/logo-developer.svg"
 host: "127.0.0.1:21011"
 tags:
-- name: "聚合支付"
-- name: "CustomerService"
 - name: "SettlementService"
-- name: "BusinessUserService"
+- name: "聚合支付"
 - name: "CheckoutService"
+- name: "CustomerService"
+- name: "BusinessUserService"
 - name: "RoyaltyService"
 schemes:
 - "http"
