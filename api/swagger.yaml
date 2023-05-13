@@ -61,10 +61,10 @@ host: "127.0.0.1:21011"
 tags:
 - name: "聚合支付"
 - name: "BusinessUserService"
-- name: "CheckoutService"
+- name: "RoyaltyService"
 - name: "CustomerService"
 - name: "SettlementService"
-- name: "RoyaltyService"
+- name: "CheckoutService"
 schemes:
 - "http"
 consumes:
