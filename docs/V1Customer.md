@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **Id** | **string** |  | [optional] [default to null]
 **Metadata** | **map[string]string** |  | [optional] [default to null]
 **Name** | **string** |  | [optional] [default to null]
-**Object** | **string** | 对象类型 | [optional] [default to null]
+**Object** | **string** | 对象类型 | [default to null]
 **Phone** | **string** |  | [optional] [default to null]
 **WithdrawableBalance** | **float64** |  | [optional] [default to null]
 

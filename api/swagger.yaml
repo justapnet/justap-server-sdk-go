@@ -39,12 +39,12 @@ info:
     ，并将公钥配置到 `商户中心 -> 开发配置`。\nRSA 可以使用支付宝提供的 [密钥生成工具](https://opendocs.alipay.com/common/02kipl)\
     \ 来生成。\n\n商户在使用时，可以按照下述步骤生成请求的签名。\n\n\n## 算法描述:\n- 在请求发送前，取完整的**请求 body**\n- 生\
     成一个随机的32位字符串，得到 **一次性随机字符串**\n- 获取当前时间的时间戳，得到 **请求时间戳**\n- 在请求字符串后面拼接上 **请求时间戳\
-    ** 和 **一次性随机字符串**，得到 **待 Hash 字符串**\n- 对 **待 Hash 字符串** 计算 md5，得到 **待签名字符串**\n\
-    - **待签名字符串** 后面拼接上 一次性随机字符串，得到完整的 **待签名字符串**\n- 使用商户 RSA 私钥，对 **待签名字符串** 计算签名，\
-    并对 结果 进行 base64 编码，即可得到 **签名**\n\n## 设置HTTP头\nJustap 要求请求通过 自定义头部 来传递签名。具体定义如下\
-    :\n\n```\nX-Justap-Signature: 签名\nX-Justap-Request-Time: 请求时间戳\nX-Justap-Nonce:\
-    \ 一次性随机字符串\nX-Justap-Body-Hash: 待签名字符串\n```\n\n具体的签名算法实现，可参考我们提供的各语言 SDK。\n\n\
-    # WebHooks\n"
+    ** 和 **一次性随机字符串**，得到 **待 Hash 字符串**\n- 对 **待 Hash 字符串** 转换为 utf8 编码并计算 md5，得到\
+    \ **待签名字符串**\n- **待签名字符串** 后面拼接上 一次性随机字符串，得到完整的 **待签名字符串**\n- 使用商户 RSA 私钥，对 **待\
+    签名字符串** 计算签名，并对 结果 进行 base64 编码，即可得到 **签名**\n\n## 设置HTTP头\nJustap 要求请求通过 自定义头部\
+    \ 来传递签名。具体定义如下:\n\n```\nX-Justap-Signature: 签名\nX-Justap-Request-Time: 请求时间戳\n\
+    X-Justap-Nonce: 一次性随机字符串\nX-Justap-Body-Hash: 待签名字符串\n```\n\n具体的签名算法实现，可参考我们提供\
+    的各语言 SDK。\n\n# WebHooks\n"
   version: "1.0"
   title: "Justap API"
   termsOfService: "https://www.justap.cn/terms#terms"
@@ -59,12 +59,12 @@ info:
     url: "https://www.justap.cn/assets/img/logo/logo-developer.svg"
 host: "127.0.0.1:21011"
 tags:
-- name: "聚合支付"
-- name: "RoyaltyService"
-- name: "SettlementService"
-- name: "BusinessUserService"
-- name: "CustomerService"
+- name: "开源聚合®支付"
+- name: "商业用户"
 - name: "CheckoutService"
+- name: "统一分账"
+- name: "CustomerService"
+- name: "结算账户"
 schemes:
 - "http"
 consumes:
@@ -77,7 +77,7 @@ paths:
   /transaction/v1/charges:
     get:
       tags:
-      - "聚合支付"
+      - "开源聚合®支付"
       summary: "查询 Charge 对象列表"
       description: "返回之前创建过 charge 对象的一个列表。列表是按创建时间进行排序，总是将最新的 charge 对象显示在最前。如果不设\
         置 created 参数，默认查询近一个月的数据；设置了 created 参数，会按照对应的时间段查询。"
@@ -167,9 +167,10 @@ paths:
         description: "[OPTIONAL] 渠道名称\n\n - BALANCE: 余额支付\n - AlipayQR: 支付宝扫码支付\n\
           \ - AlipayScan: 支付宝条码支付\n - AlipayApp: 支付宝 App 支付\n - AlipayWap: 支付宝手机网站\
           支付\n - AlipayPage: 支付宝电脑网站支付\n - AlipayFace: 支付宝刷脸支付\n - AlipayLite: 支付宝\
-          小程序支付\n - WechatpayApp: 微信 App 支付\n - WechatpayJSAPI: 微信 JSAPI 支付\n - WechatpayH5:\
-          \ 微信 H5 支付\n - WechatpayNative: 微信 Native 支付\n - WechatpayLite: 微信小程序支付\n\
-          \ - WechatpayFace: 刷脸支付\n - WechatpayScan: 微信付款码支付"
+          小程序支付\n - AlipayJSAPI: 支付宝 JSAPI 支付\n - WechatpayApp: 微信 App 支付\n - WechatpayJSAPI:\
+          \ 微信 JSAPI 支付\n - WechatpayH5: 微信 H5 支付\n - WechatpayNative: 微信 Native 支\
+          付\n - WechatpayLite: 微信小程序支付\n - WechatpayFace: 刷脸支付\n - WechatpayScan:\
+          \ 微信付款码支付\n - UnionPayQr: 银联二维码支付（云闪付扫码）"
         required: false
         type: "string"
         default: "CHANNEL_INVALID_UNSPECIFIED"
@@ -184,6 +185,7 @@ paths:
         - "AlipayPage"
         - "AlipayFace"
         - "AlipayLite"
+        - "AlipayJSAPI"
         - "WechatpayApp"
         - "WechatpayJSAPI"
         - "WechatpayH5"
@@ -191,6 +193,7 @@ paths:
         - "WechatpayLite"
         - "WechatpayFace"
         - "WechatpayScan"
+        - "UnionPayQr"
         x-exportParamName: "Channel"
         x-optionalDataType: "String"
       - name: "paid"
@@ -264,7 +267,7 @@ paths:
             $ref: "#/definitions/rpcStatus"
     post:
       tags:
-      - "聚合支付"
+      - "开源聚合®支付"
       summary: "创建 Charge 对象"
       description: "发起一次支付请求时需要创建一个新的 charge 对象，获取一个可用的支付凭据用于客户端向第三方渠道发起支付请求。如果使用测\
         试模式的 API Key，则不会发生真实交易。当支付成功后，会发送 Webhooks 通知。"
@@ -272,9 +275,6 @@ paths:
       parameters:
       - in: "body"
         name: "body"
-        description: "你可以创建一个 charge 对象向用户收款。charge 是一个支付凭据对象，所有和支付相关的要素信息都存储在这个对象\
-          中，你的服务端可以通过发起支付请求来创建一个新的 charge 对象，也可以随时查询一个或者多个 charge 对象的状态。每个 charge\
-          \ 对象都拥有一个标识 id，该 id 在系统内唯一。"
         required: true
         schema:
           $ref: "#/definitions/v1CreateChargeRequest"
@@ -311,7 +311,7 @@ paths:
   /transaction/v1/charges/{charge_id}:
     get:
       tags:
-      - "聚合支付"
+      - "开源聚合®支付"
       summary: "查询 Charge 对象"
       description: "你可以在后台异步通知之前，通过查询接口确认支付状态。通过charge对象的id查询一个已创建的charge对象。"
       operationId: "ChargeService_QueryCharge"
@@ -362,7 +362,7 @@ paths:
   /transaction/v1/charges/{charge_id}/refunds:
     get:
       tags:
-      - "聚合支付"
+      - "开源聚合®支付"
       summary: "查询 Refund 对象列表"
       description: "返回之前创建 charge 对象的一个 refund 对象列表。列表是按创建时间进行排序，总是将最新的 refund 对象显\
         示在最前。"
@@ -441,7 +441,7 @@ paths:
   /transaction/v1/charges/{charge_id}/refunds/{refund_id}:
     get:
       tags:
-      - "聚合支付"
+      - "开源聚合®支付"
       summary: "查询 Refund 对象"
       description: "可以通过 charge 对象的查询接口查询某一个 charge 对象的退款列表，也可以通过 refund 对象的 id 查询\
         一个已创建的 refund 对象。可以在 Webhooks 通知之前，通过查询接口确认退款状态。"
@@ -499,7 +499,7 @@ paths:
   /transaction/v1/charges/{charge_id}/reverse:
     post:
       tags:
-      - "聚合支付"
+      - "开源聚合®支付"
       summary: "撤销 Charge 对象"
       description: "针对已经创建的 Charge，你可以调用撤销接口进行交易的关闭。接口支持对于未成功付款的订单进行撤销，则关闭交易。调用此接口\
         后用户后期不能支付成功。\n\n注：撤销订单在不同收单机构会有不同的行为。对于成功付款的订单请使用 退款 接口进行退款处理。只有针对未支付的订单，我\
@@ -514,14 +514,6 @@ paths:
         required: true
         type: "string"
         x-exportParamName: "ChargeId"
-      - name: "app_id"
-        in: "query"
-        description: "[REQUIRED] 应用 id"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "AppId"
-        x-optionalDataType: "String"
       responses:
         "200":
           description: "A successful response."
@@ -554,7 +546,7 @@ paths:
   /transaction/v1/refunds:
     post:
       tags:
-      - "聚合支付"
+      - "开源聚合®支付"
       summary: "创建 Refund 对象"
       description: "通过发起一次退款请求创建一个新的 refund 对象，只能对已经发生交易并且没有全额退款的 charge 对象发起退款。当进\
         行全额退款之前，可以进行多次退款，直至全额退款。当一次退款成功后，会发送 Webhooks 通知。"
@@ -562,8 +554,6 @@ paths:
       parameters:
       - in: "body"
         name: "body"
-        description: "通过发起一次退款请求创建一个新的 refund 对象，只能对已经发生交易并且没有全额退款的 charge 对象发起退款。\
-          当进行全额退款之前，可以进行多次退款，直至全额退款。当一次退款成功后，会发送 Webhooks 通知。"
         required: true
         schema:
           $ref: "#/definitions/v1CreateRefundRequest"
@@ -600,8 +590,9 @@ paths:
   /v1/business_users:
     get:
       tags:
-      - "BusinessUserService"
-      summary: "查询 BusinessUser 对象列表"
+      - "商业用户"
+      summary: "查询 Business User 对象列表"
+      description: "查询 Business User 对象列表"
       operationId: "BusinessUserService_ListAllUsers"
       parameters:
       - name: "app_id"
@@ -711,8 +702,9 @@ paths:
             $ref: "#/definitions/rpcStatus"
     post:
       tags:
-      - "BusinessUserService"
-      summary: "创建 BusinessUser 对象"
+      - "商业用户"
+      summary: "创建 Business User 对象"
+      description: "创建 Business User 对象。商业用户是本系统中的一种账户类型，在交易完成之后可以对该类型的账户进行分账等操作。"
       operationId: "BusinessUserService_CreateUser"
       parameters:
       - in: "body"
@@ -753,8 +745,9 @@ paths:
   /v1/business_users/search:
     get:
       tags:
-      - "BusinessUserService"
-      summary: "搜索 BusinessUser 对象"
+      - "商业用户"
+      summary: "查询 Business User 对象列表"
+      description: "查询 Business User 对象列表"
       operationId: "BusinessUserService_SearchUsers"
       parameters:
       - name: "app_id"
@@ -861,8 +854,9 @@ paths:
   /v1/business_users/{id}:
     get:
       tags:
-      - "BusinessUserService"
-      summary: "查询 BusinessUser 对象"
+      - "商业用户"
+      summary: "查询 Business User 对象"
+      description: "查询 Business User 对象"
       operationId: "BusinessUserService_RetrieveUser"
       parameters:
       - name: "id"
@@ -905,125 +899,11 @@ paths:
           description: "An unexpected error response."
           schema:
             $ref: "#/definitions/rpcStatus"
-    post:
-      tags:
-      - "BusinessUserService"
-      summary: "更新 BusinessUser 对象"
-      operationId: "BusinessUserService_UpdateUser"
-      parameters:
-      - name: "id"
-        in: "path"
-        required: true
-        type: "string"
-        x-exportParamName: "Id"
-      - name: "app_id"
-        in: "query"
-        required: false
-        type: "string"
-        x-exportParamName: "AppId"
-        x-optionalDataType: "String"
-      - name: "address"
-        in: "query"
-        required: false
-        type: "string"
-        x-exportParamName: "Address"
-        x-optionalDataType: "String"
-      - name: "currency"
-        in: "query"
-        required: false
-        type: "string"
-        x-exportParamName: "Currency"
-        x-optionalDataType: "String"
-      - name: "description"
-        in: "query"
-        required: false
-        type: "string"
-        x-exportParamName: "Description"
-        x-optionalDataType: "String"
-      - name: "email"
-        in: "query"
-        required: false
-        type: "string"
-        x-exportParamName: "Email"
-        x-optionalDataType: "String"
-      - name: "name"
-        in: "query"
-        required: false
-        type: "string"
-        x-exportParamName: "Name"
-        x-optionalDataType: "String"
-      - name: "phone"
-        in: "query"
-        required: false
-        type: "string"
-        x-exportParamName: "Phone"
-        x-optionalDataType: "String"
-      - name: "avatar"
-        in: "query"
-        required: false
-        type: "string"
-        x-exportParamName: "Avatar"
-        x-optionalDataType: "String"
-      - name: "disabled"
-        in: "query"
-        required: false
-        type: "boolean"
-        x-exportParamName: "Disabled"
-        x-optionalDataType: "Bool"
-      - name: "gender"
-        in: "query"
-        description: " - GENDER_UNKNOWN: 未设置\n - MALE: 男\n - FE_MALE: 女\n - PRIVACY:\
-          \ 保密\n - ThirdGender: 第三性别"
-        required: false
-        type: "string"
-        default: "GENDER_UNKNOWN"
-        enum:
-        - "GENDER_UNKNOWN"
-        - "MALE"
-        - "FE_MALE"
-        - "PRIVACY"
-        - "ThirdGender"
-        x-exportParamName: "Gender"
-        x-optionalDataType: "String"
-      - name: "parent_user_id"
-        in: "query"
-        required: false
-        type: "string"
-        x-exportParamName: "ParentUserId"
-        x-optionalDataType: "String"
-      responses:
-        "200":
-          description: "A successful response."
-          schema:
-            $ref: "#/definitions/v1UserResponse"
-        "401":
-          description: "表示认证信息错误或签名错误"
-          schema:
-            $ref: "#/definitions/rpcStatus"
-        "403":
-          description: "表示无权限访问该资源"
-          schema:
-            $ref: "#/definitions/rpcStatus"
-        "404":
-          description: "表示该资源未找到"
-          schema:
-            $ref: "#/definitions/rpcStatus"
-        "500":
-          description: "表示服务器在处理请求时出错"
-          schema:
-            $ref: "#/definitions/rpcStatus"
-        "503":
-          description: "表示服务器暂时无法处理请求"
-          schema:
-            $ref: "#/definitions/rpcStatus"
-        default:
-          description: "An unexpected error response."
-          schema:
-            $ref: "#/definitions/rpcStatus"
     delete:
       tags:
-      - "BusinessUserService"
-      summary: "删除 BusinessUser 对象"
+      - "商业用户"
+      summary: "删除 Business User 对象"
+      description: "删除 Business User 对象"
       operationId: "BusinessUserService_DeleteUser"
       parameters:
       - name: "id"
@@ -1066,10 +946,117 @@ paths:
           description: "An unexpected error response."
           schema:
             $ref: "#/definitions/rpcStatus"
+  /v1/business_users/{user.id}:
+    put:
+      tags:
+      - "商业用户"
+      summary: "更新 Business User 对象"
+      description: "更新 Business User 对象"
+      operationId: "BusinessUserService_UpdateUser"
+      parameters:
+      - name: "user.id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/v1BusinessUser"
+        x-exportParamName: "Body"
+      - name: "updateMask"
+        in: "query"
+        required: false
+        type: "string"
+        x-exportParamName: "UpdateMask"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "A successful response."
+          schema:
+            $ref: "#/definitions/v1UserResponse"
+        "401":
+          description: "表示认证信息错误或签名错误"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "403":
+          description: "表示无权限访问该资源"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "404":
+          description: "表示该资源未找到"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "500":
+          description: "表示服务器在处理请求时出错"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "503":
+          description: "表示服务器暂时无法处理请求"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        default:
+          description: "An unexpected error response."
+          schema:
+            $ref: "#/definitions/rpcStatus"
+    patch:
+      tags:
+      - "商业用户"
+      summary: "更新 Business User 对象"
+      description: "更新 Business User 对象"
+      operationId: "BusinessUserService_UpdateUser2"
+      parameters:
+      - name: "user.id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/v1BusinessUser"
+        x-exportParamName: "Body"
+      - name: "updateMask"
+        in: "query"
+        required: false
+        type: "string"
+        x-exportParamName: "UpdateMask"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "A successful response."
+          schema:
+            $ref: "#/definitions/v1UserResponse"
+        "401":
+          description: "表示认证信息错误或签名错误"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "403":
+          description: "表示无权限访问该资源"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "404":
+          description: "表示该资源未找到"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "500":
+          description: "表示服务器在处理请求时出错"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "503":
+          description: "表示服务器暂时无法处理请求"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        default:
+          description: "An unexpected error response."
+          schema:
+            $ref: "#/definitions/rpcStatus"
   /v1/charges:
     get:
       tags:
-      - "聚合支付"
+      - "开源聚合®支付"
       summary: "查询 Charge 对象列表"
       description: "返回之前创建过 charge 对象的一个列表。列表是按创建时间进行排序，总是将最新的 charge 对象显示在最前。如果不设\
         置 created 参数，默认查询近一个月的数据；设置了 created 参数，会按照对应的时间段查询。"
@@ -1159,9 +1146,10 @@ paths:
         description: "[OPTIONAL] 渠道名称\n\n - BALANCE: 余额支付\n - AlipayQR: 支付宝扫码支付\n\
           \ - AlipayScan: 支付宝条码支付\n - AlipayApp: 支付宝 App 支付\n - AlipayWap: 支付宝手机网站\
           支付\n - AlipayPage: 支付宝电脑网站支付\n - AlipayFace: 支付宝刷脸支付\n - AlipayLite: 支付宝\
-          小程序支付\n - WechatpayApp: 微信 App 支付\n - WechatpayJSAPI: 微信 JSAPI 支付\n - WechatpayH5:\
-          \ 微信 H5 支付\n - WechatpayNative: 微信 Native 支付\n - WechatpayLite: 微信小程序支付\n\
-          \ - WechatpayFace: 刷脸支付\n - WechatpayScan: 微信付款码支付"
+          小程序支付\n - AlipayJSAPI: 支付宝 JSAPI 支付\n - WechatpayApp: 微信 App 支付\n - WechatpayJSAPI:\
+          \ 微信 JSAPI 支付\n - WechatpayH5: 微信 H5 支付\n - WechatpayNative: 微信 Native 支\
+          付\n - WechatpayLite: 微信小程序支付\n - WechatpayFace: 刷脸支付\n - WechatpayScan:\
+          \ 微信付款码支付\n - UnionPayQr: 银联二维码支付（云闪付扫码）"
         required: false
         type: "string"
         default: "CHANNEL_INVALID_UNSPECIFIED"
@@ -1176,6 +1164,7 @@ paths:
         - "AlipayPage"
         - "AlipayFace"
         - "AlipayLite"
+        - "AlipayJSAPI"
         - "WechatpayApp"
         - "WechatpayJSAPI"
         - "WechatpayH5"
@@ -1183,6 +1172,7 @@ paths:
         - "WechatpayLite"
         - "WechatpayFace"
         - "WechatpayScan"
+        - "UnionPayQr"
         x-exportParamName: "Channel"
         x-optionalDataType: "String"
       - name: "paid"
@@ -1256,7 +1246,7 @@ paths:
             $ref: "#/definitions/rpcStatus"
     post:
       tags:
-      - "聚合支付"
+      - "开源聚合®支付"
       summary: "创建 Charge 对象"
       description: "发起一次支付请求时需要创建一个新的 charge 对象，获取一个可用的支付凭据用于客户端向第三方渠道发起支付请求。如果使用测\
         试模式的 API Key，则不会发生真实交易。当支付成功后，会发送 Webhooks 通知。"
@@ -1264,9 +1254,6 @@ paths:
       parameters:
       - in: "body"
         name: "body"
-        description: "你可以创建一个 charge 对象向用户收款。charge 是一个支付凭据对象，所有和支付相关的要素信息都存储在这个对象\
-          中，你的服务端可以通过发起支付请求来创建一个新的 charge 对象，也可以随时查询一个或者多个 charge 对象的状态。每个 charge\
-          \ 对象都拥有一个标识 id，该 id 在系统内唯一。"
         required: true
         schema:
           $ref: "#/definitions/v1CreateChargeRequest"
@@ -1303,7 +1290,7 @@ paths:
   /v1/charges/{charge_id}:
     get:
       tags:
-      - "聚合支付"
+      - "开源聚合®支付"
       summary: "查询 Charge 对象"
       description: "你可以在后台异步通知之前，通过查询接口确认支付状态。通过charge对象的id查询一个已创建的charge对象。"
       operationId: "ChargeService_QueryCharge2"
@@ -1354,7 +1341,7 @@ paths:
   /v1/charges/{charge_id}/reverse:
     post:
       tags:
-      - "聚合支付"
+      - "开源聚合®支付"
       summary: "撤销 Charge 对象"
       description: "针对已经创建的 Charge，你可以调用撤销接口进行交易的关闭。接口支持对于未成功付款的订单进行撤销，则关闭交易。调用此接口\
         后用户后期不能支付成功。\n\n注：撤销订单在不同收单机构会有不同的行为。对于成功付款的订单请使用 退款 接口进行退款处理。只有针对未支付的订单，我\
@@ -1369,14 +1356,6 @@ paths:
         required: true
         type: "string"
         x-exportParamName: "ChargeId"
-      - name: "app_id"
-        in: "query"
-        description: "[REQUIRED] 应用 id"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "AppId"
-        x-optionalDataType: "String"
       responses:
         "200":
           description: "A successful response."
@@ -1762,87 +1741,6 @@ paths:
         required: true
         type: "string"
         x-exportParamName: "Id"
-      - name: "app_id"
-        in: "query"
-        required: false
-        type: "string"
-        x-exportParamName: "AppId"
-        x-optionalDataType: "String"
-      - name: "address"
-        in: "query"
-        required: false
-        type: "string"
-        x-exportParamName: "Address"
-        x-optionalDataType: "String"
-      - name: "currency"
-        in: "query"
-        required: false
-        type: "string"
-        x-exportParamName: "Currency"
-        x-optionalDataType: "String"
-      - name: "description"
-        in: "query"
-        required: false
-        type: "string"
-        x-exportParamName: "Description"
-        x-optionalDataType: "String"
-      - name: "email"
-        in: "query"
-        required: false
-        type: "string"
-        x-exportParamName: "Email"
-        x-optionalDataType: "String"
-      - name: "name"
-        in: "query"
-        required: false
-        type: "string"
-        x-exportParamName: "Name"
-        x-optionalDataType: "String"
-      - name: "phone"
-        in: "query"
-        required: false
-        type: "string"
-        x-exportParamName: "Phone"
-        x-optionalDataType: "String"
-      - name: "avatar"
-        in: "query"
-        required: false
-        type: "string"
-        x-exportParamName: "Avatar"
-        x-optionalDataType: "String"
-      - name: "disabled"
-        in: "query"
-        required: false
-        type: "boolean"
-        x-exportParamName: "Disabled"
-        x-optionalDataType: "Bool"
-      - name: "gender"
-        in: "query"
-        description: " - GENDER_UNKNOWN: 未设置\n - MALE: 男\n - FE_MALE: 女\n - PRIVACY:\
-          \ 保密\n - ThirdGender: 第三性别"
-        required: false
-        type: "string"
-        default: "GENDER_UNKNOWN"
-        enum:
-        - "GENDER_UNKNOWN"
-        - "MALE"
-        - "FE_MALE"
-        - "PRIVACY"
-        - "ThirdGender"
-        x-exportParamName: "Gender"
-        x-optionalDataType: "String"
-      - name: "parent_customer_id"
-        in: "query"
-        required: false
-        type: "string"
-        x-exportParamName: "ParentCustomerId"
-        x-optionalDataType: "String"
-      - name: "out_customer_id"
-        in: "query"
-        required: false
-        type: "string"
-        x-exportParamName: "OutCustomerId"
-        x-optionalDataType: "String"
       responses:
         "200":
           description: "A successful response."
@@ -1920,7 +1818,7 @@ paths:
   /v1/refunds:
     get:
       tags:
-      - "聚合支付"
+      - "开源聚合®支付"
       summary: "查询 Refund 对象列表"
       description: "返回之前创建 charge 对象的一个 refund 对象列表。列表是按创建时间进行排序，总是将最新的 refund 对象显\
         示在最前。"
@@ -2000,7 +1898,7 @@ paths:
             $ref: "#/definitions/rpcStatus"
     post:
       tags:
-      - "聚合支付"
+      - "开源聚合®支付"
       summary: "创建 Refund 对象"
       description: "通过发起一次退款请求创建一个新的 refund 对象，只能对已经发生交易并且没有全额退款的 charge 对象发起退款。当进\
         行全额退款之前，可以进行多次退款，直至全额退款。当一次退款成功后，会发送 Webhooks 通知。"
@@ -2008,8 +1906,6 @@ paths:
       parameters:
       - in: "body"
         name: "body"
-        description: "通过发起一次退款请求创建一个新的 refund 对象，只能对已经发生交易并且没有全额退款的 charge 对象发起退款。\
-          当进行全额退款之前，可以进行多次退款，直至全额退款。当一次退款成功后，会发送 Webhooks 通知。"
         required: true
         schema:
           $ref: "#/definitions/v1CreateRefundRequest"
@@ -2046,7 +1942,7 @@ paths:
   /v1/refunds/{refund_id}:
     get:
       tags:
-      - "聚合支付"
+      - "开源聚合®支付"
       summary: "查询 Refund 对象"
       description: "可以通过 charge 对象的查询接口查询某一个 charge 对象的退款列表，也可以通过 refund 对象的 id 查询\
         一个已创建的 refund 对象。可以在 Webhooks 通知之前，通过查询接口确认退款状态。"
@@ -2104,10 +2000,137 @@ paths:
           schema:
             $ref: "#/definitions/rpcStatus"
   /v1/royalties:
+    get:
+      tags:
+      - "统一分账"
+      summary: "查询 Royalty 对象列表"
+      description: "查询 Royalty 对象的列表信息"
+      operationId: "RoyaltyService_ListAllRoyalties"
+      parameters:
+      - name: "limit"
+        in: "query"
+        description: "[OPTIONAL] 限制有多少对象可以被返回，限制范围是从 1~100 项，默认是 10 项"
+        required: false
+        type: "integer"
+        default: 10
+        format: "int32"
+        x-exportParamName: "Limit"
+        x-optionalDataType: "Int32"
+      - name: "starting_after"
+        in: "query"
+        description: "[OPTIONAL] 在分页时使用的指针，决定了列表的第一项从何处开始。假设你的一次请求返回列表的最后一项的 id 是\
+          \ obj_end，你可以使用 starting_after = obj_end 去获取下一页"
+        required: false
+        type: "string"
+        format: "string"
+        x-exportParamName: "StartingAfter"
+        x-optionalDataType: "String"
+      - name: "ending_before"
+        in: "query"
+        description: "[OPTIONAL] 在分页时使用的指针，决定了列表的最末项在何处结束。假设你的一次请求返回列表的第一项的 id 是 obj_start，\
+          你可以使用 ending_before = obj_start 去获取上一页"
+        required: false
+        type: "string"
+        format: "string"
+        x-exportParamName: "EndingBefore"
+        x-optionalDataType: "String"
+      - name: "merchant_trade_id"
+        in: "query"
+        description: "[OPTIONAL] 客户系统订单号"
+        required: false
+        type: "string"
+        format: "string"
+        x-exportParamName: "MerchantTradeId"
+        x-optionalDataType: "String"
+      - name: "created.lt"
+        in: "query"
+        description: "大于 charge 对象的创建时间，用 Unix 时间戳表示"
+        required: false
+        type: "integer"
+        default: 0
+        format: "int64"
+        x-exportParamName: "CreatedLt"
+        x-optionalDataType: "Int64"
+      - name: "created.lte"
+        in: "query"
+        description: "大于或等于 charge 对象的创建时间，用 Unix 时间戳表示"
+        required: false
+        type: "integer"
+        default: 0
+        format: "int64"
+        x-exportParamName: "CreatedLte"
+        x-optionalDataType: "Int64"
+      - name: "created.gt"
+        in: "query"
+        description: "小于 charge 对象的创建时间，用 Unix 时间戳表示"
+        required: false
+        type: "integer"
+        default: 0
+        format: "int64"
+        x-exportParamName: "CreatedGt"
+        x-optionalDataType: "Int64"
+      - name: "created.gte"
+        in: "query"
+        description: "小于或等于 charge 对象的创建时间，用 Unix 时间戳表示"
+        required: false
+        type: "integer"
+        default: 0
+        format: "int64"
+        x-exportParamName: "CreatedGte"
+        x-optionalDataType: "Int64"
+      - name: "app_id"
+        in: "query"
+        required: false
+        type: "string"
+        x-exportParamName: "AppId"
+        x-optionalDataType: "String"
+      - name: "settle_account_id"
+        in: "query"
+        required: false
+        type: "string"
+        x-exportParamName: "SettleAccountId"
+        x-optionalDataType: "String"
+      - name: "royalty_settlement_id"
+        in: "query"
+        required: false
+        type: "string"
+        x-exportParamName: "RoyaltySettlementId"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "A successful response."
+          schema:
+            $ref: "#/definitions/v1ListAllRoyaltiesResponse"
+        "401":
+          description: "表示认证信息错误或签名错误"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "403":
+          description: "表示无权限访问该资源"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "404":
+          description: "表示该资源未找到"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "500":
+          description: "表示服务器在处理请求时出错"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "503":
+          description: "表示服务器暂时无法处理请求"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        default:
+          description: "An unexpected error response."
+          schema:
+            $ref: "#/definitions/rpcStatus"
     post:
       tags:
-      - "RoyaltyService"
+      - "统一分账"
       summary: "创建 Royalty 对象"
+      description: "对一个 Charge 对象进行分账，分账的金额和分账接收方由 Royalty 对象指定。Royalty 创建仅代表本系统成功\
+        接收分账申请，尚未提交到支付机构清分，更不代表分账立即成功，相关结果信息请调用查询接口确认"
       operationId: "RoyaltyService_CreateRoyalty"
       parameters:
       - in: "body"
@@ -2145,11 +2168,54 @@ paths:
           description: "An unexpected error response."
           schema:
             $ref: "#/definitions/rpcStatus"
+  /v1/royalties/{id}:
+    get:
+      tags:
+      - "统一分账"
+      summary: "查询 Royalty 对象"
+      description: "查询 Royalty 对象的信息"
+      operationId: "RoyaltyService_RetrieveRoyalty"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "Id"
+      responses:
+        "200":
+          description: "A successful response."
+          schema:
+            $ref: "#/definitions/v1RoyaltyResponse"
+        "401":
+          description: "表示认证信息错误或签名错误"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "403":
+          description: "表示无权限访问该资源"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "404":
+          description: "表示该资源未找到"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "500":
+          description: "表示服务器在处理请求时出错"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "503":
+          description: "表示服务器暂时无法处理请求"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        default:
+          description: "An unexpected error response."
+          schema:
+            $ref: "#/definitions/rpcStatus"
   /v1/settlement_accounts:
     get:
       tags:
-      - "SettlementService"
-      summary: "查询 SettlementAccount 对象列表"
+      - "结算账户"
+      summary: "查询结算账户列表"
+      description: "查询结算账户列表"
       operationId: "SettlementService_ListAllSettlementAccounts"
       parameters:
       - name: "app_id"
@@ -2235,12 +2301,12 @@ paths:
         type: "string"
         x-exportParamName: "CustomerId"
         x-optionalDataType: "String"
-      - name: "user_id"
+      - name: "business_user_id"
         in: "query"
         description: "[OPTIONAL] 商户用户 ID"
         required: false
         type: "string"
-        x-exportParamName: "UserId"
+        x-exportParamName: "BusinessUserId"
         x-optionalDataType: "String"
       responses:
         "200":
@@ -2273,210 +2339,17 @@ paths:
             $ref: "#/definitions/rpcStatus"
     post:
       tags:
-      - "SettlementService"
-      summary: "创建 SettlementAccount 对象"
+      - "结算账户"
+      summary: "创建结算账户"
+      description: "为用户创建一个结算账户。添加结算账户信息后方可对该用进行分账、余额充值、转账等操作。"
       operationId: "SettlementService_CreateSettlementAccount"
       parameters:
-      - name: "app_id"
-        in: "query"
-        required: false
-        type: "string"
-        x-exportParamName: "AppId"
-        x-optionalDataType: "String"
-      - name: "user_id"
-        in: "query"
-        required: false
-        type: "string"
-        x-exportParamName: "UserId"
-        x-optionalDataType: "String"
-      - name: "customer_id"
-        in: "query"
-        required: false
-        type: "string"
-        x-exportParamName: "CustomerId"
-        x-optionalDataType: "String"
-      - name: "channel"
-        in: "query"
-        description: " - ALIPAY: 分账到支付宝\n - WECHANTPAY: 分账到微信支付\n - BANK: 分账到银行卡\n\
-          \ - BALANCE: 分账到 justap 账户余额"
-        required: false
-        type: "string"
-        default: "CHANNEL_UNKNOWN"
-        enum:
-        - "CHANNEL_UNKNOWN"
-        - "ALIPAY"
-        - "WECHANTPAY"
-        - "BANK"
-        - "BALANCE"
-        x-exportParamName: "Channel"
-        x-optionalDataType: "String"
-      - name: "recipient.wechatpay_channel_recipient.account"
-        in: "query"
-        description: "openid 或者商户号，由类型决定\n\n微信支付分账接收方账户，OPENID或者商户号"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "RecipientWechatpayChannelRecipientAccount"
-        x-optionalDataType: "String"
-      - name: "recipient.wechatpay_channel_recipient.name"
-        in: "query"
-        description: "微信支付分账接收方姓名或名称"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "RecipientWechatpayChannelRecipientName"
-        x-optionalDataType: "String"
-      - name: "recipient.wechatpay_channel_recipient.force_check"
-        in: "query"
-        description: "是否强制校验收款人姓名"
-        required: false
-        type: "boolean"
-        default: false
-        format: "boolean"
-        x-exportParamName: "RecipientWechatpayChannelRecipientForceCheck"
-        x-optionalDataType: "Bool"
-      - name: "recipient.wechatpay_channel_recipient.type"
-        in: "query"
-        description: "微信支付分账接收方类型"
-        required: false
-        type: "string"
-        default: "TYPE_UNSET"
-        format: "string"
-        enum:
-        - "TYPE_UNSET"
-        - "B2C"
-        - "B2B"
-        x-exportParamName: "RecipientWechatpayChannelRecipientType"
-        x-optionalDataType: "String"
-      - name: "recipient.wechatpay_channel_recipient.account_type"
-        in: "query"
-        description: "微信支付分账接收方账户类型\n\n - ACCOUNT_TYPE_UNSET: 未设置\n - MERCHANT_ID:\
-          \ 分账到微信商户号\n - OPENID: 分账到个人微信号（父公众号的openid，或服务商的openid））\n - SUB_OPENID:\
-          \ 分账到个人微信号，子账号的\n - LOGIN_NAME: 分账到微信登录号"
-        required: false
-        type: "string"
-        default: "ACCOUNT_TYPE_UNSET"
-        format: "string"
-        enum:
-        - "ACCOUNT_TYPE_UNSET"
-        - "MERCHANT_ID"
-        - "OPENID"
-        - "SUB_OPENID"
-        - "LOGIN_NAME"
-        - "USER_ID"
-        x-exportParamName: "RecipientWechatpayChannelRecipientAccountType"
-        x-optionalDataType: "String"
-      - name: "recipient.wechatpay_channel_recipient.app_id"
-        in: "query"
-        description: "微信支付分账接收方 openid 所对应的公众号 ID"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "RecipientWechatpayChannelRecipientAppId"
-        x-optionalDataType: "String"
-      - name: "recipient.alipay_channel_recipient.account"
-        in: "query"
-        description: "支付宝账号，账号ID或者登录邮箱"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "RecipientAlipayChannelRecipientAccount"
-        x-optionalDataType: "String"
-      - name: "recipient.alipay_channel_recipient.name"
-        in: "query"
-        description: "支付宝账号真实姓名"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "RecipientAlipayChannelRecipientName"
-        x-optionalDataType: "String"
-      - name: "recipient.alipay_channel_recipient.type"
-        in: "query"
-        description: "支付宝账号类型"
-        required: false
-        type: "string"
-        default: "TYPE_UNSET"
-        format: "string"
-        enum:
-        - "TYPE_UNSET"
-        - "B2C"
-        - "B2B"
-        x-exportParamName: "RecipientAlipayChannelRecipientType"
-        x-optionalDataType: "String"
-      - name: "recipient.alipay_channel_recipient.account_type"
-        in: "query"
-        description: "支付宝账号类型\n\n - ACCOUNT_TYPE_UNSET: 未设置\n - MERCHANT_ID: 分账到微信\
-          商户号\n - OPENID: 分账到个人微信号（父公众号的openid，或服务商的openid））\n - SUB_OPENID: 分账到个人\
-          微信号，子账号的\n - LOGIN_NAME: 分账到微信登录号"
-        required: false
-        type: "string"
-        default: "ACCOUNT_TYPE_UNSET"
-        format: "string"
-        enum:
-        - "ACCOUNT_TYPE_UNSET"
-        - "MERCHANT_ID"
-        - "OPENID"
-        - "SUB_OPENID"
-        - "LOGIN_NAME"
-        - "USER_ID"
-        x-exportParamName: "RecipientAlipayChannelRecipientAccountType"
-        x-optionalDataType: "String"
-      - name: "recipient.bank_channel_recipient.account"
-        in: "query"
-        description: "银行卡号"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "RecipientBankChannelRecipientAccount"
-        x-optionalDataType: "String"
-      - name: "recipient.bank_channel_recipient.name"
-        in: "query"
-        description: "银行卡开户名"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "RecipientBankChannelRecipientName"
-        x-optionalDataType: "String"
-      - name: "recipient.bank_channel_recipient.type"
-        in: "query"
-        description: "银行卡类型"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "RecipientBankChannelRecipientType"
-        x-optionalDataType: "String"
-      - name: "recipient.bank_channel_recipient.bank_name"
-        in: "query"
-        description: "银行卡开户行编码"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "RecipientBankChannelRecipientBankName"
-        x-optionalDataType: "String"
-      - name: "recipient.bank_channel_recipient.bank_branch"
-        in: "query"
-        description: "银行卡开户支行"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "RecipientBankChannelRecipientBankBranch"
-        x-optionalDataType: "String"
-      - name: "recipient.bank_channel_recipient.bank_province"
-        in: "query"
-        description: "银行卡开户省份"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "RecipientBankChannelRecipientBankProvince"
-        x-optionalDataType: "String"
-      - name: "recipient.bank_channel_recipient.bank_city"
-        in: "query"
-        description: "银行卡开户城市"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "RecipientBankChannelRecipientBankCity"
-        x-optionalDataType: "String"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/v1CreateSettlementAccountRequest"
+        x-exportParamName: "Body"
       responses:
         "200":
           description: "A successful response."
@@ -2509,8 +2382,9 @@ paths:
   /v1/settlement_accounts/search:
     get:
       tags:
-      - "SettlementService"
-      summary: "搜索 SettlementAccount 对象"
+      - "结算账户"
+      summary: "查询结算账户列表"
+      description: "查询结算账户列表"
       operationId: "SettlementService_SearchSettlementAccounts"
       parameters:
       - name: "user_id"
@@ -2557,8 +2431,9 @@ paths:
   /v1/settlement_accounts/{id}:
     get:
       tags:
-      - "SettlementService"
-      summary: "查询 SettlementAccount 对象"
+      - "结算账户"
+      summary: "查询结算账户"
+      description: "查询结算账户"
       operationId: "SettlementService_RetrieveSettlementAccount"
       parameters:
       - name: "id"
@@ -2599,56 +2474,65 @@ paths:
         format: "string"
         x-exportParamName: "DataAppId"
         x-optionalDataType: "String"
-      - name: "data.user_id"
+      - name: "data.business_user_id"
         in: "query"
         description: "分账接收方的用户 ID"
         required: false
         type: "string"
         default: "0"
         format: "string"
-        x-exportParamName: "DataUserId"
+        x-exportParamName: "DataBusinessUserId"
+        x-optionalDataType: "String"
+      - name: "data.customer_id"
+        in: "query"
+        description: "分账接收方的用户 ID"
+        required: false
+        type: "string"
+        default: "0"
+        format: "string"
+        x-exportParamName: "DataCustomerId"
         x-optionalDataType: "String"
       - name: "data.channel"
         in: "query"
-        description: "分账接收方的账户类型\n\n - ALIPAY: 分账到支付宝\n - WECHANTPAY: 分账到微信支付\n -\
-          \ BANK: 分账到银行卡\n - BALANCE: 分账到 justap 账户余额"
+        description: "分账接收方的账户类型"
         required: false
         type: "string"
         default: "CHANNEL_UNKNOWN"
         enum:
         - "CHANNEL_UNKNOWN"
         - "ALIPAY"
-        - "WECHANTPAY"
+        - "WECHATPAY"
         - "BANK"
         - "BALANCE"
+        - "YSEPAY_MERCHANT"
         x-exportParamName: "DataChannel"
         x-optionalDataType: "String"
-      - name: "data.recipient.wechatpay_channel_recipient.account"
+      - name: "data.recipient.wechatpay.account"
         in: "query"
-        description: "openid 或者商户号，由类型决定\n\n微信支付分账接收方账户，OPENID或者商户号"
+        description: "openid 或者商户号，由类型决定. 微信支付分账接收方账户，OPENID或者商户号"
         required: false
         type: "string"
         format: "string"
-        x-exportParamName: "DataRecipientWechatpayChannelRecipientAccount"
+        x-exportParamName: "DataRecipientWechatpayAccount"
         x-optionalDataType: "String"
-      - name: "data.recipient.wechatpay_channel_recipient.name"
+      - name: "data.recipient.wechatpay.name"
         in: "query"
         description: "微信支付分账接收方姓名或名称"
         required: false
         type: "string"
         format: "string"
-        x-exportParamName: "DataRecipientWechatpayChannelRecipientName"
+        x-exportParamName: "DataRecipientWechatpayName"
         x-optionalDataType: "String"
-      - name: "data.recipient.wechatpay_channel_recipient.force_check"
+      - name: "data.recipient.wechatpay.force_check"
         in: "query"
         description: "是否强制校验收款人姓名"
         required: false
         type: "boolean"
         default: false
         format: "boolean"
-        x-exportParamName: "DataRecipientWechatpayChannelRecipientForceCheck"
+        x-exportParamName: "DataRecipientWechatpayForceCheck"
         x-optionalDataType: "Bool"
-      - name: "data.recipient.wechatpay_channel_recipient.type"
+      - name: "data.recipient.wechatpay.type"
         in: "query"
         description: "微信支付分账接收方类型"
         required: false
@@ -2659,13 +2543,11 @@ paths:
         - "TYPE_UNSET"
         - "B2C"
         - "B2B"
-        x-exportParamName: "DataRecipientWechatpayChannelRecipientType"
+        x-exportParamName: "DataRecipientWechatpayType"
         x-optionalDataType: "String"
-      - name: "data.recipient.wechatpay_channel_recipient.account_type"
+      - name: "data.recipient.wechatpay.account_type"
         in: "query"
-        description: "微信支付分账接收方账户类型\n\n - ACCOUNT_TYPE_UNSET: 未设置\n - MERCHANT_ID:\
-          \ 分账到微信商户号\n - OPENID: 分账到个人微信号（父公众号的openid，或服务商的openid））\n - SUB_OPENID:\
-          \ 分账到个人微信号，子账号的\n - LOGIN_NAME: 分账到微信登录号"
+        description: "微信支付分账接收方账户类型"
         required: false
         type: "string"
         default: "ACCOUNT_TYPE_UNSET"
@@ -2677,33 +2559,41 @@ paths:
         - "SUB_OPENID"
         - "LOGIN_NAME"
         - "USER_ID"
-        x-exportParamName: "DataRecipientWechatpayChannelRecipientAccountType"
+        x-exportParamName: "DataRecipientWechatpayAccountType"
         x-optionalDataType: "String"
-      - name: "data.recipient.wechatpay_channel_recipient.app_id"
+      - name: "data.recipient.wechatpay.app_id"
         in: "query"
-        description: "微信支付分账接收方 openid 所对应的公众号 ID"
+        description: "微信支付分账接收方 openid 所对应的服务商公众号 ID"
         required: false
         type: "string"
         format: "string"
-        x-exportParamName: "DataRecipientWechatpayChannelRecipientAppId"
+        x-exportParamName: "DataRecipientWechatpayAppId"
         x-optionalDataType: "String"
-      - name: "data.recipient.alipay_channel_recipient.account"
+      - name: "data.recipient.wechatpay.sub_app_id"
+        in: "query"
+        description: "微信支付分账接收方 openid 所对应的商户公众号 ID"
+        required: false
+        type: "string"
+        format: "string"
+        x-exportParamName: "DataRecipientWechatpaySubAppId"
+        x-optionalDataType: "String"
+      - name: "data.recipient.payment_alipay.account"
         in: "query"
         description: "支付宝账号，账号ID或者登录邮箱"
         required: false
         type: "string"
         format: "string"
-        x-exportParamName: "DataRecipientAlipayChannelRecipientAccount"
+        x-exportParamName: "DataRecipientPaymentAlipayAccount"
         x-optionalDataType: "String"
-      - name: "data.recipient.alipay_channel_recipient.name"
+      - name: "data.recipient.payment_alipay.name"
         in: "query"
         description: "支付宝账号真实姓名"
         required: false
         type: "string"
         format: "string"
-        x-exportParamName: "DataRecipientAlipayChannelRecipientName"
+        x-exportParamName: "DataRecipientPaymentAlipayName"
         x-optionalDataType: "String"
-      - name: "data.recipient.alipay_channel_recipient.type"
+      - name: "data.recipient.payment_alipay.type"
         in: "query"
         description: "支付宝账号类型"
         required: false
@@ -2714,13 +2604,11 @@ paths:
         - "TYPE_UNSET"
         - "B2C"
         - "B2B"
-        x-exportParamName: "DataRecipientAlipayChannelRecipientType"
+        x-exportParamName: "DataRecipientPaymentAlipayType"
         x-optionalDataType: "String"
-      - name: "data.recipient.alipay_channel_recipient.account_type"
+      - name: "data.recipient.payment_alipay.account_type"
         in: "query"
-        description: "支付宝账号类型\n\n - ACCOUNT_TYPE_UNSET: 未设置\n - MERCHANT_ID: 分账到微信\
-          商户号\n - OPENID: 分账到个人微信号（父公众号的openid，或服务商的openid））\n - SUB_OPENID: 分账到个人\
-          微信号，子账号的\n - LOGIN_NAME: 分账到微信登录号"
+        description: "支付宝账号类型"
         required: false
         type: "string"
         default: "ACCOUNT_TYPE_UNSET"
@@ -2732,63 +2620,71 @@ paths:
         - "SUB_OPENID"
         - "LOGIN_NAME"
         - "USER_ID"
-        x-exportParamName: "DataRecipientAlipayChannelRecipientAccountType"
+        x-exportParamName: "DataRecipientPaymentAlipayAccountType"
         x-optionalDataType: "String"
-      - name: "data.recipient.bank_channel_recipient.account"
+      - name: "data.recipient.bank.account"
         in: "query"
         description: "银行卡号"
         required: false
         type: "string"
         format: "string"
-        x-exportParamName: "DataRecipientBankChannelRecipientAccount"
+        x-exportParamName: "DataRecipientBankAccount"
         x-optionalDataType: "String"
-      - name: "data.recipient.bank_channel_recipient.name"
+      - name: "data.recipient.bank.name"
         in: "query"
         description: "银行卡开户名"
         required: false
         type: "string"
         format: "string"
-        x-exportParamName: "DataRecipientBankChannelRecipientName"
+        x-exportParamName: "DataRecipientBankName"
         x-optionalDataType: "String"
-      - name: "data.recipient.bank_channel_recipient.type"
+      - name: "data.recipient.bank.type"
         in: "query"
         description: "银行卡类型"
         required: false
         type: "string"
         format: "string"
-        x-exportParamName: "DataRecipientBankChannelRecipientType"
+        x-exportParamName: "DataRecipientBankType"
         x-optionalDataType: "String"
-      - name: "data.recipient.bank_channel_recipient.bank_name"
+      - name: "data.recipient.bank.bank_name"
         in: "query"
         description: "银行卡开户行编码"
         required: false
         type: "string"
         format: "string"
-        x-exportParamName: "DataRecipientBankChannelRecipientBankName"
+        x-exportParamName: "DataRecipientBankBankName"
         x-optionalDataType: "String"
-      - name: "data.recipient.bank_channel_recipient.bank_branch"
+      - name: "data.recipient.bank.bank_branch"
         in: "query"
         description: "银行卡开户支行"
         required: false
         type: "string"
         format: "string"
-        x-exportParamName: "DataRecipientBankChannelRecipientBankBranch"
+        x-exportParamName: "DataRecipientBankBankBranch"
         x-optionalDataType: "String"
-      - name: "data.recipient.bank_channel_recipient.bank_province"
+      - name: "data.recipient.bank.bank_province"
         in: "query"
         description: "银行卡开户省份"
         required: false
         type: "string"
         format: "string"
-        x-exportParamName: "DataRecipientBankChannelRecipientBankProvince"
+        x-exportParamName: "DataRecipientBankBankProvince"
         x-optionalDataType: "String"
-      - name: "data.recipient.bank_channel_recipient.bank_city"
+      - name: "data.recipient.bank.bank_city"
         in: "query"
         description: "银行卡开户城市"
         required: false
         type: "string"
         format: "string"
-        x-exportParamName: "DataRecipientBankChannelRecipientBankCity"
+        x-exportParamName: "DataRecipientBankBankCity"
+        x-optionalDataType: "String"
+      - name: "data.recipient.ysepay_merchant.division_mer_usercode"
+        in: "query"
+        description: "银盛商户号"
+        required: false
+        type: "string"
+        format: "string"
+        x-exportParamName: "DataRecipientYsepayMerchantDivisionMerUsercode"
         x-optionalDataType: "String"
       - name: "data.created"
         in: "query"
@@ -2846,244 +2742,11 @@ paths:
           description: "An unexpected error response."
           schema:
             $ref: "#/definitions/rpcStatus"
-    post:
-      tags:
-      - "SettlementService"
-      summary: "更新 SettlementAccount 对象"
-      operationId: "SettlementService_UpdateSettlementAccount"
-      parameters:
-      - name: "id"
-        in: "path"
-        required: true
-        type: "string"
-        x-exportParamName: "Id"
-      - name: "customer_id"
-        in: "query"
-        required: false
-        type: "string"
-        x-exportParamName: "CustomerId"
-        x-optionalDataType: "String"
-      - name: "user_id"
-        in: "query"
-        required: false
-        type: "string"
-        x-exportParamName: "UserId"
-        x-optionalDataType: "String"
-      - name: "channel"
-        in: "query"
-        description: " - ALIPAY: 分账到支付宝\n - WECHANTPAY: 分账到微信支付\n - BANK: 分账到银行卡\n\
-          \ - BALANCE: 分账到 justap 账户余额"
-        required: false
-        type: "string"
-        default: "CHANNEL_UNKNOWN"
-        enum:
-        - "CHANNEL_UNKNOWN"
-        - "ALIPAY"
-        - "WECHANTPAY"
-        - "BANK"
-        - "BALANCE"
-        x-exportParamName: "Channel"
-        x-optionalDataType: "String"
-      - name: "recipient.wechatpay_channel_recipient.account"
-        in: "query"
-        description: "openid 或者商户号，由类型决定\n\n微信支付分账接收方账户，OPENID或者商户号"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "RecipientWechatpayChannelRecipientAccount"
-        x-optionalDataType: "String"
-      - name: "recipient.wechatpay_channel_recipient.name"
-        in: "query"
-        description: "微信支付分账接收方姓名或名称"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "RecipientWechatpayChannelRecipientName"
-        x-optionalDataType: "String"
-      - name: "recipient.wechatpay_channel_recipient.force_check"
-        in: "query"
-        description: "是否强制校验收款人姓名"
-        required: false
-        type: "boolean"
-        default: false
-        format: "boolean"
-        x-exportParamName: "RecipientWechatpayChannelRecipientForceCheck"
-        x-optionalDataType: "Bool"
-      - name: "recipient.wechatpay_channel_recipient.type"
-        in: "query"
-        description: "微信支付分账接收方类型"
-        required: false
-        type: "string"
-        default: "TYPE_UNSET"
-        format: "string"
-        enum:
-        - "TYPE_UNSET"
-        - "B2C"
-        - "B2B"
-        x-exportParamName: "RecipientWechatpayChannelRecipientType"
-        x-optionalDataType: "String"
-      - name: "recipient.wechatpay_channel_recipient.account_type"
-        in: "query"
-        description: "微信支付分账接收方账户类型\n\n - ACCOUNT_TYPE_UNSET: 未设置\n - MERCHANT_ID:\
-          \ 分账到微信商户号\n - OPENID: 分账到个人微信号（父公众号的openid，或服务商的openid））\n - SUB_OPENID:\
-          \ 分账到个人微信号，子账号的\n - LOGIN_NAME: 分账到微信登录号"
-        required: false
-        type: "string"
-        default: "ACCOUNT_TYPE_UNSET"
-        format: "string"
-        enum:
-        - "ACCOUNT_TYPE_UNSET"
-        - "MERCHANT_ID"
-        - "OPENID"
-        - "SUB_OPENID"
-        - "LOGIN_NAME"
-        - "USER_ID"
-        x-exportParamName: "RecipientWechatpayChannelRecipientAccountType"
-        x-optionalDataType: "String"
-      - name: "recipient.wechatpay_channel_recipient.app_id"
-        in: "query"
-        description: "微信支付分账接收方 openid 所对应的公众号 ID"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "RecipientWechatpayChannelRecipientAppId"
-        x-optionalDataType: "String"
-      - name: "recipient.alipay_channel_recipient.account"
-        in: "query"
-        description: "支付宝账号，账号ID或者登录邮箱"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "RecipientAlipayChannelRecipientAccount"
-        x-optionalDataType: "String"
-      - name: "recipient.alipay_channel_recipient.name"
-        in: "query"
-        description: "支付宝账号真实姓名"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "RecipientAlipayChannelRecipientName"
-        x-optionalDataType: "String"
-      - name: "recipient.alipay_channel_recipient.type"
-        in: "query"
-        description: "支付宝账号类型"
-        required: false
-        type: "string"
-        default: "TYPE_UNSET"
-        format: "string"
-        enum:
-        - "TYPE_UNSET"
-        - "B2C"
-        - "B2B"
-        x-exportParamName: "RecipientAlipayChannelRecipientType"
-        x-optionalDataType: "String"
-      - name: "recipient.alipay_channel_recipient.account_type"
-        in: "query"
-        description: "支付宝账号类型\n\n - ACCOUNT_TYPE_UNSET: 未设置\n - MERCHANT_ID: 分账到微信\
-          商户号\n - OPENID: 分账到个人微信号（父公众号的openid，或服务商的openid））\n - SUB_OPENID: 分账到个人\
-          微信号，子账号的\n - LOGIN_NAME: 分账到微信登录号"
-        required: false
-        type: "string"
-        default: "ACCOUNT_TYPE_UNSET"
-        format: "string"
-        enum:
-        - "ACCOUNT_TYPE_UNSET"
-        - "MERCHANT_ID"
-        - "OPENID"
-        - "SUB_OPENID"
-        - "LOGIN_NAME"
-        - "USER_ID"
-        x-exportParamName: "RecipientAlipayChannelRecipientAccountType"
-        x-optionalDataType: "String"
-      - name: "recipient.bank_channel_recipient.account"
-        in: "query"
-        description: "银行卡号"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "RecipientBankChannelRecipientAccount"
-        x-optionalDataType: "String"
-      - name: "recipient.bank_channel_recipient.name"
-        in: "query"
-        description: "银行卡开户名"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "RecipientBankChannelRecipientName"
-        x-optionalDataType: "String"
-      - name: "recipient.bank_channel_recipient.type"
-        in: "query"
-        description: "银行卡类型"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "RecipientBankChannelRecipientType"
-        x-optionalDataType: "String"
-      - name: "recipient.bank_channel_recipient.bank_name"
-        in: "query"
-        description: "银行卡开户行编码"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "RecipientBankChannelRecipientBankName"
-        x-optionalDataType: "String"
-      - name: "recipient.bank_channel_recipient.bank_branch"
-        in: "query"
-        description: "银行卡开户支行"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "RecipientBankChannelRecipientBankBranch"
-        x-optionalDataType: "String"
-      - name: "recipient.bank_channel_recipient.bank_province"
-        in: "query"
-        description: "银行卡开户省份"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "RecipientBankChannelRecipientBankProvince"
-        x-optionalDataType: "String"
-      - name: "recipient.bank_channel_recipient.bank_city"
-        in: "query"
-        description: "银行卡开户城市"
-        required: false
-        type: "string"
-        format: "string"
-        x-exportParamName: "RecipientBankChannelRecipientBankCity"
-        x-optionalDataType: "String"
-      responses:
-        "200":
-          description: "A successful response."
-          schema:
-            $ref: "#/definitions/v1SettlementAccountResponse"
-        "401":
-          description: "表示认证信息错误或签名错误"
-          schema:
-            $ref: "#/definitions/rpcStatus"
-        "403":
-          description: "表示无权限访问该资源"
-          schema:
-            $ref: "#/definitions/rpcStatus"
-        "404":
-          description: "表示该资源未找到"
-          schema:
-            $ref: "#/definitions/rpcStatus"
-        "500":
-          description: "表示服务器在处理请求时出错"
-          schema:
-            $ref: "#/definitions/rpcStatus"
-        "503":
-          description: "表示服务器暂时无法处理请求"
-          schema:
-            $ref: "#/definitions/rpcStatus"
-        default:
-          description: "An unexpected error response."
-          schema:
-            $ref: "#/definitions/rpcStatus"
     delete:
       tags:
-      - "SettlementService"
-      summary: "删除 SettlementAccount 对象"
+      - "结算账户"
+      summary: "删除结算账户"
+      description: "删除结算账户"
       operationId: "SettlementService_DeleteSettlementAccount"
       parameters:
       - name: "id"
@@ -3126,6 +2789,113 @@ paths:
           description: "An unexpected error response."
           schema:
             $ref: "#/definitions/rpcStatus"
+  /v1/settlement_accounts/{settlementAccount.id}:
+    put:
+      tags:
+      - "结算账户"
+      summary: "更新结算账户"
+      description: "更新结算账户"
+      operationId: "SettlementService_UpdateSettlementAccount"
+      parameters:
+      - name: "settlementAccount.id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SettlementAccountId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/v1UpdateAndPatchRequestBody"
+        x-exportParamName: "Body"
+      - name: "updateMask"
+        in: "query"
+        required: false
+        type: "string"
+        x-exportParamName: "UpdateMask"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "A successful response."
+          schema:
+            $ref: "#/definitions/v1SettlementAccountResponse"
+        "401":
+          description: "表示认证信息错误或签名错误"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "403":
+          description: "表示无权限访问该资源"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "404":
+          description: "表示该资源未找到"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "500":
+          description: "表示服务器在处理请求时出错"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "503":
+          description: "表示服务器暂时无法处理请求"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        default:
+          description: "An unexpected error response."
+          schema:
+            $ref: "#/definitions/rpcStatus"
+    patch:
+      tags:
+      - "结算账户"
+      summary: "更新结算账户"
+      description: "更新结算账户"
+      operationId: "SettlementService_UpdateSettlementAccount2"
+      parameters:
+      - name: "settlementAccount.id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SettlementAccountId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/v1UpdateAndPatchRequestBody"
+        x-exportParamName: "Body"
+      - name: "updateMask"
+        in: "query"
+        required: false
+        type: "string"
+        x-exportParamName: "UpdateMask"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "A successful response."
+          schema:
+            $ref: "#/definitions/v1SettlementAccountResponse"
+        "401":
+          description: "表示认证信息错误或签名错误"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "403":
+          description: "表示无权限访问该资源"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "404":
+          description: "表示该资源未找到"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "500":
+          description: "表示服务器在处理请求时出错"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "503":
+          description: "表示服务器暂时无法处理请求"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        default:
+          description: "An unexpected error response."
+          schema:
+            $ref: "#/definitions/rpcStatus"
 securityDefinitions:
   ApiKeyAuth:
     description: "在调用 API 时，必须提供 API Key 作为每个请求的身份验证。你可以在管理平台内管理你的 API Key。API Key\
@@ -3137,16 +2907,31 @@ securityDefinitions:
     name: "X-JUSTAP-API-KEY"
     in: "header"
 definitions:
-  CreateRoyaltyRequestRoyaltyFeeMode:
+  ChargeRoutingRequestChargeMethod:
     type: "string"
-    title: "- free: 不收取\n - fixed: 固定金额\n - rate: 比例"
     enum:
-    - "free"
-    - "fixed"
-    - "rate"
-    default: "free"
+    - "CHARGE_METHOD_UNKNOWN"
+    - "CREATE_CHARGE"
+    - "QUERY_CHARGE"
+    - "CLOSE_CHARGE"
+    default: "CHARGE_METHOD_UNKNOWN"
+  CreateRoyaltyRequestRoyaltyMode:
+    type: "string"
+    enum:
+    - "ROYALTY_MODE_UNSET"
+    - "FIXED"
+    - "RATE"
+    default: "ROYALTY_MODE_UNSET"
   CreateRoyaltyRequestRoyaltyReceiver:
     type: "object"
+    required:
+    - "amount"
+    - "fee"
+    - "fee_model"
+    - "fee_ratio"
+    - "ratio"
+    - "recipient_business_user_id"
+    - "royalty_mode"
     properties:
       amount:
         type: "number"
@@ -3160,7 +2945,7 @@ definitions:
       fee_model:
         description: "[OPTIONAL] 手续费模式，fixed 表示固定金额，rate 表示按比例计算手续费。此参数传手续费比例，0.1\
           \ 表示 10%"
-        $ref: "#/definitions/CreateRoyaltyRequestRoyaltyFeeMode"
+        $ref: "#/definitions/RoyaltyReceiverRoyaltyFeeMode"
       fee_ratio:
         type: "number"
         format: "float"
@@ -3176,7 +2961,7 @@ definitions:
         description: "接受方的商业用户ID"
       royalty_mode:
         description: "[REQUIRED] 分润模式，free 表示不收取，fixed 表示固定金额，rate 表示按比例分润"
-        $ref: "#/definitions/v1RoyaltyMode"
+        $ref: "#/definitions/CreateRoyaltyRequestRoyaltyMode"
   ExtraAlipayInvoiceInfoKeyInfo:
     type: "object"
     properties:
@@ -3270,6 +3055,11 @@ definitions:
       id: "id"
   OpenApiRoyaltyDetailInfoPojoTradeFundBillItem:
     type: "object"
+    required:
+    - "amount"
+    - "fund_channel"
+    - "fund_type"
+    - "real_amount"
     properties:
       amount:
         type: "number"
@@ -3295,6 +3085,22 @@ definitions:
       fund_channel: "fund_channel"
   RefundExtraAlipayOpenApiRoyaltyDetailInfoPojo:
     type: "object"
+    required:
+    - "amount"
+    - "buyer_logon_id"
+    - "buyer_user_id"
+    - "desc"
+    - "fund_change"
+    - "refund_fee"
+    - "royalty_scene"
+    - "royalty_type"
+    - "send_back_fee"
+    - "store_name"
+    - "trans_in"
+    - "trans_in_name"
+    - "trans_in_type"
+    - "trans_out"
+    - "trans_out_type"
     properties:
       amount:
         type: "number"
@@ -3400,6 +3206,13 @@ definitions:
       - null
   RefundExtraWechatPayGoodsDetailItem:
     type: "object"
+    required:
+    - "goods_name"
+    - "merchant_goods_id"
+    - "refund_amount"
+    - "refund_quantity"
+    - "unit_price"
+    - "wechatpay_goods_id"
     properties:
       goods_name:
         type: "string"
@@ -3432,14 +3245,34 @@ definitions:
       refund_amount: 6
       unit_price: 3
       refund_quantity: 3
+  RefundRoutingRequestRefundMethod:
+    type: "string"
+    enum:
+    - "REFUND_METHOD_UNKNOWN"
+    - "CREATE_REFUND"
+    - "QUERY_REFUND"
+    default: "REFUND_METHOD_UNKNOWN"
+  RoyaltyReceiverRoyaltyFeeMode:
+    type: "string"
+    enum:
+    - "FREE"
+    - "FIXED"
+    - "RATE"
+    default: "FREE"
+  RoyaltySettlementRoyaltySettlementStatus:
+    type: "string"
+    title: "这个是整体的状态"
+    enum:
+    - "RoyaltySettlementStatusUnset"
+    - "CREATED"
+    - "PENDING"
+    - "COMPLETED"
+    default: "RoyaltySettlementStatusUnset"
   SettlementAccountRecipientAccountType:
     type: "string"
     title: "微信支付的分账接收方账户类型:\n     1、MERCHANT_ID：商户号\n     2、OPENID：个人openid（由父商户APPID转\
       换得到）, 或者支付宝的 openid\n     3、SUB_OPENID: 个人sub_openid（由子商户APPID转换得到）\n     4、\
       LOGIN_NAME: 支付宝的邮箱\n     5、USER_ID: 支付宝的用户id"
-    description: "- ACCOUNT_TYPE_UNSET: 未设置\n - MERCHANT_ID: 分账到微信商户号\n - OPENID:\
-      \ 分账到个人微信号（父公众号的openid，或服务商的openid））\n - SUB_OPENID: 分账到个人微信号，子账号的\n - LOGIN_NAME:\
-      \ 分账到微信登录号"
     enum:
     - "ACCOUNT_TYPE_UNSET"
     - "MERCHANT_ID"
@@ -3450,6 +3283,11 @@ definitions:
     default: "ACCOUNT_TYPE_UNSET"
   SettlementAccountRecipientAlipayChannelRecipient:
     type: "object"
+    required:
+    - "account"
+    - "account_type"
+    - "name"
+    - "type"
     properties:
       account:
         type: "string"
@@ -3470,8 +3308,18 @@ definitions:
       name: "name"
       type: {}
       account: "account"
+  SettlementAccountRecipientBalanceChannelRecipient:
+    type: "object"
   SettlementAccountRecipientBankChannelRecipient:
     type: "object"
+    required:
+    - "account"
+    - "bank_branch"
+    - "bank_city"
+    - "bank_name"
+    - "bank_province"
+    - "name"
+    - "type"
     properties:
       account:
         type: "string"
@@ -3518,6 +3366,14 @@ definitions:
     default: "TYPE_UNSET"
   SettlementAccountRecipientWechatpayChannelRecipient:
     type: "object"
+    required:
+    - "account"
+    - "account_type"
+    - "app_id"
+    - "force_check"
+    - "name"
+    - "sub_app_id"
+    - "type"
     properties:
       account:
         type: "string"
@@ -3530,7 +3386,7 @@ definitions:
       app_id:
         type: "string"
         format: "string"
-        description: "微信支付分账接收方 openid 所对应的公众号 ID"
+        description: "微信支付分账接收方 openid 所对应的服务商公众号 ID"
       force_check:
         type: "boolean"
         format: "boolean"
@@ -3540,14 +3396,30 @@ definitions:
         type: "string"
         format: "string"
         description: "微信支付分账接收方姓名或名称"
+      sub_app_id:
+        type: "string"
+        format: "string"
+        description: "微信支付分账接收方 openid 所对应的商户公众号 ID"
       type:
         description: "微信支付分账接收方类型"
         $ref: "#/definitions/SettlementAccountRecipientRecipientType"
     example:
+      sub_app_id: "sub_app_id"
       name: "name"
       app_id: "app_id"
       account: "account"
       force_check: false
+  SettlementAccountRecipientYsepayMerchantRecipient:
+    type: "object"
+    required:
+    - "division_mer_usercode"
+    properties:
+      division_mer_usercode:
+        type: "string"
+        format: "string"
+        description: "银盛商户号"
+    example:
+      division_mer_usercode: "division_mer_usercode"
   protobufAny:
     type: "object"
     properties:
@@ -3580,20 +3452,22 @@ definitions:
       \    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\nExample 2: Pack\
       \ and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n\
       \    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n\
-      \    }\n\nExample 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n\
-      \    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n\
-      \      any.Unpack(foo)\n      ...\n\nExample 4: Pack and unpack a message in\
-      \ Go\n\n     foo := &pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err\
-      \ != nil {\n       ...\n     }\n     ...\n     foo := &pb.Foo{}\n     if err\
-      \ := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods\
-      \ provided by protobuf library will by default use\n'type.googleapis.com/full.type.name'\
-      \ as the type URL and the unpack\nmethods only use the fully qualified type\
-      \ name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\"\
-      \ will yield type\nname \"y.z\".\n\n\nJSON\n\nThe JSON representation of an\
-      \ `Any` value uses the regular\nrepresentation of the deserialized, embedded\
-      \ message, with an\nadditional field `@type` which contains the type URL. Example:\n\
-      \n    package google.profile;\n    message Person {\n      string first_name\
-      \ = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\"\
+      \    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n\
+      \      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\nExample 3: Pack\
+      \ and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n \
+      \   any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n\
+      \      ...\n\nExample 4: Pack and unpack a message in Go\n\n     foo := &pb.Foo{...}\n\
+      \     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n\
+      \     ...\n     foo := &pb.Foo{}\n     if err := any.UnmarshalTo(foo); err !=\
+      \ nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library\
+      \ will by default use\n'type.googleapis.com/full.type.name' as the type URL\
+      \ and the unpack\nmethods only use the fully qualified type name after the last\
+      \ '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\n\
+      name \"y.z\".\n\nJSON\n\nThe JSON representation of an `Any` value uses the\
+      \ regular\nrepresentation of the deserialized, embedded message, with an\nadditional\
+      \ field `@type` which contains the type URL. Example:\n\n    package google.profile;\n\
+      \    message Person {\n      string first_name = 1;\n      string last_name\
+      \ = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\"\
       ,\n      \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf\
       \ the embedded message type is well-known and has a custom JSON\nrepresentation,\
       \ that representation will be embedded adding a field\n`value` which holds the\
@@ -3620,10 +3494,11 @@ definitions:
     title: "支付渠道枚举值"
     description: "- BALANCE: 余额支付\n - AlipayQR: 支付宝扫码支付\n - AlipayScan: 支付宝条码支付\n\
       \ - AlipayApp: 支付宝 App 支付\n - AlipayWap: 支付宝手机网站支付\n - AlipayPage: 支付宝电脑网站支付\
-      \n - AlipayFace: 支付宝刷脸支付\n - AlipayLite: 支付宝小程序支付\n - WechatpayApp: 微信 App 支\
-      付\n - WechatpayJSAPI: 微信 JSAPI 支付\n - WechatpayH5: 微信 H5 支付\n - WechatpayNative:\
-      \ 微信 Native 支付\n - WechatpayLite: 微信小程序支付\n - WechatpayFace: 刷脸支付\n - WechatpayScan:\
-      \ 微信付款码支付"
+      \n - AlipayFace: 支付宝刷脸支付\n - AlipayLite: 支付宝小程序支付\n - AlipayJSAPI: 支付宝 JSAPI\
+      \ 支付\n - WechatpayApp: 微信 App 支付\n - WechatpayJSAPI: 微信 JSAPI 支付\n - WechatpayH5:\
+      \ 微信 H5 支付\n - WechatpayNative: 微信 Native 支付\n - WechatpayLite: 微信小程序支付\n -\
+      \ WechatpayFace: 刷脸支付\n - WechatpayScan: 微信付款码支付\n - UnionPayQr: 银联二维码支付（云闪付\
+      扫码）"
     enum:
     - "CHANNEL_INVALID_UNSPECIFIED"
     - "BALANCE"
@@ -3634,6 +3509,7 @@ definitions:
     - "AlipayPage"
     - "AlipayFace"
     - "AlipayLite"
+    - "AlipayJSAPI"
     - "WechatpayApp"
     - "WechatpayJSAPI"
     - "WechatpayH5"
@@ -3641,20 +3517,74 @@ definitions:
     - "WechatpayLite"
     - "WechatpayFace"
     - "WechatpayScan"
+    - "UnionPayQr"
     default: "CHANNEL_INVALID_UNSPECIFIED"
   tradev1RoyaltyMethod:
     type: "string"
     title: "--------------------------------------------------\nRoyalties"
-    description: "- Alipay: 支付宝\n - Wechatpay: 对应 MERCHANT_ID"
     enum:
     - "RoyaltyMethodUnset"
     - "Balance"
     - "Alipay"
     - "Wechatpay"
+    - "YsepayMerchant"
     default: "RoyaltyMethodUnset"
+  v1AcquirerCloseTransactionResponse:
+    type: "object"
+  v1AcquirerCreateRefundResponse:
+    type: "object"
   v1AcquirerCreateRoyaltyResponse:
     type: "object"
+    required:
+    - "royalty_id"
+    properties:
+      error:
+        $ref: "#/definitions/v1ServiceError"
+      royalty_id:
+        type: "integer"
+        format: "int64"
+        description: "分账单号"
+        default: 0
+  v1AcquirerCreateTransactionResponse:
+    type: "object"
+    required:
+    - "charge_id"
+    - "transaction_id"
+    properties:
+      charge_id:
+        type: "integer"
+        format: "int64"
+        description: "支付单 ID"
+        default: 0
+      error:
+        $ref: "#/definitions/v1ServiceError"
+      transaction_id:
+        type: "integer"
+        format: "int64"
+        description: "支付单 ID"
+        default: 0
+  v1AcquirerPaymentNotifyResponse:
+    type: "object"
+  v1AcquirerQueryRefundResponse:
+    type: "object"
   v1AcquirerQueryRoyaltyResponse:
+    type: "object"
+    properties:
+      error:
+        $ref: "#/definitions/v1ServiceError"
+  v1AcquirerQueryTransactionResponse:
+    type: "object"
+    required:
+    - "charge_id"
+    properties:
+      charge_id:
+        type: "integer"
+        format: "int64"
+        description: "支付单 ID"
+        default: 0
+      error:
+        $ref: "#/definitions/v1ServiceError"
+  v1AcquirerRefundNotifyResponse:
     type: "object"
   v1AcquirerRoyaltyNotifyResponse:
     type: "object"
@@ -3668,10 +3598,68 @@ definitions:
     properties:
       success:
         type: "boolean"
+  v1BusinessUser:
+    type: "object"
+    properties:
+      address:
+        type: "string"
+      app_id:
+        type: "string"
+      avatar:
+        type: "string"
+      currency:
+        type: "string"
+      description:
+        type: "string"
+      disabled:
+        type: "boolean"
+      email:
+        type: "string"
+      gender:
+        $ref: "#/definitions/v1Gender"
+      id:
+        type: "string"
+      metadata:
+        type: "object"
+        additionalProperties:
+          type: "string"
+      name:
+        type: "string"
+      nickname:
+        type: "string"
+      parent_user_id:
+        type: "string"
+      phone:
+        type: "string"
   v1CallbackRoutingResponse:
     type: "object"
   v1Charge:
     type: "object"
+    required:
+    - "amount"
+    - "amount_fee"
+    - "amount_refund"
+    - "amount_royalty"
+    - "amount_settle"
+    - "app_id"
+    - "body"
+    - "channel"
+    - "charge_id"
+    - "client_ip"
+    - "closed"
+    - "currency"
+    - "description"
+    - "failure_code"
+    - "failure_msg"
+    - "live_mode"
+    - "merchant_trade_id"
+    - "object"
+    - "paid"
+    - "refunded"
+    - "reversed"
+    - "subject"
+    - "transaction_no"
+    - "ttl"
     properties:
       amount:
         type: "number"
@@ -3848,7 +3836,25 @@ definitions:
         refund_id: "refund_id"
         charge_id: "charge_id"
         account:
-          alipay:
+          wechatpay:
+            goods_detail:
+            - goods_name: "goods_name"
+              wechatpay_goods_id: "wechatpay_goods_id"
+              merchant_goods_id: "merchant_goods_id"
+              refund_amount: 6
+              unit_price: 3
+              refund_quantity: 3
+            - goods_name: "goods_name"
+              wechatpay_goods_id: "wechatpay_goods_id"
+              merchant_goods_id: "merchant_goods_id"
+              refund_amount: 6
+              unit_price: 3
+              refund_quantity: 3
+            account:
+              from:
+              - null
+              - null
+          payment_alipay:
             refund_royalty_parameters:
             - refund_detail_item_list:
               - real_amount: 6.878052
@@ -3898,24 +3904,6 @@ definitions:
               fund_change: "fund_change"
               trans_in_name: "trans_in_name"
               desc: "desc"
-          wechatpay:
-            goods_detail:
-            - goods_name: "goods_name"
-              wechatpay_goods_id: "wechatpay_goods_id"
-              merchant_goods_id: "merchant_goods_id"
-              refund_amount: 6
-              unit_price: 3
-              refund_quantity: 3
-            - goods_name: "goods_name"
-              wechatpay_goods_id: "wechatpay_goods_id"
-              merchant_goods_id: "merchant_goods_id"
-              refund_amount: 6
-              unit_price: 3
-              refund_quantity: 3
-            account:
-              from:
-              - null
-              - null
         transaction_no: "transaction_no"
         charge_merchant_trade_id: "charge_merchant_trade_id"
         status: "status"
@@ -3934,7 +3922,25 @@ definitions:
         refund_id: "refund_id"
         charge_id: "charge_id"
         account:
-          alipay:
+          wechatpay:
+            goods_detail:
+            - goods_name: "goods_name"
+              wechatpay_goods_id: "wechatpay_goods_id"
+              merchant_goods_id: "merchant_goods_id"
+              refund_amount: 6
+              unit_price: 3
+              refund_quantity: 3
+            - goods_name: "goods_name"
+              wechatpay_goods_id: "wechatpay_goods_id"
+              merchant_goods_id: "merchant_goods_id"
+              refund_amount: 6
+              unit_price: 3
+              refund_quantity: 3
+            account:
+              from:
+              - null
+              - null
+          payment_alipay:
             refund_royalty_parameters:
             - refund_detail_item_list:
               - real_amount: 6.878052
@@ -3984,24 +3990,6 @@ definitions:
               fund_change: "fund_change"
               trans_in_name: "trans_in_name"
               desc: "desc"
-          wechatpay:
-            goods_detail:
-            - goods_name: "goods_name"
-              wechatpay_goods_id: "wechatpay_goods_id"
-              merchant_goods_id: "merchant_goods_id"
-              refund_amount: 6
-              unit_price: 3
-              refund_quantity: 3
-            - goods_name: "goods_name"
-              wechatpay_goods_id: "wechatpay_goods_id"
-              merchant_goods_id: "merchant_goods_id"
-              refund_amount: 6
-              unit_price: 3
-              refund_quantity: 3
-            account:
-              from:
-              - null
-              - null
         transaction_no: "transaction_no"
         charge_merchant_trade_id: "charge_merchant_trade_id"
         status: "status"
@@ -5187,6 +5175,8 @@ definitions:
           payer_client_ip: "payer_client_ip"
   v1ChargeListResponse:
     type: "object"
+    required:
+    - "has_more"
     properties:
       data:
         type: "array"
@@ -5230,7 +5220,25 @@ definitions:
           refund_id: "refund_id"
           charge_id: "charge_id"
           account:
-            alipay:
+            wechatpay:
+              goods_detail:
+              - goods_name: "goods_name"
+                wechatpay_goods_id: "wechatpay_goods_id"
+                merchant_goods_id: "merchant_goods_id"
+                refund_amount: 6
+                unit_price: 3
+                refund_quantity: 3
+              - goods_name: "goods_name"
+                wechatpay_goods_id: "wechatpay_goods_id"
+                merchant_goods_id: "merchant_goods_id"
+                refund_amount: 6
+                unit_price: 3
+                refund_quantity: 3
+              account:
+                from:
+                - null
+                - null
+            payment_alipay:
               refund_royalty_parameters:
               - refund_detail_item_list:
                 - real_amount: 6.878052
@@ -5280,24 +5288,6 @@ definitions:
                 fund_change: "fund_change"
                 trans_in_name: "trans_in_name"
                 desc: "desc"
-            wechatpay:
-              goods_detail:
-              - goods_name: "goods_name"
-                wechatpay_goods_id: "wechatpay_goods_id"
-                merchant_goods_id: "merchant_goods_id"
-                refund_amount: 6
-                unit_price: 3
-                refund_quantity: 3
-              - goods_name: "goods_name"
-                wechatpay_goods_id: "wechatpay_goods_id"
-                merchant_goods_id: "merchant_goods_id"
-                refund_amount: 6
-                unit_price: 3
-                refund_quantity: 3
-              account:
-                from:
-                - null
-                - null
           transaction_no: "transaction_no"
           charge_merchant_trade_id: "charge_merchant_trade_id"
           status: "status"
@@ -5316,7 +5306,25 @@ definitions:
           refund_id: "refund_id"
           charge_id: "charge_id"
           account:
-            alipay:
+            wechatpay:
+              goods_detail:
+              - goods_name: "goods_name"
+                wechatpay_goods_id: "wechatpay_goods_id"
+                merchant_goods_id: "merchant_goods_id"
+                refund_amount: 6
+                unit_price: 3
+                refund_quantity: 3
+              - goods_name: "goods_name"
+                wechatpay_goods_id: "wechatpay_goods_id"
+                merchant_goods_id: "merchant_goods_id"
+                refund_amount: 6
+                unit_price: 3
+                refund_quantity: 3
+              account:
+                from:
+                - null
+                - null
+            payment_alipay:
               refund_royalty_parameters:
               - refund_detail_item_list:
                 - real_amount: 6.878052
@@ -5366,24 +5374,6 @@ definitions:
                 fund_change: "fund_change"
                 trans_in_name: "trans_in_name"
                 desc: "desc"
-            wechatpay:
-              goods_detail:
-              - goods_name: "goods_name"
-                wechatpay_goods_id: "wechatpay_goods_id"
-                merchant_goods_id: "merchant_goods_id"
-                refund_amount: 6
-                unit_price: 3
-                refund_quantity: 3
-              - goods_name: "goods_name"
-                wechatpay_goods_id: "wechatpay_goods_id"
-                merchant_goods_id: "merchant_goods_id"
-                refund_amount: 6
-                unit_price: 3
-                refund_quantity: 3
-              account:
-                from:
-                - null
-                - null
           transaction_no: "transaction_no"
           charge_merchant_trade_id: "charge_merchant_trade_id"
           status: "status"
@@ -5995,7 +5985,25 @@ definitions:
           refund_id: "refund_id"
           charge_id: "charge_id"
           account:
-            alipay:
+            wechatpay:
+              goods_detail:
+              - goods_name: "goods_name"
+                wechatpay_goods_id: "wechatpay_goods_id"
+                merchant_goods_id: "merchant_goods_id"
+                refund_amount: 6
+                unit_price: 3
+                refund_quantity: 3
+              - goods_name: "goods_name"
+                wechatpay_goods_id: "wechatpay_goods_id"
+                merchant_goods_id: "merchant_goods_id"
+                refund_amount: 6
+                unit_price: 3
+                refund_quantity: 3
+              account:
+                from:
+                - null
+                - null
+            payment_alipay:
               refund_royalty_parameters:
               - refund_detail_item_list:
                 - real_amount: 6.878052
@@ -6045,24 +6053,6 @@ definitions:
                 fund_change: "fund_change"
                 trans_in_name: "trans_in_name"
                 desc: "desc"
-            wechatpay:
-              goods_detail:
-              - goods_name: "goods_name"
-                wechatpay_goods_id: "wechatpay_goods_id"
-                merchant_goods_id: "merchant_goods_id"
-                refund_amount: 6
-                unit_price: 3
-                refund_quantity: 3
-              - goods_name: "goods_name"
-                wechatpay_goods_id: "wechatpay_goods_id"
-                merchant_goods_id: "merchant_goods_id"
-                refund_amount: 6
-                unit_price: 3
-                refund_quantity: 3
-              account:
-                from:
-                - null
-                - null
           transaction_no: "transaction_no"
           charge_merchant_trade_id: "charge_merchant_trade_id"
           status: "status"
@@ -6081,7 +6071,25 @@ definitions:
           refund_id: "refund_id"
           charge_id: "charge_id"
           account:
-            alipay:
+            wechatpay:
+              goods_detail:
+              - goods_name: "goods_name"
+                wechatpay_goods_id: "wechatpay_goods_id"
+                merchant_goods_id: "merchant_goods_id"
+                refund_amount: 6
+                unit_price: 3
+                refund_quantity: 3
+              - goods_name: "goods_name"
+                wechatpay_goods_id: "wechatpay_goods_id"
+                merchant_goods_id: "merchant_goods_id"
+                refund_amount: 6
+                unit_price: 3
+                refund_quantity: 3
+              account:
+                from:
+                - null
+                - null
+            payment_alipay:
               refund_royalty_parameters:
               - refund_detail_item_list:
                 - real_amount: 6.878052
@@ -6131,24 +6139,6 @@ definitions:
                 fund_change: "fund_change"
                 trans_in_name: "trans_in_name"
                 desc: "desc"
-            wechatpay:
-              goods_detail:
-              - goods_name: "goods_name"
-                wechatpay_goods_id: "wechatpay_goods_id"
-                merchant_goods_id: "merchant_goods_id"
-                refund_amount: 6
-                unit_price: 3
-                refund_quantity: 3
-              - goods_name: "goods_name"
-                wechatpay_goods_id: "wechatpay_goods_id"
-                merchant_goods_id: "merchant_goods_id"
-                refund_amount: 6
-                unit_price: 3
-                refund_quantity: 3
-              account:
-                from:
-                - null
-                - null
           transaction_no: "transaction_no"
           charge_merchant_trade_id: "charge_merchant_trade_id"
           status: "status"
@@ -6738,6 +6728,8 @@ definitions:
       object: "object"
   v1ChargeResponse:
     type: "object"
+    required:
+    - "object"
     properties:
       data:
         description: "Charge 对象"
@@ -6777,7 +6769,25 @@ definitions:
           refund_id: "refund_id"
           charge_id: "charge_id"
           account:
-            alipay:
+            wechatpay:
+              goods_detail:
+              - goods_name: "goods_name"
+                wechatpay_goods_id: "wechatpay_goods_id"
+                merchant_goods_id: "merchant_goods_id"
+                refund_amount: 6
+                unit_price: 3
+                refund_quantity: 3
+              - goods_name: "goods_name"
+                wechatpay_goods_id: "wechatpay_goods_id"
+                merchant_goods_id: "merchant_goods_id"
+                refund_amount: 6
+                unit_price: 3
+                refund_quantity: 3
+              account:
+                from:
+                - null
+                - null
+            payment_alipay:
               refund_royalty_parameters:
               - refund_detail_item_list:
                 - real_amount: 6.878052
@@ -6827,24 +6837,6 @@ definitions:
                 fund_change: "fund_change"
                 trans_in_name: "trans_in_name"
                 desc: "desc"
-            wechatpay:
-              goods_detail:
-              - goods_name: "goods_name"
-                wechatpay_goods_id: "wechatpay_goods_id"
-                merchant_goods_id: "merchant_goods_id"
-                refund_amount: 6
-                unit_price: 3
-                refund_quantity: 3
-              - goods_name: "goods_name"
-                wechatpay_goods_id: "wechatpay_goods_id"
-                merchant_goods_id: "merchant_goods_id"
-                refund_amount: 6
-                unit_price: 3
-                refund_quantity: 3
-              account:
-                from:
-                - null
-                - null
           transaction_no: "transaction_no"
           charge_merchant_trade_id: "charge_merchant_trade_id"
           status: "status"
@@ -6863,7 +6855,25 @@ definitions:
           refund_id: "refund_id"
           charge_id: "charge_id"
           account:
-            alipay:
+            wechatpay:
+              goods_detail:
+              - goods_name: "goods_name"
+                wechatpay_goods_id: "wechatpay_goods_id"
+                merchant_goods_id: "merchant_goods_id"
+                refund_amount: 6
+                unit_price: 3
+                refund_quantity: 3
+              - goods_name: "goods_name"
+                wechatpay_goods_id: "wechatpay_goods_id"
+                merchant_goods_id: "merchant_goods_id"
+                refund_amount: 6
+                unit_price: 3
+                refund_quantity: 3
+              account:
+                from:
+                - null
+                - null
+            payment_alipay:
               refund_royalty_parameters:
               - refund_detail_item_list:
                 - real_amount: 6.878052
@@ -6913,24 +6923,6 @@ definitions:
                 fund_change: "fund_change"
                 trans_in_name: "trans_in_name"
                 desc: "desc"
-            wechatpay:
-              goods_detail:
-              - goods_name: "goods_name"
-                wechatpay_goods_id: "wechatpay_goods_id"
-                merchant_goods_id: "merchant_goods_id"
-                refund_amount: 6
-                unit_price: 3
-                refund_quantity: 3
-              - goods_name: "goods_name"
-                wechatpay_goods_id: "wechatpay_goods_id"
-                merchant_goods_id: "merchant_goods_id"
-                refund_amount: 6
-                unit_price: 3
-                refund_quantity: 3
-              account:
-                from:
-                - null
-                - null
           transaction_no: "transaction_no"
           charge_merchant_trade_id: "charge_merchant_trade_id"
           status: "status"
@@ -7519,8 +7511,40 @@ definitions:
       object: "Charge"
   v1ChargeRoutingResponse:
     type: "object"
+    required:
+    - "charge_id"
+    - "error"
+    - "transaction_id"
+    properties:
+      charge_id:
+        type: "integer"
+        format: "int64"
+        description: "支付单 ID"
+        default: 0
+      error:
+        description: "错误信息"
+        $ref: "#/definitions/v1ServiceError"
+      transaction_id:
+        type: "integer"
+        format: "int64"
+        description: "支付单 ID"
+        default: 0
   v1CreateChargeRequest:
     type: "object"
+    required:
+    - "amount"
+    - "app_id"
+    - "body"
+    - "callback_url"
+    - "channel"
+    - "client_ip"
+    - "currency"
+    - "description"
+    - "merchant_trade_id"
+    - "notification_area"
+    - "notify_url"
+    - "subject"
+    - "ttl"
     properties:
       amount:
         type: "number"
@@ -7671,6 +7695,12 @@ definitions:
         format: "double"
   v1CreateRefundRequest:
     type: "object"
+    required:
+    - "amount"
+    - "app_id"
+    - "charge_id"
+    - "description"
+    - "merchant_refund_id"
     properties:
       amount:
         type: "number"
@@ -7707,6 +7737,13 @@ definitions:
       额退款之前，可以进行多次退款，直至全额退款。当一次退款成功后，会发送 Webhooks 通知。"
   v1CreateRoyaltyRequest:
     type: "object"
+    required:
+    - "app_id"
+    - "callback_url"
+    - "charge_id"
+    - "description"
+    - "order_id"
+    - "receivers"
     properties:
       app_id:
         type: "string"
@@ -7720,6 +7757,10 @@ definitions:
         type: "string"
         format: "string"
         description: "Charge ID"
+      description:
+        type: "string"
+        format: "string"
+        description: "分账的原因描述，分账账单中需要体现，不超过 80 个字符"
       order_id:
         type: "string"
         format: "string"
@@ -7729,48 +7770,113 @@ definitions:
         description: "分润接受方列表"
         items:
           $ref: "#/definitions/CreateRoyaltyRequestRoyaltyReceiver"
+  v1CreateSettlementAccountRequest:
+    type: "object"
+    properties:
+      app_id:
+        type: "string"
+      business_user_id:
+        type: "string"
+      channel:
+        $ref: "#/definitions/v1SettlementAccountChannel"
+      customer_id:
+        type: "string"
+      recipient:
+        $ref: "#/definitions/v1SettlementAccountRecipient"
   v1CreateUserRequest:
     type: "object"
+    required:
+    - "address"
+    - "app_id"
+    - "available_balance"
+    - "avatar"
+    - "created"
+    - "currency"
+    - "description"
+    - "disabled"
+    - "email"
+    - "gender"
+    - "metadata"
+    - "name"
+    - "nickname"
+    - "out_user_id"
+    - "parent_user_id"
+    - "phone"
+    - "withdrawable_balance"
     properties:
       address:
         type: "string"
+        format: "string"
+        description: "[OPTIONAL] 用户地址"
       app_id:
         type: "string"
+        format: "string"
+        description: "App ID"
       available_balance:
         type: "number"
-        format: "double"
+        format: "float"
+        description: "[OPTIONAL] 用户可用余额"
       avatar:
         type: "string"
+        format: "string"
+        description: "[OPTIONAL] 用户头像"
       created:
-        type: "string"
+        type: "integer"
         format: "int64"
+        description: "[OPTIONAL] 用户创建时间"
+        default: 0
       currency:
         type: "string"
+        format: "string"
+        description: "[OPTIONAL] 用户货币"
       description:
         type: "string"
+        format: "string"
+        description: "[OPTIONAL] 用户描述"
       disabled:
         type: "boolean"
+        description: "[OPTIONAL] 是否禁用，默认为 false"
+        default: false
       email:
         type: "string"
+        format: "string"
+        description: "[OPTIONAL] 用户邮箱"
       gender:
+        description: "[OPTIONAL] 用户性别"
         $ref: "#/definitions/v1Gender"
       metadata:
         type: "object"
+        description: "[OPTIONAL] 用户元数据"
         additionalProperties:
           type: "string"
       name:
         type: "string"
+        format: "string"
+        description: "[OPTIONAL] 用户名"
+      nickname:
+        type: "string"
+        format: "string"
+        description: "[OPTIONAL] 用户昵称"
       out_user_id:
         type: "string"
+        format: "string"
+        description: "[REQUIRED] 商户系统用户 ID"
       parent_user_id:
         type: "string"
+        format: "string"
+        description: "[OPTIONAL] 父用户 ID"
       phone:
         type: "string"
+        format: "string"
+        description: "[OPTIONAL] 用户手机号"
       withdrawable_balance:
         type: "number"
-        format: "double"
+        format: "float"
+        description: "[OPTIONAL] 用户可提现余额"
   v1Customer:
     type: "object"
+    required:
+    - "object"
     properties:
       address:
         type: "string"
@@ -7832,6 +7938,8 @@ definitions:
       object: "Customer"
   v1CustomerListResponse:
     type: "object"
+    required:
+    - "object"
     properties:
       data:
         type: "array"
@@ -7911,6 +8019,8 @@ definitions:
       object: "object"
   v1DeleteCustomerResponse:
     type: "object"
+    required:
+    - "object"
     properties:
       deleted:
         type: "boolean"
@@ -7942,6 +8052,8 @@ definitions:
       object: "object"
   v1DeleteUserResponse:
     type: "object"
+    required:
+    - "object"
     properties:
       deleted:
         type: "boolean"
@@ -7958,6 +8070,18 @@ definitions:
       object: "User"
   v1ExtraAlipayApp:
     type: "object"
+    required:
+    - "credit_agreement_id"
+    - "credit_biz_order_id"
+    - "credit_pay_mode"
+    - "disable_pay_channels"
+    - "enable_pay_channels"
+    - "goods_type"
+    - "merchant_trade_id"
+    - "pay_param"
+    - "product_code"
+    - "seller_id"
+    - "store_id"
     properties:
       credit_agreement_id:
         type: "string"
@@ -8003,7 +8127,6 @@ definitions:
         type: "string"
         format: "string"
         description: "[ONLY IN RESPONSE] App 用于拉起支付的请求字符串"
-        title: "支付请求字符串"
       product_code:
         type: "string"
         format: "string"
@@ -8080,6 +8203,14 @@ definitions:
       card_type: "card_type"
   v1ExtraAlipayExtUserInfo:
     type: "object"
+    required:
+    - "cert_no"
+    - "cert_type"
+    - "fix_buyer"
+    - "min_age"
+    - "mobile"
+    - "name"
+    - "need_check_info"
     properties:
       cert_no:
         type: "string"
@@ -8119,6 +8250,13 @@ definitions:
       need_check_info: "need_check_info"
   v1ExtraAlipayExtendParams:
     type: "object"
+    required:
+    - "card_type"
+    - "hb_fq_num"
+    - "hb_fq_seller_percent"
+    - "industry_reflux_info"
+    - "specified_seller_name"
+    - "sys_service_provider_id"
     properties:
       card_type:
         type: "string"
@@ -8168,6 +8306,16 @@ definitions:
       fund_channel: "fund_channel"
   v1ExtraAlipayGoodsDetail:
     type: "object"
+    required:
+    - "alipay_goods_id"
+    - "body"
+    - "categories_tree"
+    - "goods_category"
+    - "goods_id"
+    - "goods_name"
+    - "price"
+    - "quantity"
+    - "show_url"
     properties:
       alipay_goods_id:
         type: "string"
@@ -8230,6 +8378,17 @@ definitions:
       details: "details"
   v1ExtraAlipayLite:
     type: "object"
+    required:
+    - "body"
+    - "buyer_id"
+    - "operator_id"
+    - "product_code"
+    - "seller_id"
+    - "store_id"
+    - "terminal_id"
+    - "time_expire"
+    - "timeout_express"
+    - "trade_no"
     properties:
       body:
         type: "string"
@@ -8348,6 +8507,20 @@ definitions:
       logistics_type: "logistics_type"
   v1ExtraAlipayPage:
     type: "object"
+    required:
+    - "business_params"
+    - "disable_pay_channels"
+    - "enable_pay_channels"
+    - "goods_type"
+    - "integration_type"
+    - "merchant_trade_id"
+    - "pay_url"
+    - "promo_params"
+    - "qr_pay_mode"
+    - "qrcode_width"
+    - "request_from_url"
+    - "seller_id"
+    - "store_id"
     properties:
       business_params:
         type: "number"
@@ -8479,6 +8652,15 @@ definitions:
       async_type: "async_type"
   v1ExtraAlipayQr:
     type: "object"
+    required:
+    - "buyer_id"
+    - "operator_id"
+    - "product_code"
+    - "qr_code"
+    - "qr_code_timeout_express"
+    - "qr_link"
+    - "store_id"
+    - "terminal_id"
     properties:
       buyer_id:
         type: "string"
@@ -8573,6 +8755,32 @@ definitions:
       division_code: "division_code"
   v1ExtraAlipayScan:
     type: "object"
+    required:
+    - "advance_payment_type"
+    - "auth_code"
+    - "auth_confirm_mode"
+    - "auth_no"
+    - "buyer_id"
+    - "buyer_logon_id"
+    - "buyer_pay_amount"
+    - "buyer_user_id"
+    - "discount_amount"
+    - "discount_goods_detail"
+    - "discountable_amount"
+    - "gmt_payment"
+    - "invoice_amount"
+    - "operator_id"
+    - "pay_params"
+    - "point_amount"
+    - "product_code"
+    - "query_options"
+    - "receipt_amount"
+    - "request_org_pid"
+    - "scene"
+    - "store_id"
+    - "store_name"
+    - "terminal_id"
+    - "total_amount"
     properties:
       advance_payment_type:
         type: "string"
@@ -8782,6 +8990,9 @@ definitions:
         trans_in_type: "trans_in_type"
   v1ExtraAlipaySubMerchant:
     type: "object"
+    required:
+    - "merchant_id"
+    - "merchant_type"
     properties:
       merchant_id:
         type: "string"
@@ -8839,6 +9050,20 @@ definitions:
       type: "type"
   v1ExtraAlipayWap:
     type: "object"
+    required:
+    - "auth_token"
+    - "business_params"
+    - "disable_pay_channels"
+    - "enable_pay_channels"
+    - "goods_type"
+    - "merchant_trade_id"
+    - "pay_url"
+    - "product_code"
+    - "promo_params"
+    - "quit_url"
+    - "return_url"
+    - "seller_id"
+    - "store_id"
     properties:
       auth_token:
         type: "string"
@@ -8965,6 +9190,11 @@ definitions:
       seller_id: "seller_id"
   v1ExtraWechatpayApp:
     type: "object"
+    required:
+    - "goods_tag"
+    - "prepay_id"
+    - "time_expire"
+    - "time_start"
     properties:
       app_config:
         description: "app拉起支付配置信息"
@@ -9043,6 +9273,14 @@ definitions:
         payer_client_ip: "payer_client_ip"
   v1ExtraWechatpayAppConfig:
     type: "object"
+    required:
+    - "appid"
+    - "noncestr"
+    - "package"
+    - "partnerid"
+    - "prepayid"
+    - "sign"
+    - "timestamp"
     properties:
       appid:
         type: "string"
@@ -9082,6 +9320,13 @@ definitions:
       timestamp: "timestamp"
   v1ExtraWechatpayAppletConfig:
     type: "object"
+    required:
+    - "appId"
+    - "nonceStr"
+    - "package"
+    - "paySign"
+    - "signType"
+    - "timeStamp"
     properties:
       appId:
         type: "string"
@@ -9142,6 +9387,15 @@ definitions:
       cost_price: "cost_price"
   v1ExtraWechatpayH5:
     type: "object"
+    required:
+    - "goods_tag"
+    - "pay_sign"
+    - "pay_url"
+    - "prepay_id"
+    - "time_expire"
+    - "time_start"
+    - "wap_name"
+    - "wap_url"
     properties:
       attach:
         type: "string"
@@ -9230,6 +9484,11 @@ definitions:
         payer_client_ip: "payer_client_ip"
   v1ExtraWechatpayJsapi:
     type: "object"
+    required:
+    - "goods_tag"
+    - "prepay_id"
+    - "time_expire"
+    - "time_start"
     properties:
       attach:
         type: "string"
@@ -9313,6 +9572,13 @@ definitions:
         payer_client_ip: "payer_client_ip"
   v1ExtraWechatpayJsapiConfig:
     type: "object"
+    required:
+    - "appId"
+    - "nonceStr"
+    - "package"
+    - "paySign"
+    - "signType"
+    - "timeStamp"
     properties:
       appId:
         type: "string"
@@ -9347,6 +9613,11 @@ definitions:
       nonceStr: "nonceStr"
   v1ExtraWechatpayLite:
     type: "object"
+    required:
+    - "goods_tag"
+    - "prepay_id"
+    - "time_expire"
+    - "time_start"
     properties:
       applet_config:
         description: "小程序拉起支付配置信息"
@@ -9430,6 +9701,12 @@ definitions:
         payer_client_ip: "payer_client_ip"
   v1ExtraWechatpayNative:
     type: "object"
+    required:
+    - "goods_tag"
+    - "qr_code"
+    - "qr_link"
+    - "time_expire"
+    - "time_start"
     properties:
       attach:
         type: "string"
@@ -9503,6 +9780,9 @@ definitions:
         payer_client_ip: "payer_client_ip"
   v1ExtraWechatpayPayer:
     type: "object"
+    required:
+    - "appid"
+    - "openid"
     properties:
       appid:
         type: "string"
@@ -9517,6 +9797,21 @@ definitions:
       appid: "appid"
   v1ExtraWechatpayScan:
     type: "object"
+    required:
+    - "auth_code"
+    - "bank_type"
+    - "cash_fee"
+    - "cash_fee_type"
+    - "fee_type"
+    - "goods_tag"
+    - "is_subscribe"
+    - "settlement_total_fee"
+    - "spbill_create_ip"
+    - "sub_is_subscribe"
+    - "sub_openid"
+    - "time_end"
+    - "time_expire"
+    - "time_start"
     properties:
       attach:
         type: "string"
@@ -9674,17 +9969,20 @@ definitions:
     type: "object"
   v1Gender:
     type: "string"
-    title: "- GENDER_UNKNOWN: 未设置\n - MALE: 男\n - FE_MALE: 女\n - PRIVACY: 保密\n - ThirdGender:\
-      \ 第三性别"
     enum:
     - "GENDER_UNKNOWN"
     - "MALE"
-    - "FE_MALE"
+    - "FEMALE"
     - "PRIVACY"
     - "ThirdGender"
     default: "GENDER_UNKNOWN"
   v1ListAllCustomersRequestCreated:
     type: "object"
+    required:
+    - "gt"
+    - "gte"
+    - "lt"
+    - "lte"
     properties:
       gt:
         type: "integer"
@@ -9708,6 +10006,11 @@ definitions:
         default: 0
   v1ListAllRoyaltiesRequestCreated:
     type: "object"
+    required:
+    - "gt"
+    - "gte"
+    - "lt"
+    - "lte"
     properties:
       gt:
         type: "integer"
@@ -9729,8 +10032,54 @@ definitions:
         format: "int64"
         description: "大于或等于 charge 对象的创建时间，用 Unix 时间戳表示"
         default: 0
+  v1ListAllRoyaltiesResponse:
+    type: "object"
+    required:
+    - "data"
+    - "has_more"
+    - "object"
+    properties:
+      data:
+        description: "分账列表"
+        $ref: "#/definitions/v1Royalty"
+      has_more:
+        type: "boolean"
+        description: "是否还有更多"
+        default: false
+      object:
+        type: "string"
+        format: "string"
+        description: "对象类型"
+        default: "RoyaltyList"
+    example:
+      data:
+        amount: 0.8008282
+        metadata:
+          key: "metadata"
+        livemode: true
+        method: {}
+        created: 6
+        description: "description"
+        royalty_settlement_id: "royalty_settlement_id"
+        payer_settle_account_id: "payer_settle_account_id"
+        royalty_settlement_transaction_id: "royalty_settlement_transaction_id"
+        payer_app_id: "payer_app_id"
+        charge_id: "charge_id"
+        time_settled: 1
+        id: "id"
+        order_id: "order_id"
+        payer_user_id: "payer_user_id"
+        object: "Royalty"
+        status: "status"
+      has_more: false
+      object: "RoyaltyList"
   v1ListAllSettlementAccountsRequestCreated:
     type: "object"
+    required:
+    - "gt"
+    - "gte"
+    - "lt"
+    - "lte"
     properties:
       gt:
         type: "integer"
@@ -9754,6 +10103,11 @@ definitions:
         default: 0
   v1ListAllUsersRequestCreated:
     type: "object"
+    required:
+    - "gt"
+    - "gte"
+    - "lt"
+    - "lte"
     properties:
       gt:
         type: "integer"
@@ -9783,6 +10137,11 @@ definitions:
     type: "object"
   v1QueryChargeListRequestCreated:
     type: "object"
+    required:
+    - "gt"
+    - "gte"
+    - "lt"
+    - "lte"
     properties:
       gt:
         type: "integer"
@@ -9806,6 +10165,20 @@ definitions:
         default: 0
   v1Refund:
     type: "object"
+    required:
+    - "amount"
+    - "charge_id"
+    - "charge_merchant_trade_id"
+    - "created"
+    - "description"
+    - "failure_code"
+    - "failure_msg"
+    - "is_success"
+    - "refund_id"
+    - "refund_no"
+    - "status"
+    - "succeed_ts"
+    - "transaction_no"
     properties:
       account:
         description: "支付渠道退款元参数"
@@ -9894,7 +10267,25 @@ definitions:
       refund_id: "refund_id"
       charge_id: "charge_id"
       account:
-        alipay:
+        wechatpay:
+          goods_detail:
+          - goods_name: "goods_name"
+            wechatpay_goods_id: "wechatpay_goods_id"
+            merchant_goods_id: "merchant_goods_id"
+            refund_amount: 6
+            unit_price: 3
+            refund_quantity: 3
+          - goods_name: "goods_name"
+            wechatpay_goods_id: "wechatpay_goods_id"
+            merchant_goods_id: "merchant_goods_id"
+            refund_amount: 6
+            unit_price: 3
+            refund_quantity: 3
+          account:
+            from:
+            - null
+            - null
+        payment_alipay:
           refund_royalty_parameters:
           - refund_detail_item_list:
             - real_amount: 6.878052
@@ -9944,38 +10335,38 @@ definitions:
             fund_change: "fund_change"
             trans_in_name: "trans_in_name"
             desc: "desc"
-        wechatpay:
-          goods_detail:
-          - goods_name: "goods_name"
-            wechatpay_goods_id: "wechatpay_goods_id"
-            merchant_goods_id: "merchant_goods_id"
-            refund_amount: 6
-            unit_price: 3
-            refund_quantity: 3
-          - goods_name: "goods_name"
-            wechatpay_goods_id: "wechatpay_goods_id"
-            merchant_goods_id: "merchant_goods_id"
-            refund_amount: 6
-            unit_price: 3
-            refund_quantity: 3
-          account:
-            from:
-            - null
-            - null
       transaction_no: "transaction_no"
       charge_merchant_trade_id: "charge_merchant_trade_id"
       status: "status"
   v1RefundExtra:
     type: "object"
     properties:
-      alipay:
-        description: "支付宝退款元参数，可参考 https://opendocs.alipay.com/apis/0287wa"
+      payment_alipay:
+        description: "支付宝退款元参数，可参考 https://opendocs.payment_alipay.com/apis/0287wa"
         $ref: "#/definitions/v1RefundExtraAlipay"
       wechatpay:
         description: "微信支付退款元参数，可参考 https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter3_1_9.shtml"
         $ref: "#/definitions/v1RefundExtraWechatPay"
     example:
-      alipay:
+      wechatpay:
+        goods_detail:
+        - goods_name: "goods_name"
+          wechatpay_goods_id: "wechatpay_goods_id"
+          merchant_goods_id: "merchant_goods_id"
+          refund_amount: 6
+          unit_price: 3
+          refund_quantity: 3
+        - goods_name: "goods_name"
+          wechatpay_goods_id: "wechatpay_goods_id"
+          merchant_goods_id: "merchant_goods_id"
+          refund_amount: 6
+          unit_price: 3
+          refund_quantity: 3
+        account:
+          from:
+          - null
+          - null
+      payment_alipay:
         refund_royalty_parameters:
         - refund_detail_item_list:
           - real_amount: 6.878052
@@ -10025,24 +10416,6 @@ definitions:
           fund_change: "fund_change"
           trans_in_name: "trans_in_name"
           desc: "desc"
-      wechatpay:
-        goods_detail:
-        - goods_name: "goods_name"
-          wechatpay_goods_id: "wechatpay_goods_id"
-          merchant_goods_id: "merchant_goods_id"
-          refund_amount: 6
-          unit_price: 3
-          refund_quantity: 3
-        - goods_name: "goods_name"
-          wechatpay_goods_id: "wechatpay_goods_id"
-          merchant_goods_id: "merchant_goods_id"
-          refund_amount: 6
-          unit_price: 3
-          refund_quantity: 3
-        account:
-          from:
-          - null
-          - null
   v1RefundExtraAlipay:
     type: "object"
     properties:
@@ -10131,6 +10504,10 @@ definitions:
         - null
   v1RefundListResponse:
     type: "object"
+    required:
+    - "has_more"
+    - "object"
+    - "total"
     properties:
       data:
         type: "array"
@@ -10169,7 +10546,25 @@ definitions:
         refund_id: "refund_id"
         charge_id: "charge_id"
         account:
-          alipay:
+          wechatpay:
+            goods_detail:
+            - goods_name: "goods_name"
+              wechatpay_goods_id: "wechatpay_goods_id"
+              merchant_goods_id: "merchant_goods_id"
+              refund_amount: 6
+              unit_price: 3
+              refund_quantity: 3
+            - goods_name: "goods_name"
+              wechatpay_goods_id: "wechatpay_goods_id"
+              merchant_goods_id: "merchant_goods_id"
+              refund_amount: 6
+              unit_price: 3
+              refund_quantity: 3
+            account:
+              from:
+              - null
+              - null
+          payment_alipay:
             refund_royalty_parameters:
             - refund_detail_item_list:
               - real_amount: 6.878052
@@ -10219,24 +10614,6 @@ definitions:
               fund_change: "fund_change"
               trans_in_name: "trans_in_name"
               desc: "desc"
-          wechatpay:
-            goods_detail:
-            - goods_name: "goods_name"
-              wechatpay_goods_id: "wechatpay_goods_id"
-              merchant_goods_id: "merchant_goods_id"
-              refund_amount: 6
-              unit_price: 3
-              refund_quantity: 3
-            - goods_name: "goods_name"
-              wechatpay_goods_id: "wechatpay_goods_id"
-              merchant_goods_id: "merchant_goods_id"
-              refund_amount: 6
-              unit_price: 3
-              refund_quantity: 3
-            account:
-              from:
-              - null
-              - null
         transaction_no: "transaction_no"
         charge_merchant_trade_id: "charge_merchant_trade_id"
         status: "status"
@@ -10255,7 +10632,25 @@ definitions:
         refund_id: "refund_id"
         charge_id: "charge_id"
         account:
-          alipay:
+          wechatpay:
+            goods_detail:
+            - goods_name: "goods_name"
+              wechatpay_goods_id: "wechatpay_goods_id"
+              merchant_goods_id: "merchant_goods_id"
+              refund_amount: 6
+              unit_price: 3
+              refund_quantity: 3
+            - goods_name: "goods_name"
+              wechatpay_goods_id: "wechatpay_goods_id"
+              merchant_goods_id: "merchant_goods_id"
+              refund_amount: 6
+              unit_price: 3
+              refund_quantity: 3
+            account:
+              from:
+              - null
+              - null
+          payment_alipay:
             refund_royalty_parameters:
             - refund_detail_item_list:
               - real_amount: 6.878052
@@ -10305,24 +10700,6 @@ definitions:
               fund_change: "fund_change"
               trans_in_name: "trans_in_name"
               desc: "desc"
-          wechatpay:
-            goods_detail:
-            - goods_name: "goods_name"
-              wechatpay_goods_id: "wechatpay_goods_id"
-              merchant_goods_id: "merchant_goods_id"
-              refund_amount: 6
-              unit_price: 3
-              refund_quantity: 3
-            - goods_name: "goods_name"
-              wechatpay_goods_id: "wechatpay_goods_id"
-              merchant_goods_id: "merchant_goods_id"
-              refund_amount: 6
-              unit_price: 3
-              refund_quantity: 3
-            account:
-              from:
-              - null
-              - null
         transaction_no: "transaction_no"
         charge_merchant_trade_id: "charge_merchant_trade_id"
         status: "status"
@@ -10330,6 +10707,8 @@ definitions:
       object: "RefundList"
   v1RefundResponse:
     type: "object"
+    required:
+    - "object"
     properties:
       data:
         description: "Refund 对象"
@@ -10356,7 +10735,25 @@ definitions:
         refund_id: "refund_id"
         charge_id: "charge_id"
         account:
-          alipay:
+          wechatpay:
+            goods_detail:
+            - goods_name: "goods_name"
+              wechatpay_goods_id: "wechatpay_goods_id"
+              merchant_goods_id: "merchant_goods_id"
+              refund_amount: 6
+              unit_price: 3
+              refund_quantity: 3
+            - goods_name: "goods_name"
+              wechatpay_goods_id: "wechatpay_goods_id"
+              merchant_goods_id: "merchant_goods_id"
+              refund_amount: 6
+              unit_price: 3
+              refund_quantity: 3
+            account:
+              from:
+              - null
+              - null
+          payment_alipay:
             refund_royalty_parameters:
             - refund_detail_item_list:
               - real_amount: 6.878052
@@ -10406,52 +10803,79 @@ definitions:
               fund_change: "fund_change"
               trans_in_name: "trans_in_name"
               desc: "desc"
-          wechatpay:
-            goods_detail:
-            - goods_name: "goods_name"
-              wechatpay_goods_id: "wechatpay_goods_id"
-              merchant_goods_id: "merchant_goods_id"
-              refund_amount: 6
-              unit_price: 3
-              refund_quantity: 3
-            - goods_name: "goods_name"
-              wechatpay_goods_id: "wechatpay_goods_id"
-              merchant_goods_id: "merchant_goods_id"
-              refund_amount: 6
-              unit_price: 3
-              refund_quantity: 3
-            account:
-              from:
-              - null
-              - null
         transaction_no: "transaction_no"
         charge_merchant_trade_id: "charge_merchant_trade_id"
         status: "status"
       object: "Refund"
   v1RefundRoutingResponse:
     type: "object"
+    required:
+    - "charge_id"
+    - "error"
+    - "refund_id"
+    properties:
+      charge_id:
+        type: "integer"
+        format: "int64"
+        description: "支付单 ID"
+        default: 0
+      error:
+        description: "错误信息"
+        $ref: "#/definitions/v1ServiceError"
+      refund_id:
+        type: "integer"
+        format: "int64"
+        description: "退款 ID"
+        default: 0
   v1Royalty:
     type: "object"
+    required:
+    - "amount"
+    - "charge_id"
+    - "created"
+    - "description"
+    - "id"
+    - "metadata"
+    - "method"
+    - "object"
+    - "order_id"
+    - "payer_app_id"
+    - "payer_settle_account_id"
+    - "payer_user_id"
+    - "royalty_settlement_id"
+    - "status"
+    - "time_settled"
     properties:
       amount:
         type: "number"
-        format: "double"
+        format: "float"
+        description: "分账金额"
       charge_id:
         type: "string"
+        format: "string"
+        description: "Charge ID"
       created:
-        type: "string"
+        type: "integer"
         format: "int64"
+        description: "创建时间"
+        default: 0
       description:
         type: "string"
+        format: "string"
+        description: "分账的原因描述，分账账单中需要体现，不超过 80 个字符"
       id:
         type: "string"
+        format: "string"
+        description: "分账 ID"
       livemode:
         type: "boolean"
       metadata:
         type: "object"
+        description: "元数据"
         additionalProperties:
           type: "string"
       method:
+        description: "分账方式"
         $ref: "#/definitions/tradev1RoyaltyMethod"
       object:
         type: "string"
@@ -10460,62 +10884,58 @@ definitions:
         default: "Royalty"
       order_id:
         type: "string"
+        format: "string"
+        description: "订单 ID"
       payer_app_id:
         type: "string"
+        format: "string"
+        description: "付款方 App ID"
       payer_settle_account_id:
         type: "string"
+        format: "string"
+        description: "付款方结算账户 ID"
       payer_user_id:
         type: "string"
-      recipient_user_id:
-        type: "string"
+        format: "string"
+        description: "付款方用户 ID"
       royalty_settlement_id:
         type: "string"
+        format: "string"
+        description: "分账结算单 ID"
       royalty_settlement_transaction_id:
         type: "string"
       status:
         type: "string"
+        format: "string"
+        description: "分账状态"
       time_settled:
-        type: "string"
+        type: "integer"
         format: "int64"
+        description: "分账完成时间"
+        default: 0
     example:
-      recipient_user_id: "recipient_user_id"
-      amount: 0.8008281904610115
+      amount: 0.8008282
       metadata:
         key: "metadata"
       livemode: true
       method: {}
-      created: "created"
+      created: 6
       description: "description"
       royalty_settlement_id: "royalty_settlement_id"
       payer_settle_account_id: "payer_settle_account_id"
       royalty_settlement_transaction_id: "royalty_settlement_transaction_id"
       payer_app_id: "payer_app_id"
       charge_id: "charge_id"
-      time_settled: "time_settled"
+      time_settled: 1
       id: "id"
       order_id: "order_id"
       payer_user_id: "payer_user_id"
       object: "Royalty"
       status: "status"
-  v1RoyaltyListResponse:
-    type: "object"
-    properties:
-      data:
-        $ref: "#/definitions/v1Royalty"
-      hasMore:
-        type: "boolean"
-      object:
-        type: "string"
-  v1RoyaltyMode:
-    type: "string"
-    title: "- royalty_mode_unset: 未设置\n - fixed: 固定金额\n - rate: 比例"
-    enum:
-    - "royalty_mode_unset"
-    - "fixed"
-    - "rate"
-    default: "royalty_mode_unset"
   v1RoyaltyResponse:
     type: "object"
+    required:
+    - "object"
     properties:
       data:
         $ref: "#/definitions/v1Royalty"
@@ -10526,20 +10946,19 @@ definitions:
         default: "Royalty"
     example:
       data:
-        recipient_user_id: "recipient_user_id"
-        amount: 0.8008281904610115
+        amount: 0.8008282
         metadata:
           key: "metadata"
         livemode: true
         method: {}
-        created: "created"
+        created: 6
         description: "description"
         royalty_settlement_id: "royalty_settlement_id"
         payer_settle_account_id: "payer_settle_account_id"
         royalty_settlement_transaction_id: "royalty_settlement_transaction_id"
         payer_app_id: "payer_app_id"
         charge_id: "charge_id"
-        time_settled: "time_settled"
+        time_settled: 1
         id: "id"
         order_id: "order_id"
         payer_user_id: "payer_user_id"
@@ -10548,62 +10967,105 @@ definitions:
       object: "Royalty"
   v1RoyaltyRoutingRequestRoyaltyMethod:
     type: "string"
-    title: "- CREATE_ROYALTY: 请求分账\n - QUERY_ROYALTY: 查询分账\n - Finish_ROYALTY: 完结分\
-      账\n - RETURN_ROYALTY: 退还分账"
     enum:
     - "ROYALTY_METHOD_UNKNOWN"
     - "CREATE_ROYALTY"
     - "QUERY_ROYALTY"
     - "Finish_ROYALTY"
     - "RETURN_ROYALTY"
+    - "QUERY_RETURN_ROYALTY"
     default: "ROYALTY_METHOD_UNKNOWN"
   v1RoyaltyRoutingResponse:
     type: "object"
+    required:
+    - "error"
+    - "royalty_id"
+    properties:
+      error:
+        description: "错误信息"
+        $ref: "#/definitions/v1ServiceError"
+      royalty_id:
+        type: "integer"
+        format: "int64"
+        description: "分账单号"
+        default: 0
   v1RoyaltySettlement:
     type: "object"
+    required:
+    - "amount"
+    - "amount_canceled"
+    - "amount_failed"
+    - "amount_succeeded"
+    - "app_id"
+    - "count"
+    - "count_canceled"
+    - "count_failed"
+    - "count_succeeded"
+    - "fee"
+    - "id"
+    - "metadata"
+    - "object"
+    - "operation_url"
+    - "source"
+    - "status"
+    - "time_finished"
+    - "transactions"
     properties:
       amount:
         type: "number"
-        format: "double"
+        format: "float"
+        description: "结算金额"
       amount_canceled:
         type: "number"
-        format: "double"
+        format: "float"
+        description: "结算取消金额"
       amount_failed:
         type: "number"
-        format: "double"
+        format: "float"
+        description: "结算失败金额"
       amount_succeeded:
         type: "number"
-        format: "double"
+        format: "float"
+        description: "结算成功金额"
       app_id:
         type: "string"
+        format: "string"
+        description: "付款方 App ID"
       count:
-        type: "string"
+        type: "integer"
         format: "int64"
+        description: "分账总笔数"
+        default: 0
       count_canceled:
-        type: "string"
+        type: "integer"
         format: "int64"
+        description: "分账取消笔数"
+        default: 0
       count_failed:
-        type: "string"
+        type: "integer"
         format: "int64"
+        description: "分账失败笔数"
+        default: 0
       count_succeeded:
-        type: "string"
+        type: "integer"
         format: "int64"
-      created:
-        type: "string"
-        format: "int64"
+        description: "分账成功笔数"
+        default: 0
       fee:
         type: "number"
-        format: "double"
+        format: "float"
+        description: "手续费"
       id:
         type: "string"
+        format: "string"
+        description: "分账结算单 ID"
       livemode:
         type: "boolean"
       metadata:
         type: "object"
+        description: "元数据"
         additionalProperties:
           type: "string"
-      method:
-        $ref: "#/definitions/tradev1RoyaltyMethod"
       object:
         type: "string"
         format: "string"
@@ -10611,40 +11073,63 @@ definitions:
         default: "RoyaltySettlement"
       operation_url:
         type: "string"
+        format: "string"
+        description: "操作链接"
       source:
+        description: "分账来源"
         $ref: "#/definitions/v1RoyaltySettlementSource"
       status:
-        type: "string"
+        description: "结算状态"
+        $ref: "#/definitions/RoyaltySettlementRoyaltySettlementStatus"
       time_finished:
-        type: "string"
+        type: "integer"
         format: "int64"
+        description: "分账完成时间"
+        default: 0
       transactions:
         type: "array"
+        description: "分账处理流水列表"
         items:
           $ref: "#/definitions/v1RoyaltySettlementTransaction"
   v1RoyaltySettlementListResponse:
     type: "object"
+    required:
+    - "data"
+    - "has_more"
+    - "object"
     properties:
       data:
+        description: "分账结算单列表"
         $ref: "#/definitions/v1RoyaltySettlement"
-      hasMore:
+      has_more:
         type: "boolean"
+        format: "boolean"
+        description: "是否还有更多"
       object:
         type: "string"
+        format: "string"
+        description: "对象类型"
+        default: "RoyaltySettlementList"
   v1RoyaltySettlementResponse:
     type: "object"
+    required:
+    - "data"
+    - "object"
     properties:
       data:
+        description: "分账结算单"
         $ref: "#/definitions/v1RoyaltySettlement"
       object:
         type: "string"
+        format: "string"
+        description: "对象类型"
+        default: "RoyaltySettlement"
   v1RoyaltySettlementSource:
     type: "object"
     properties:
       availableSettleAmount:
         type: "number"
         format: "double"
-        title: "可结结算"
       sourceId:
         type: "string"
       type:
@@ -10659,15 +11144,30 @@ definitions:
     default: "TYPE_UNKNOWN"
   v1RoyaltySettlementTransaction:
     type: "object"
+    required:
+    - "amount"
+    - "created"
+    - "failure_reason"
+    - "object"
+    - "recipient_app_id"
+    - "recipient_user_id"
+    - "status"
+    - "transfer_id"
+    - "user_settlement_account_id"
     properties:
       amount:
         type: "number"
-        format: "double"
+        format: "float"
+        description: "结算金额"
       created:
-        type: "string"
+        type: "integer"
         format: "int64"
+        description: "创建时间"
+        default: 0
       failure_reason:
         type: "string"
+        format: "string"
+        description: "失败原因"
       id:
         type: "string"
       livemode:
@@ -10679,18 +11179,26 @@ definitions:
         default: "RoyaltySettlementTransaction"
       recipient_app_id:
         type: "string"
+        format: "string"
+        description: "接收方 App ID"
       recipient_user_id:
         type: "string"
+        format: "string"
+        description: "接收方用户 ID"
       royalty_settlement_id:
         type: "string"
       status:
         type: "string"
+        format: "string"
+        description: "结算状态"
       transfer_id:
         type: "string"
+        format: "string"
+        description: "支付平分账处理流水 ID"
       user_settlement_account_id:
         type: "string"
-    title: "--------------------------------------------------\nRoyalty Settlement\
-      \ Transaction"
+        format: "string"
+        description: "接收方用户结算账户 ID"
   v1RoyaltySettlementTransactionListResponse:
     type: "object"
     properties:
@@ -10709,6 +11217,11 @@ definitions:
         type: "string"
   v1SearchCustomersRequestCreated:
     type: "object"
+    required:
+    - "gt"
+    - "gte"
+    - "lt"
+    - "lte"
     properties:
       gt:
         type: "integer"
@@ -10730,8 +11243,32 @@ definitions:
         format: "int64"
         description: "大于或等于 BusinessUser 对象的创建时间，用 Unix 时间戳表示"
         default: 0
+  v1SearchRoyaltiesResponse:
+    type: "object"
+    required:
+    - "data"
+    - "has_more"
+    - "object"
+    properties:
+      data:
+        description: "分账列表"
+        $ref: "#/definitions/v1Royalty"
+      has_more:
+        type: "boolean"
+        description: "是否还有更多"
+        default: false
+      object:
+        type: "string"
+        format: "string"
+        description: "对象类型"
+        default: "RoyaltySearchResult"
   v1SearchUsersRequestCreated:
     type: "object"
+    required:
+    - "gt"
+    - "gte"
+    - "lt"
+    - "lte"
     properties:
       gt:
         type: "integer"
@@ -10753,13 +11290,46 @@ definitions:
         format: "int64"
         description: "大于或等于 BusinessUser 对象的创建时间，用 Unix 时间戳表示"
         default: 0
+  v1ServiceError:
+    type: "object"
+    required:
+    - "error_code"
+    - "error_message"
+    - "error_reason"
+    properties:
+      error_code:
+        type: "integer"
+        format: "int32"
+        description: "错误码"
+        default: 0
+      error_message:
+        type: "string"
+        format: "string"
+        description: "错误信息"
+      error_reason:
+        type: "string"
+        format: "string"
+        description: "错误原因"
   v1SettlementAccount:
     type: "object"
+    required:
+    - "app_id"
+    - "business_user_id"
+    - "created"
+    - "customer_id"
+    - "id"
+    - "object"
+    - "updated"
     properties:
       app_id:
         type: "string"
         format: "string"
         description: "分账接收方所在的应用 ID"
+        default: "0"
+      business_user_id:
+        type: "string"
+        format: "string"
+        description: "分账接收方的用户 ID"
         default: "0"
       channel:
         description: "分账接收方的账户类型"
@@ -10769,6 +11339,11 @@ definitions:
         format: "int64"
         description: "分账接收方的创建时间"
         default: 0
+      customer_id:
+        type: "string"
+        format: "string"
+        description: "分账接收方的用户 ID"
+        default: "0"
       id:
         type: "string"
         format: "string"
@@ -10787,23 +11362,13 @@ definitions:
         format: "int64"
         description: "分账接收方的更新时间"
         default: 0
-      user_id:
-        type: "string"
-        format: "string"
-        description: "分账接收方的用户 ID"
-        default: "0"
     title: "--------------------------------------------------\nSettle Account"
     example:
-      user_id: "0"
+      business_user_id: "0"
       created: 0
       channel: {}
       recipient:
-        alipay_channel_recipient:
-          account_type: {}
-          name: "name"
-          type: {}
-          account: "account"
-        bank_channel_recipient:
+        bank:
           bank_branch: "bank_branch"
           bank_name: "bank_name"
           name: "name"
@@ -10811,25 +11376,34 @@ definitions:
           type: "type"
           account: "account"
           bank_city: "bank_city"
-        wechatpay_channel_recipient:
+        balance: {}
+        wechatpay:
+          sub_app_id: "sub_app_id"
           name: "name"
           app_id: "app_id"
           account: "account"
           force_check: false
+        payment_alipay:
+          account_type: {}
+          name: "name"
+          type: {}
+          account: "account"
+        ysepay_merchant:
+          division_mer_usercode: "division_mer_usercode"
       id: "0"
+      customer_id: "0"
       app_id: "0"
       updated: 6
       object: "Recipient"
   v1SettlementAccountChannel:
     type: "string"
-    title: "- ALIPAY: 分账到支付宝\n - WECHANTPAY: 分账到微信支付\n - BANK: 分账到银行卡\n - BALANCE:\
-      \ 分账到 justap 账户余额"
     enum:
     - "CHANNEL_UNKNOWN"
     - "ALIPAY"
-    - "WECHANTPAY"
+    - "WECHATPAY"
     - "BANK"
     - "BALANCE"
+    - "YSEPAY_MERCHANT"
     default: "CHANNEL_UNKNOWN"
   v1SettlementAccountListResponse:
     type: "object"
@@ -10844,16 +11418,11 @@ definitions:
         type: "string"
     example:
       data:
-      - user_id: "0"
+      - business_user_id: "0"
         created: 0
         channel: {}
         recipient:
-          alipay_channel_recipient:
-            account_type: {}
-            name: "name"
-            type: {}
-            account: "account"
-          bank_channel_recipient:
+          bank:
             bank_branch: "bank_branch"
             bank_name: "bank_name"
             name: "name"
@@ -10861,25 +11430,30 @@ definitions:
             type: "type"
             account: "account"
             bank_city: "bank_city"
-          wechatpay_channel_recipient:
+          balance: {}
+          wechatpay:
+            sub_app_id: "sub_app_id"
             name: "name"
             app_id: "app_id"
             account: "account"
             force_check: false
+          payment_alipay:
+            account_type: {}
+            name: "name"
+            type: {}
+            account: "account"
+          ysepay_merchant:
+            division_mer_usercode: "division_mer_usercode"
         id: "0"
+        customer_id: "0"
         app_id: "0"
         updated: 6
         object: "Recipient"
-      - user_id: "0"
+      - business_user_id: "0"
         created: 0
         channel: {}
         recipient:
-          alipay_channel_recipient:
-            account_type: {}
-            name: "name"
-            type: {}
-            account: "account"
-          bank_channel_recipient:
+          bank:
             bank_branch: "bank_branch"
             bank_name: "bank_name"
             name: "name"
@@ -10887,12 +11461,22 @@ definitions:
             type: "type"
             account: "account"
             bank_city: "bank_city"
-          wechatpay_channel_recipient:
+          balance: {}
+          wechatpay:
+            sub_app_id: "sub_app_id"
             name: "name"
             app_id: "app_id"
             account: "account"
             force_check: false
+          payment_alipay:
+            account_type: {}
+            name: "name"
+            type: {}
+            account: "account"
+          ysepay_merchant:
+            division_mer_usercode: "division_mer_usercode"
         id: "0"
+        customer_id: "0"
         app_id: "0"
         updated: 6
         object: "Recipient"
@@ -10901,19 +11485,18 @@ definitions:
   v1SettlementAccountRecipient:
     type: "object"
     properties:
-      alipay_channel_recipient:
-        $ref: "#/definitions/SettlementAccountRecipientAlipayChannelRecipient"
-      bank_channel_recipient:
+      balance:
+        $ref: "#/definitions/SettlementAccountRecipientBalanceChannelRecipient"
+      bank:
         $ref: "#/definitions/SettlementAccountRecipientBankChannelRecipient"
-      wechatpay_channel_recipient:
+      payment_alipay:
+        $ref: "#/definitions/SettlementAccountRecipientAlipayChannelRecipient"
+      wechatpay:
         $ref: "#/definitions/SettlementAccountRecipientWechatpayChannelRecipient"
+      ysepay_merchant:
+        $ref: "#/definitions/SettlementAccountRecipientYsepayMerchantRecipient"
     example:
-      alipay_channel_recipient:
-        account_type: {}
-        name: "name"
-        type: {}
-        account: "account"
-      bank_channel_recipient:
+      bank:
         bank_branch: "bank_branch"
         bank_name: "bank_name"
         name: "name"
@@ -10921,11 +11504,20 @@ definitions:
         type: "type"
         account: "account"
         bank_city: "bank_city"
-      wechatpay_channel_recipient:
+      balance: {}
+      wechatpay:
+        sub_app_id: "sub_app_id"
         name: "name"
         app_id: "app_id"
         account: "account"
         force_check: false
+      payment_alipay:
+        account_type: {}
+        name: "name"
+        type: {}
+        account: "account"
+      ysepay_merchant:
+        division_mer_usercode: "division_mer_usercode"
   v1SettlementAccountResponse:
     type: "object"
     properties:
@@ -10935,16 +11527,11 @@ definitions:
         type: "string"
     example:
       data:
-        user_id: "0"
+        business_user_id: "0"
         created: 0
         channel: {}
         recipient:
-          alipay_channel_recipient:
-            account_type: {}
-            name: "name"
-            type: {}
-            account: "account"
-          bank_channel_recipient:
+          bank:
             bank_branch: "bank_branch"
             bank_name: "bank_name"
             name: "name"
@@ -10952,12 +11539,22 @@ definitions:
             type: "type"
             account: "account"
             bank_city: "bank_city"
-          wechatpay_channel_recipient:
+          balance: {}
+          wechatpay:
+            sub_app_id: "sub_app_id"
             name: "name"
             app_id: "app_id"
             account: "account"
             force_check: false
+          payment_alipay:
+            account_type: {}
+            name: "name"
+            type: {}
+            account: "account"
+          ysepay_merchant:
+            division_mer_usercode: "division_mer_usercode"
         id: "0"
+        customer_id: "0"
         app_id: "0"
         updated: 6
         object: "Recipient"
@@ -10966,6 +11563,15 @@ definitions:
     type: "object"
   v1UnionQrRequest:
     type: "object"
+    required:
+    - "amount"
+    - "appid"
+    - "browser_agent"
+    - "i"
+    - "in_app"
+    - "openid"
+    - "remark"
+    - "s"
     properties:
       amount:
         type: "number"
@@ -11009,8 +11615,25 @@ definitions:
       appid: "appid"
       i: "i"
       remark: "remark"
+  v1UpdateAndPatchRequestBody:
+    type: "object"
+    properties:
+      app_id:
+        type: "string"
+      channel:
+        $ref: "#/definitions/v1SettlementAccountChannel"
+      customer_id:
+        type: "string"
+      id:
+        type: "string"
+      recipient:
+        $ref: "#/definitions/v1SettlementAccountRecipient"
+      user_id:
+        type: "string"
   v1User:
     type: "object"
+    required:
+    - "object"
     properties:
       address:
         type: "string"
@@ -11023,7 +11646,6 @@ definitions:
         type: "string"
       created:
         type: "string"
-        format: "int64"
       currency:
         type: "string"
       description:
@@ -11042,6 +11664,8 @@ definitions:
           type: "string"
       name:
         type: "string"
+      nickname:
+        type: "string"
       object:
         type: "string"
         format: "string"
@@ -11053,7 +11677,6 @@ definitions:
         type: "string"
       updated:
         type: "string"
-        format: "int64"
       withdrawable_balance:
         type: "number"
         format: "double"
@@ -11071,6 +11694,7 @@ definitions:
       phone: "phone"
       parent_id: "parent_id"
       name: "name"
+      nickname: "nickname"
       currency: "currency"
       disabled: true
       id: "id"
@@ -11080,6 +11704,8 @@ definitions:
       object: "User"
   v1UserListResponse:
     type: "object"
+    required:
+    - "object"
     properties:
       data:
         type: "array"
@@ -11106,6 +11732,7 @@ definitions:
         phone: "phone"
         parent_id: "parent_id"
         name: "name"
+        nickname: "nickname"
         currency: "currency"
         disabled: true
         id: "id"
@@ -11125,6 +11752,7 @@ definitions:
         phone: "phone"
         parent_id: "parent_id"
         name: "name"
+        nickname: "nickname"
         currency: "currency"
         disabled: true
         id: "id"
@@ -11155,6 +11783,7 @@ definitions:
         phone: "phone"
         parent_id: "parent_id"
         name: "name"
+        nickname: "nickname"
         currency: "currency"
         disabled: true
         id: "id"

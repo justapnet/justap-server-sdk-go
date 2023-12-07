@@ -191,7 +191,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **CustomerServiceUpdateCustomer**
-> V1CustomerResponse CustomerServiceUpdateCustomer(ctx, id, optional)
+> V1CustomerResponse CustomerServiceUpdateCustomer(ctx, id)
 
 
 ### Required Parameters
@@ -200,26 +200,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **id** | **string**|  | 
- **optional** | ***CustomerServiceApiCustomerServiceUpdateCustomerOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a CustomerServiceApiCustomerServiceUpdateCustomerOpts struct
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **appId** | **optional.String**|  | 
- **address** | **optional.String**|  | 
- **currency** | **optional.String**|  | 
- **description** | **optional.String**|  | 
- **email** | **optional.String**|  | 
- **name** | **optional.String**|  | 
- **phone** | **optional.String**|  | 
- **avatar** | **optional.String**|  | 
- **disabled** | **optional.Bool**|  | 
- **gender** | **optional.String**|  - GENDER_UNKNOWN: 未设置  - MALE: 男  - FE_MALE: 女  - PRIVACY: 保密  - ThirdGender: 第三性别 | [default to GENDER_UNKNOWN]
- **parentCustomerId** | **optional.String**|  | 
- **outCustomerId** | **optional.String**|  | 
 
 ### Return type
 
