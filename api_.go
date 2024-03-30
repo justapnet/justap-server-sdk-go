@@ -179,7 +179,7 @@ func (a *DefaultApiService) BusinessUserServiceCreateUser(ctx context.Context, b
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -355,7 +355,7 @@ func (a *DefaultApiService) BusinessUserServiceDeleteUser(ctx context.Context, i
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -569,7 +569,7 @@ func (a *DefaultApiService) BusinessUserServiceListAllUsers(ctx context.Context,
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -745,7 +745,7 @@ func (a *DefaultApiService) BusinessUserServiceRetrieveUser(ctx context.Context,
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -959,7 +959,7 @@ func (a *DefaultApiService) BusinessUserServiceSearchUsers(ctx context.Context, 
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -1138,7 +1138,7 @@ func (a *DefaultApiService) BusinessUserServiceUpdateUser(ctx context.Context, u
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -1317,7 +1317,7 @@ func (a *DefaultApiService) BusinessUserServiceUpdateUser2(ctx context.Context, 
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -1484,7 +1484,7 @@ func (a *DefaultApiService) ChargeServiceCharges(ctx context.Context, body V1Cre
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -1651,7 +1651,7 @@ func (a *DefaultApiService) ChargeServiceCharges2(ctx context.Context, body V1Cr
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -1674,12 +1674,14 @@ DefaultApiService 查询 Charge 对象
  * @param chargeId [REQUIRED] Charge 对象 id
  * @param optional nil or *DefaultApiChargeServiceQueryChargeOpts - Optional Parameters:
      * @param "AppId" (optional.String) -  [REQUIRED] 应用 id
+     * @param "MerchantTradeId" (optional.String) -  [OPTIONAL] 商户订单号
 
 @return V1ChargeResponse
 */
 
 type DefaultApiChargeServiceQueryChargeOpts struct { 
 	AppId optional.String
+	MerchantTradeId optional.String
 }
 
 func (a *DefaultApiService) ChargeServiceQueryCharge(ctx context.Context, chargeId string, localVarOptionals *DefaultApiChargeServiceQueryChargeOpts) (V1ChargeResponse, *http.Response, error) {
@@ -1702,6 +1704,9 @@ func (a *DefaultApiService) ChargeServiceQueryCharge(ctx context.Context, charge
 	if localVarOptionals != nil && localVarOptionals.AppId.IsSet() {
 		localVarQueryParams.Add("app_id", parameterToString(localVarOptionals.AppId.Value(), ""))
 	}
+	if localVarOptionals != nil && localVarOptionals.MerchantTradeId.IsSet() {
+		localVarQueryParams.Add("merchant_trade_id", parameterToString(localVarOptionals.MerchantTradeId.Value(), ""))
+	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{"application/json"}
 
@@ -1827,7 +1832,7 @@ func (a *DefaultApiService) ChargeServiceQueryCharge(ctx context.Context, charge
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -1850,12 +1855,14 @@ DefaultApiService 查询 Charge 对象
  * @param chargeId [REQUIRED] Charge 对象 id
  * @param optional nil or *DefaultApiChargeServiceQueryCharge2Opts - Optional Parameters:
      * @param "AppId" (optional.String) -  [REQUIRED] 应用 id
+     * @param "MerchantTradeId" (optional.String) -  [OPTIONAL] 商户订单号
 
 @return V1ChargeResponse
 */
 
 type DefaultApiChargeServiceQueryCharge2Opts struct { 
 	AppId optional.String
+	MerchantTradeId optional.String
 }
 
 func (a *DefaultApiService) ChargeServiceQueryCharge2(ctx context.Context, chargeId string, localVarOptionals *DefaultApiChargeServiceQueryCharge2Opts) (V1ChargeResponse, *http.Response, error) {
@@ -1875,6 +1882,190 @@ func (a *DefaultApiService) ChargeServiceQueryCharge2(ctx context.Context, charg
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if localVarOptionals != nil && localVarOptionals.AppId.IsSet() {
+		localVarQueryParams.Add("app_id", parameterToString(localVarOptionals.AppId.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.MerchantTradeId.IsSet() {
+		localVarQueryParams.Add("merchant_trade_id", parameterToString(localVarOptionals.MerchantTradeId.Value(), ""))
+	}
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	}
+	if ctx != nil {
+		// API Key Authentication
+		if auth, ok := ctx.Value(ContextAPIKey).(APIKey); ok {
+			var key string
+			if auth.Prefix != "" {
+				key = auth.Prefix + " " + auth.Key
+			} else {
+				key = auth.Key
+			}
+			localVarHeaderParams["X-JUSTAP-API-KEY"] = key
+			
+		}
+	}
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHttpResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
+	localVarHttpResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode < 300 {
+		// If we succeed, return the data, otherwise pass on to decode error.
+		err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		newErr := GenericSwaggerError{
+			body: localVarBody,
+			error: localVarHttpResponse.Status,
+		}
+		
+		if localVarHttpResponse.StatusCode == 200 {
+			var v V1ChargeResponse
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHttpResponse, newErr
+				}
+				newErr.model = v
+				return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		
+		if localVarHttpResponse.StatusCode == 401 {
+			var v RpcStatus
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHttpResponse, newErr
+				}
+				newErr.model = v
+				return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		
+		if localVarHttpResponse.StatusCode == 403 {
+			var v RpcStatus
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHttpResponse, newErr
+				}
+				newErr.model = v
+				return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		
+		if localVarHttpResponse.StatusCode == 404 {
+			var v RpcStatus
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHttpResponse, newErr
+				}
+				newErr.model = v
+				return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		
+		if localVarHttpResponse.StatusCode == 500 {
+			var v RpcStatus
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHttpResponse, newErr
+				}
+				newErr.model = v
+				return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		
+		if localVarHttpResponse.StatusCode == 503 {
+			var v RpcStatus
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHttpResponse, newErr
+				}
+				newErr.model = v
+				return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		
+		if localVarHttpResponse.StatusCode == 0 {
+			var v GooglerpcStatus
+			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHttpResponse, newErr
+				}
+				newErr.model = v
+				return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		
+		return localVarReturnValue, localVarHttpResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHttpResponse, nil
+}
+
+/*
+DefaultApiService 查询 Charge 对象
+你可以在后台异步通知之前，通过查询接口确认支付状态。通过charge对象的id查询一个已创建的charge对象。
+ * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param merchantTradeId [OPTIONAL] 商户订单号
+ * @param optional nil or *DefaultApiChargeServiceQueryCharge3Opts - Optional Parameters:
+     * @param "ChargeId" (optional.String) -  [REQUIRED] Charge 对象 id
+     * @param "AppId" (optional.String) -  [REQUIRED] 应用 id
+
+@return V1ChargeResponse
+*/
+
+type DefaultApiChargeServiceQueryCharge3Opts struct { 
+	ChargeId optional.String
+	AppId optional.String
+}
+
+func (a *DefaultApiService) ChargeServiceQueryCharge3(ctx context.Context, merchantTradeId string, localVarOptionals *DefaultApiChargeServiceQueryCharge3Opts) (V1ChargeResponse, *http.Response, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Get")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
+		localVarReturnValue V1ChargeResponse
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/v1/charges/merchant_trade_id/{merchant_trade_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"merchant_trade_id"+"}", fmt.Sprintf("%v", merchantTradeId), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if localVarOptionals != nil && localVarOptionals.ChargeId.IsSet() {
+		localVarQueryParams.Add("charge_id", parameterToString(localVarOptionals.ChargeId.Value(), ""))
+	}
 	if localVarOptionals != nil && localVarOptionals.AppId.IsSet() {
 		localVarQueryParams.Add("app_id", parameterToString(localVarOptionals.AppId.Value(), ""))
 	}
@@ -2003,7 +2194,7 @@ func (a *DefaultApiService) ChargeServiceQueryCharge2(ctx context.Context, charg
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -2247,7 +2438,7 @@ func (a *DefaultApiService) ChargeServiceQueryChargeList(ctx context.Context, lo
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -2491,7 +2682,7 @@ func (a *DefaultApiService) ChargeServiceQueryChargeList2(ctx context.Context, l
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -2657,7 +2848,7 @@ func (a *DefaultApiService) ChargeServiceReverseCharge(ctx context.Context, char
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -2823,7 +3014,7 @@ func (a *DefaultApiService) ChargeServiceReverseCharge2(ctx context.Context, cha
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -3001,7 +3192,7 @@ func (a *DefaultApiService) RefundServiceQueryRefund(ctx context.Context, charge
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -3182,7 +3373,7 @@ func (a *DefaultApiService) RefundServiceQueryRefund2(ctx context.Context, refun
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -3373,7 +3564,7 @@ func (a *DefaultApiService) RefundServiceQueryRefundList(ctx context.Context, ch
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -3567,7 +3758,7 @@ func (a *DefaultApiService) RefundServiceQueryRefundList2(ctx context.Context, l
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -3734,7 +3925,7 @@ func (a *DefaultApiService) RefundServiceRefunds(ctx context.Context, body V1Cre
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -3901,7 +4092,7 @@ func (a *DefaultApiService) RefundServiceRefunds2(ctx context.Context, body V1Cr
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -4068,7 +4259,7 @@ func (a *DefaultApiService) RoyaltyServiceCreateRoyalty(ctx context.Context, bod
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -4292,7 +4483,7 @@ func (a *DefaultApiService) RoyaltyServiceListAllRoyalties(ctx context.Context, 
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -4458,7 +4649,7 @@ func (a *DefaultApiService) RoyaltyServiceRetrieveRoyalty(ctx context.Context, i
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -4625,7 +4816,7 @@ func (a *DefaultApiService) SettlementServiceCreateSettlementAccount(ctx context
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -4801,7 +4992,7 @@ func (a *DefaultApiService) SettlementServiceDeleteSettlementAccount(ctx context
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -5025,7 +5216,7 @@ func (a *DefaultApiService) SettlementServiceListAllSettlementAccounts(ctx conte
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -5341,7 +5532,7 @@ func (a *DefaultApiService) SettlementServiceRetrieveSettlementAccount(ctx conte
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -5520,7 +5711,7 @@ func (a *DefaultApiService) SettlementServiceSearchSettlementAccounts(ctx contex
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -5699,7 +5890,7 @@ func (a *DefaultApiService) SettlementServiceUpdateSettlementAccount(ctx context
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -5878,7 +6069,7 @@ func (a *DefaultApiService) SettlementServiceUpdateSettlementAccount2(ctx contex
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()

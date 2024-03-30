@@ -5,6 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AlipayApp** | [***V1ExtraAlipayApp**](v1ExtraAlipayApp.md) | 支付宝 App 支付渠道元数据 | [optional] [default to null]
 **AlipayFace** | [***V1ExtraAlipayFace**](v1ExtraAlipayFace.md) | 支付宝 刷脸 支付渠道元数据 | [optional] [default to null]
+**AlipayJsapi** | [***V1ExtraAlipayJsapi**](v1ExtraAlipayJSAPI.md) | 支付宝 JSAPI 支付渠道元数据 | [optional] [default to null]
 **AlipayLite** | [***V1ExtraAlipayLite**](v1ExtraAlipayLite.md) | 支付宝 小程序 支付渠道元数据 | [optional] [default to null]
 **AlipayPage** | [***V1ExtraAlipayPage**](v1ExtraAlipayPage.md) | 支付宝 电脑网站 支付渠道元数据 | [optional] [default to null]
 **AlipayQr** | [***V1ExtraAlipayQr**](v1ExtraAlipayQr.md) | 支付宝 当面付 支付渠道元数据 | [optional] [default to null]

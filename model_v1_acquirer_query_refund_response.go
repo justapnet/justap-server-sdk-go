@@ -11,4 +11,9 @@
 package justap
 
 type V1AcquirerQueryRefundResponse struct {
+	// 支付单 ID
+	ChargeId int64 `json:"charge_id"`
+	Error_ *V1ServiceError `json:"error,omitempty"`
+	// 退款单号
+	RefundId int64 `json:"refund_id"`
 }

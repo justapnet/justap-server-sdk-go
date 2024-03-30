@@ -12,7 +12,7 @@ package justap
 
 type V1ListAllRoyaltiesResponse struct {
 	// 分账列表
-	Data *V1Royalty `json:"data"`
+	Data []V1Royalty `json:"data"`
 	// 是否还有更多
 	HasMore bool `json:"has_more"`
 	// 对象类型

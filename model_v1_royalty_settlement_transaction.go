@@ -27,7 +27,7 @@ type V1RoyaltySettlementTransaction struct {
 	RecipientUserId string `json:"recipient_user_id"`
 	RoyaltySettlementId string `json:"royalty_settlement_id,omitempty"`
 	// 结算状态
-	Status string `json:"status"`
+	Status *RoyaltySettlementTransactionRoyaltyTransactionStatus `json:"status,omitempty"`
 	// 支付平分账处理流水 ID
 	TransferId string `json:"transfer_id"`
 	// 接收方用户结算账户 ID

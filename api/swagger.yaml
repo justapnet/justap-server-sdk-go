@@ -59,12 +59,12 @@ info:
     url: "https://www.justap.cn/assets/img/logo/logo-developer.svg"
 host: "127.0.0.1:21011"
 tags:
-- name: "开源聚合®支付"
+- name: "结算账户"
 - name: "商业用户"
 - name: "CheckoutService"
-- name: "统一分账"
 - name: "CustomerService"
-- name: "结算账户"
+- name: "开源聚合®支付"
+- name: "统一分账"
 schemes:
 - "http"
 consumes:
@@ -264,7 +264,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
     post:
       tags:
       - "开源聚合®支付"
@@ -307,7 +307,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
   /transaction/v1/charges/{charge_id}:
     get:
       tags:
@@ -329,6 +329,14 @@ paths:
         type: "string"
         format: "string"
         x-exportParamName: "AppId"
+        x-optionalDataType: "String"
+      - name: "merchant_trade_id"
+        in: "query"
+        description: "[OPTIONAL] 商户订单号"
+        required: false
+        type: "string"
+        format: "string"
+        x-exportParamName: "MerchantTradeId"
         x-optionalDataType: "String"
       responses:
         "200":
@@ -358,7 +366,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
   /transaction/v1/charges/{charge_id}/refunds:
     get:
       tags:
@@ -437,7 +445,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
   /transaction/v1/charges/{charge_id}/refunds/{refund_id}:
     get:
       tags:
@@ -495,7 +503,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
   /transaction/v1/charges/{charge_id}/reverse:
     post:
       tags:
@@ -542,7 +550,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
   /transaction/v1/refunds:
     post:
       tags:
@@ -586,7 +594,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
   /v1/business_users:
     get:
       tags:
@@ -699,7 +707,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
     post:
       tags:
       - "商业用户"
@@ -741,7 +749,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
   /v1/business_users/search:
     get:
       tags:
@@ -850,7 +858,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
   /v1/business_users/{id}:
     get:
       tags:
@@ -898,7 +906,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
     delete:
       tags:
       - "商业用户"
@@ -945,7 +953,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
   /v1/business_users/{user.id}:
     put:
       tags:
@@ -999,7 +1007,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
     patch:
       tags:
       - "商业用户"
@@ -1052,7 +1060,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
   /v1/charges:
     get:
       tags:
@@ -1243,7 +1251,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
     post:
       tags:
       - "开源聚合®支付"
@@ -1286,21 +1294,29 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
-  /v1/charges/{charge_id}:
+            $ref: "#/definitions/googlerpcStatus"
+  /v1/charges/merchant_trade_id/{merchant_trade_id}:
     get:
       tags:
       - "开源聚合®支付"
       summary: "查询 Charge 对象"
       description: "你可以在后台异步通知之前，通过查询接口确认支付状态。通过charge对象的id查询一个已创建的charge对象。"
-      operationId: "ChargeService_QueryCharge2"
+      operationId: "ChargeService_QueryCharge3"
       parameters:
-      - name: "charge_id"
+      - name: "merchant_trade_id"
         in: "path"
-        description: "[REQUIRED] Charge 对象 id"
+        description: "[OPTIONAL] 商户订单号"
         required: true
         type: "string"
+        x-exportParamName: "MerchantTradeId"
+      - name: "charge_id"
+        in: "query"
+        description: "[REQUIRED] Charge 对象 id"
+        required: false
+        type: "string"
+        format: "string"
         x-exportParamName: "ChargeId"
+        x-optionalDataType: "String"
       - name: "app_id"
         in: "query"
         description: "[REQUIRED] 应用 id"
@@ -1337,7 +1353,66 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
+            $ref: "#/definitions/googlerpcStatus"
+  /v1/charges/{charge_id}:
+    get:
+      tags:
+      - "开源聚合®支付"
+      summary: "查询 Charge 对象"
+      description: "你可以在后台异步通知之前，通过查询接口确认支付状态。通过charge对象的id查询一个已创建的charge对象。"
+      operationId: "ChargeService_QueryCharge2"
+      parameters:
+      - name: "charge_id"
+        in: "path"
+        description: "[REQUIRED] Charge 对象 id"
+        required: true
+        type: "string"
+        x-exportParamName: "ChargeId"
+      - name: "app_id"
+        in: "query"
+        description: "[REQUIRED] 应用 id"
+        required: false
+        type: "string"
+        format: "string"
+        x-exportParamName: "AppId"
+        x-optionalDataType: "String"
+      - name: "merchant_trade_id"
+        in: "query"
+        description: "[OPTIONAL] 商户订单号"
+        required: false
+        type: "string"
+        format: "string"
+        x-exportParamName: "MerchantTradeId"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "A successful response."
+          schema:
+            $ref: "#/definitions/v1ChargeResponse"
+        "401":
+          description: "表示认证信息错误或签名错误"
+          schema:
             $ref: "#/definitions/rpcStatus"
+        "403":
+          description: "表示无权限访问该资源"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "404":
+          description: "表示该资源未找到"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "500":
+          description: "表示服务器在处理请求时出错"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        "503":
+          description: "表示服务器暂时无法处理请求"
+          schema:
+            $ref: "#/definitions/rpcStatus"
+        default:
+          description: "An unexpected error response."
+          schema:
+            $ref: "#/definitions/googlerpcStatus"
   /v1/charges/{charge_id}/reverse:
     post:
       tags:
@@ -1384,7 +1459,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
   /v1/checkout/union_qr:
     post:
       tags:
@@ -1426,7 +1501,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
   /v1/customers:
     get:
       tags:
@@ -1537,7 +1612,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
     post:
       tags:
       - "CustomerService"
@@ -1577,7 +1652,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
   /v1/customers/search:
     get:
       tags:
@@ -1684,7 +1759,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
   /v1/customers/{id}:
     get:
       tags:
@@ -1730,7 +1805,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
     post:
       tags:
       - "CustomerService"
@@ -1769,7 +1844,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
     delete:
       tags:
       - "CustomerService"
@@ -1814,7 +1889,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
   /v1/refunds:
     get:
       tags:
@@ -1895,7 +1970,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
     post:
       tags:
       - "开源聚合®支付"
@@ -1938,7 +2013,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
   /v1/refunds/{refund_id}:
     get:
       tags:
@@ -1998,7 +2073,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
   /v1/royalties:
     get:
       tags:
@@ -2124,7 +2199,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
     post:
       tags:
       - "统一分账"
@@ -2167,7 +2242,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
   /v1/royalties/{id}:
     get:
       tags:
@@ -2209,7 +2284,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
   /v1/settlement_accounts:
     get:
       tags:
@@ -2336,7 +2411,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
     post:
       tags:
       - "结算账户"
@@ -2378,7 +2453,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
   /v1/settlement_accounts/search:
     get:
       tags:
@@ -2427,7 +2502,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
   /v1/settlement_accounts/{id}:
     get:
       tags:
@@ -2741,7 +2816,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
     delete:
       tags:
       - "结算账户"
@@ -2788,7 +2863,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
   /v1/settlement_accounts/{settlementAccount.id}:
     put:
       tags:
@@ -2842,7 +2917,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
     patch:
       tags:
       - "结算账户"
@@ -2895,7 +2970,7 @@ paths:
         default:
           description: "An unexpected error response."
           schema:
-            $ref: "#/definitions/rpcStatus"
+            $ref: "#/definitions/googlerpcStatus"
 securityDefinitions:
   ApiKeyAuth:
     description: "在调用 API 时，必须提供 API Key 作为每个请求的身份验证。你可以在管理平台内管理你的 API Key。API Key\
@@ -2975,6 +3050,17 @@ definitions:
       tax_num: "tax_num"
       is_support_invoice: true
       invoice_merchant_name: "invoice_merchant_name"
+  ExtraAlipayJSAPIPayer:
+    type: "object"
+    required:
+    - "user_id"
+    properties:
+      user_id:
+        type: "string"
+        format: "string"
+        description: "支付宝用户ID"
+    example:
+      user_id: "user_id"
   ExtraAlipaySettleInfoSettleDetailInfos:
     type: "object"
     properties:
@@ -3268,6 +3354,16 @@ definitions:
     - "PENDING"
     - "COMPLETED"
     default: "RoyaltySettlementStatusUnset"
+  RoyaltySettlementTransactionRoyaltyTransactionStatus:
+    type: "string"
+    title: "单条分账的结算状态\n由支付平台返回"
+    enum:
+    - "UNKNOWN"
+    - "SUCCESS"
+    - "PENDING"
+    - "FAILED"
+    - "CLOSED"
+    default: "UNKNOWN"
   SettlementAccountRecipientAccountType:
     type: "string"
     title: "微信支付的分账接收方账户类型:\n     1、MERCHANT_ID：商户号\n     2、OPENID：个人openid（由父商户APPID转\
@@ -3420,6 +3516,18 @@ definitions:
         description: "银盛商户号"
     example:
       division_mer_usercode: "division_mer_usercode"
+  googlerpcStatus:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      details:
+        type: "array"
+        items:
+          $ref: "#/definitions/protobufAny"
+      message:
+        type: "string"
   protobufAny:
     type: "object"
     properties:
@@ -3452,22 +3560,20 @@ definitions:
       \    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\nExample 2: Pack\
       \ and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n\
       \    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n\
-      \    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n\
-      \      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\nExample 3: Pack\
-      \ and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n \
-      \   any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n\
-      \      ...\n\nExample 4: Pack and unpack a message in Go\n\n     foo := &pb.Foo{...}\n\
-      \     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n\
-      \     ...\n     foo := &pb.Foo{}\n     if err := any.UnmarshalTo(foo); err !=\
-      \ nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library\
-      \ will by default use\n'type.googleapis.com/full.type.name' as the type URL\
-      \ and the unpack\nmethods only use the fully qualified type name after the last\
-      \ '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\n\
-      name \"y.z\".\n\nJSON\n\nThe JSON representation of an `Any` value uses the\
-      \ regular\nrepresentation of the deserialized, embedded message, with an\nadditional\
-      \ field `@type` which contains the type URL. Example:\n\n    package google.profile;\n\
-      \    message Person {\n      string first_name = 1;\n      string last_name\
-      \ = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\"\
+      \    }\n\nExample 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n\
+      \    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n\
+      \      any.Unpack(foo)\n      ...\n\nExample 4: Pack and unpack a message in\
+      \ Go\n\n     foo := &pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err\
+      \ != nil {\n       ...\n     }\n     ...\n     foo := &pb.Foo{}\n     if err\
+      \ := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods\
+      \ provided by protobuf library will by default use\n'type.googleapis.com/full.type.name'\
+      \ as the type URL and the unpack\nmethods only use the fully qualified type\
+      \ name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\"\
+      \ will yield type\nname \"y.z\".\n\n\nJSON\n\nThe JSON representation of an\
+      \ `Any` value uses the regular\nrepresentation of the deserialized, embedded\
+      \ message, with an\nadditional field `@type` which contains the type URL. Example:\n\
+      \n    package google.profile;\n    message Person {\n      string first_name\
+      \ = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\"\
       ,\n      \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf\
       \ the embedded message type is well-known and has a custom JSON\nrepresentation,\
       \ that representation will be embedded adding a field\n`value` which holds the\
@@ -3477,18 +3583,6 @@ definitions:
     example:
       '@type': "@type"
     additionalProperties: {}
-  rpcStatus:
-    type: "object"
-    properties:
-      code:
-        type: "integer"
-        format: "int32"
-      details:
-        type: "array"
-        items:
-          $ref: "#/definitions/protobufAny"
-      message:
-        type: "string"
   tradev1Channel:
     type: "string"
     title: "支付渠道枚举值"
@@ -3533,6 +3627,22 @@ definitions:
     type: "object"
   v1AcquirerCreateRefundResponse:
     type: "object"
+    required:
+    - "charge_id"
+    - "refund_id"
+    properties:
+      charge_id:
+        type: "integer"
+        format: "int64"
+        description: "支付单 ID"
+        default: 0
+      error:
+        $ref: "#/definitions/v1ServiceError"
+      refund_id:
+        type: "integer"
+        format: "int64"
+        description: "退款单号"
+        default: 0
   v1AcquirerCreateRoyaltyResponse:
     type: "object"
     required:
@@ -3567,6 +3677,22 @@ definitions:
     type: "object"
   v1AcquirerQueryRefundResponse:
     type: "object"
+    required:
+    - "charge_id"
+    - "refund_id"
+    properties:
+      charge_id:
+        type: "integer"
+        format: "int64"
+        description: "支付单 ID"
+        default: 0
+      error:
+        $ref: "#/definitions/v1ServiceError"
+      refund_id:
+        type: "integer"
+        format: "int64"
+        description: "退款单号"
+        default: 0
   v1AcquirerQueryRoyaltyResponse:
     type: "object"
     properties:
@@ -4343,6 +4469,10 @@ definitions:
               package_name: "package_name"
               type: "type"
             payer_client_ip: "payer_client_ip"
+        alipay_jsapi:
+          payer:
+            user_id: "user_id"
+          prepay_id: "prepay_id"
         alipay_page:
           store_id: "store_id"
           extend_params:
@@ -4584,6 +4714,9 @@ definitions:
       alipay_face:
         description: "支付宝 刷脸 支付渠道元数据"
         $ref: "#/definitions/v1ExtraAlipayFace"
+      alipay_jsapi:
+        description: "支付宝 JSAPI 支付渠道元数据"
+        $ref: "#/definitions/v1ExtraAlipayJSAPI"
       alipay_lite:
         description: "支付宝 小程序 支付渠道元数据"
         $ref: "#/definitions/v1ExtraAlipayLite"
@@ -4963,6 +5096,10 @@ definitions:
             package_name: "package_name"
             type: "type"
           payer_client_ip: "payer_client_ip"
+      alipay_jsapi:
+        payer:
+          user_id: "user_id"
+        prepay_id: "prepay_id"
       alipay_page:
         store_id: "store_id"
         extend_params:
@@ -5727,6 +5864,10 @@ definitions:
                 package_name: "package_name"
                 type: "type"
               payer_client_ip: "payer_client_ip"
+          alipay_jsapi:
+            payer:
+              user_id: "user_id"
+            prepay_id: "prepay_id"
           alipay_page:
             store_id: "store_id"
             extend_params:
@@ -6492,6 +6633,10 @@ definitions:
                 package_name: "package_name"
                 type: "type"
               payer_client_ip: "payer_client_ip"
+          alipay_jsapi:
+            payer:
+              user_id: "user_id"
+            prepay_id: "prepay_id"
           alipay_page:
             store_id: "store_id"
             extend_params:
@@ -7276,6 +7421,10 @@ definitions:
                 package_name: "package_name"
                 type: "type"
               payer_client_ip: "payer_client_ip"
+          alipay_jsapi:
+            payer:
+              user_id: "user_id"
+            prepay_id: "prepay_id"
           alipay_page:
             store_id: "store_id"
             extend_params:
@@ -7620,6 +7769,9 @@ definitions:
       alipay_face:
         description: "支付宝刷脸支付元数据"
         $ref: "#/definitions/v1ExtraAlipayFace"
+      alipay_jsapi:
+        description: "支付宝 JSAPI 支付元数据"
+        $ref: "#/definitions/v1ExtraAlipayJSAPI"
       alipay_lite:
         description: "支付宝小程序支付元数据"
         $ref: "#/definitions/v1ExtraAlipayLite"
@@ -8376,6 +8528,22 @@ definitions:
         is_support_invoice: true
         invoice_merchant_name: "invoice_merchant_name"
       details: "details"
+  v1ExtraAlipayJSAPI:
+    type: "object"
+    required:
+    - "prepay_id"
+    properties:
+      payer:
+        description: "付款用户信息"
+        $ref: "#/definitions/ExtraAlipayJSAPIPayer"
+      prepay_id:
+        type: "string"
+        format: "string"
+        description: "预支付交易会话标识"
+    example:
+      payer:
+        user_id: "user_id"
+      prepay_id: "prepay_id"
   v1ExtraAlipayLite:
     type: "object"
     required:
@@ -10040,8 +10208,10 @@ definitions:
     - "object"
     properties:
       data:
+        type: "array"
         description: "分账列表"
-        $ref: "#/definitions/v1Royalty"
+        items:
+          $ref: "#/definitions/v1Royalty"
       has_more:
         type: "boolean"
         description: "是否还有更多"
@@ -10053,24 +10223,38 @@ definitions:
         default: "RoyaltyList"
     example:
       data:
-        amount: 0.8008282
-        metadata:
+      - metadata:
           key: "metadata"
         livemode: true
         method: {}
-        created: 6
+        created: 0
         description: "description"
         royalty_settlement_id: "royalty_settlement_id"
         payer_settle_account_id: "payer_settle_account_id"
-        royalty_settlement_transaction_id: "royalty_settlement_transaction_id"
         payer_app_id: "payer_app_id"
         charge_id: "charge_id"
-        time_settled: 1
+        time_settled: 6
         id: "id"
         order_id: "order_id"
         payer_user_id: "payer_user_id"
         object: "Royalty"
-        status: "status"
+        status: {}
+      - metadata:
+          key: "metadata"
+        livemode: true
+        method: {}
+        created: 0
+        description: "description"
+        royalty_settlement_id: "royalty_settlement_id"
+        payer_settle_account_id: "payer_settle_account_id"
+        payer_app_id: "payer_app_id"
+        charge_id: "charge_id"
+        time_settled: 6
+        id: "id"
+        order_id: "order_id"
+        payer_user_id: "payer_user_id"
+        object: "Royalty"
+        status: {}
       has_more: false
       object: "RoyaltyList"
   v1ListAllSettlementAccountsRequestCreated:
@@ -10830,7 +11014,6 @@ definitions:
   v1Royalty:
     type: "object"
     required:
-    - "amount"
     - "charge_id"
     - "created"
     - "description"
@@ -10846,10 +11029,6 @@ definitions:
     - "status"
     - "time_settled"
     properties:
-      amount:
-        type: "number"
-        format: "float"
-        description: "分账金额"
       charge_id:
         type: "string"
         format: "string"
@@ -10902,36 +11081,31 @@ definitions:
         type: "string"
         format: "string"
         description: "分账结算单 ID"
-      royalty_settlement_transaction_id:
-        type: "string"
       status:
-        type: "string"
-        format: "string"
         description: "分账状态"
+        $ref: "#/definitions/v1RoyaltyStatus"
       time_settled:
         type: "integer"
         format: "int64"
         description: "分账完成时间"
         default: 0
     example:
-      amount: 0.8008282
       metadata:
         key: "metadata"
       livemode: true
       method: {}
-      created: 6
+      created: 0
       description: "description"
       royalty_settlement_id: "royalty_settlement_id"
       payer_settle_account_id: "payer_settle_account_id"
-      royalty_settlement_transaction_id: "royalty_settlement_transaction_id"
       payer_app_id: "payer_app_id"
       charge_id: "charge_id"
-      time_settled: 1
+      time_settled: 6
       id: "id"
       order_id: "order_id"
       payer_user_id: "payer_user_id"
       object: "Royalty"
-      status: "status"
+      status: {}
   v1RoyaltyResponse:
     type: "object"
     required:
@@ -10946,24 +11120,22 @@ definitions:
         default: "Royalty"
     example:
       data:
-        amount: 0.8008282
         metadata:
           key: "metadata"
         livemode: true
         method: {}
-        created: 6
+        created: 0
         description: "description"
         royalty_settlement_id: "royalty_settlement_id"
         payer_settle_account_id: "payer_settle_account_id"
-        royalty_settlement_transaction_id: "royalty_settlement_transaction_id"
         payer_app_id: "payer_app_id"
         charge_id: "charge_id"
-        time_settled: 1
+        time_settled: 6
         id: "id"
         order_id: "order_id"
         payer_user_id: "payer_user_id"
         object: "Royalty"
-        status: "status"
+        status: {}
       object: "Royalty"
   v1RoyaltyRoutingRequestRoyaltyMethod:
     type: "string"
@@ -11151,7 +11323,6 @@ definitions:
     - "object"
     - "recipient_app_id"
     - "recipient_user_id"
-    - "status"
     - "transfer_id"
     - "user_settlement_account_id"
     properties:
@@ -11188,9 +11359,8 @@ definitions:
       royalty_settlement_id:
         type: "string"
       status:
-        type: "string"
-        format: "string"
         description: "结算状态"
+        $ref: "#/definitions/RoyaltySettlementTransactionRoyaltyTransactionStatus"
       transfer_id:
         type: "string"
         format: "string"
@@ -11215,6 +11385,13 @@ definitions:
         $ref: "#/definitions/v1RoyaltySettlementTransaction"
       object:
         type: "string"
+  v1RoyaltyStatus:
+    type: "string"
+    enum:
+    - "RoyaltyStatusUnknown"
+    - "Processing"
+    - "Finished"
+    default: "RoyaltyStatusUnknown"
   v1SearchCustomersRequestCreated:
     type: "object"
     required:

@@ -178,7 +178,7 @@ func (a *CustomerServiceApiService) CustomerServiceCreateCustomer(ctx context.Co
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -353,7 +353,7 @@ func (a *CustomerServiceApiService) CustomerServiceDeleteCustomer(ctx context.Co
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -566,7 +566,7 @@ func (a *CustomerServiceApiService) CustomerServiceListAllCustomers(ctx context.
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -741,7 +741,7 @@ func (a *CustomerServiceApiService) CustomerServiceRetrieveCustomer(ctx context.
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -954,7 +954,7 @@ func (a *CustomerServiceApiService) CustomerServiceSearchCustomers(ctx context.C
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -1119,7 +1119,7 @@ func (a *CustomerServiceApiService) CustomerServiceUpdateCustomer(ctx context.Co
 		}
 		
 		if localVarHttpResponse.StatusCode == 0 {
-			var v RpcStatus
+			var v GooglerpcStatus
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()

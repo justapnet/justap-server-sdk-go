@@ -15,6 +15,8 @@ type V1ChargeExtra struct {
 	AlipayApp *V1ExtraAlipayApp `json:"alipay_app,omitempty"`
 	// 支付宝 刷脸 支付渠道元数据
 	AlipayFace *V1ExtraAlipayFace `json:"alipay_face,omitempty"`
+	// 支付宝 JSAPI 支付渠道元数据
+	AlipayJsapi *V1ExtraAlipayJsapi `json:"alipay_jsapi,omitempty"`
 	// 支付宝 小程序 支付渠道元数据
 	AlipayLite *V1ExtraAlipayLite `json:"alipay_lite,omitempty"`
 	// 支付宝 电脑网站 支付渠道元数据

@@ -15,6 +15,7 @@ Method | HTTP request | Description
 [**ChargeServiceCharges2**](DefaultApi.md#ChargeServiceCharges2) | **Post** /v1/charges | 创建 Charge 对象
 [**ChargeServiceQueryCharge**](DefaultApi.md#ChargeServiceQueryCharge) | **Get** /transaction/v1/charges/{charge_id} | 查询 Charge 对象
 [**ChargeServiceQueryCharge2**](DefaultApi.md#ChargeServiceQueryCharge2) | **Get** /v1/charges/{charge_id} | 查询 Charge 对象
+[**ChargeServiceQueryCharge3**](DefaultApi.md#ChargeServiceQueryCharge3) | **Get** /v1/charges/merchant_trade_id/{merchant_trade_id} | 查询 Charge 对象
 [**ChargeServiceQueryChargeList**](DefaultApi.md#ChargeServiceQueryChargeList) | **Get** /transaction/v1/charges | 查询 Charge 对象列表
 [**ChargeServiceQueryChargeList2**](DefaultApi.md#ChargeServiceQueryChargeList2) | **Get** /v1/charges | 查询 Charge 对象列表
 [**ChargeServiceReverseCharge**](DefaultApi.md#ChargeServiceReverseCharge) | **Post** /transaction/v1/charges/{charge_id}/reverse | 撤销 Charge 对象
@@ -380,6 +381,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **appId** | **optional.String**| [REQUIRED] 应用 id | 
+ **merchantTradeId** | **optional.String**| [OPTIONAL] 商户订单号 | 
 
 ### Return type
 
@@ -416,6 +418,45 @@ Optional parameters are passed through a pointer to a DefaultApiChargeServiceQue
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **appId** | **optional.String**| [REQUIRED] 应用 id | 
+ **merchantTradeId** | **optional.String**| [OPTIONAL] 商户订单号 | 
+
+### Return type
+
+[**V1ChargeResponse**](v1ChargeResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **ChargeServiceQueryCharge3**
+> V1ChargeResponse ChargeServiceQueryCharge3(ctx, merchantTradeId, optional)
+查询 Charge 对象
+
+你可以在后台异步通知之前，通过查询接口确认支付状态。通过charge对象的id查询一个已创建的charge对象。
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **merchantTradeId** | **string**| [OPTIONAL] 商户订单号 | 
+ **optional** | ***DefaultApiChargeServiceQueryCharge3Opts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a pointer to a DefaultApiChargeServiceQueryCharge3Opts struct
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **chargeId** | **optional.String**| [REQUIRED] Charge 对象 id | 
  **appId** | **optional.String**| [REQUIRED] 应用 id | 
 
 ### Return type

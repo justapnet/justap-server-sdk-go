@@ -11,8 +11,6 @@
 package justap
 
 type V1Royalty struct {
-	// 分账金额
-	Amount float32 `json:"amount"`
 	// Charge ID
 	ChargeId string `json:"charge_id"`
 	// 创建时间
@@ -38,9 +36,8 @@ type V1Royalty struct {
 	PayerUserId string `json:"payer_user_id"`
 	// 分账结算单 ID
 	RoyaltySettlementId string `json:"royalty_settlement_id"`
-	RoyaltySettlementTransactionId string `json:"royalty_settlement_transaction_id,omitempty"`
 	// 分账状态
-	Status string `json:"status"`
+	Status *V1RoyaltyStatus `json:"status"`
 	// 分账完成时间
 	TimeSettled int64 `json:"time_settled"`
 }

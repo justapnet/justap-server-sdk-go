@@ -3,7 +3,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Amount** | **float32** | 分账金额 | [default to null]
 **ChargeId** | **string** | Charge ID | [default to null]
 **Created** | **int64** | 创建时间 | [default to 0]
 **Description** | **string** | 分账的原因描述，分账账单中需要体现，不超过 80 个字符 | [default to null]
@@ -17,8 +16,7 @@ Name | Type | Description | Notes
 **PayerSettleAccountId** | **string** | 付款方结算账户 ID | [default to null]
 **PayerUserId** | **string** | 付款方用户 ID | [default to null]
 **RoyaltySettlementId** | **string** | 分账结算单 ID | [default to null]
-**RoyaltySettlementTransactionId** | **string** |  | [optional] [default to null]
-**Status** | **string** | 分账状态 | [default to null]
+**Status** | [***V1RoyaltyStatus**](v1RoyaltyStatus.md) | 分账状态 | [default to null]
 **TimeSettled** | **int64** | 分账完成时间 | [default to 0]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

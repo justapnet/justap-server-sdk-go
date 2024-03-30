@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **RecipientAppId** | **string** | 接收方 App ID | [default to null]
 **RecipientUserId** | **string** | 接收方用户 ID | [default to null]
 **RoyaltySettlementId** | **string** |  | [optional] [default to null]
-**Status** | **string** | 结算状态 | [default to null]
+**Status** | [***RoyaltySettlementTransactionRoyaltyTransactionStatus**](RoyaltySettlementTransactionRoyaltyTransactionStatus.md) | 结算状态 | [optional] [default to null]
 **TransferId** | **string** | 支付平分账处理流水 ID | [default to null]
 **UserSettlementAccountId** | **string** | 接收方用户结算账户 ID | [default to null]
 
