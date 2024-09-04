@@ -10,8 +10,25 @@
 
 package justap
 
-type V1AcquirerPaymentNotifyResponse struct {
-	// 支付单 ID
-	ChargeId int64 `json:"charge_id"`
-	Error_ *V1ServiceError `json:"error,omitempty"`
+type V1ExtraUnionPayCardlessQuickPay struct {
+	// 银行卡类型
+	BankAccountType string `json:"bank_account_type"`
+	// 银行名称
+	BankName string `json:"bank_name"`
+	// 银行类型
+	BankType string `json:"bank_type"`
+	// 付款方银行卡号
+	BuyerCardNumber string `json:"buyer_card_number"`
+	// 付款方身份证号
+	BuyerIdNo string `json:"buyer_id_no"`
+	// 付款方银行预留手机号
+	BuyerMobile string `json:"buyer_mobile"`
+	// 付款方银行姓名
+	BuyerName string `json:"buyer_name"`
+	// 信用卡背面的末三位数字
+	CreditCardCvn2 string `json:"credit_card_cvn2"`
+	// 信用卡有效期
+	CreditCardExpiry string `json:"credit_card_expiry"`
+	// 支持的银行卡类型
+	SupportCardType *ExtraUnionPayCardlessQuickPayCardType `json:"support_card_type"`
 }

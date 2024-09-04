@@ -13,6 +13,7 @@ package justap
 type V1ExtraAlipayPage struct {
 	// 业务扩展参数
 	BusinessParams float32 `json:"business_params"`
+	DirectPayForm *ExtraAlipayPageAlipayDirectPayForm `json:"direct_pay_form,omitempty"`
 	// 禁用渠道
 	DisablePayChannels string `json:"disable_pay_channels"`
 	// 可用渠道

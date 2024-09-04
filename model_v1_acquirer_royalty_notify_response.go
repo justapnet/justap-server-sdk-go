@@ -11,4 +11,7 @@
 package justap
 
 type V1AcquirerRoyaltyNotifyResponse struct {
+	Error_ *V1ServiceError `json:"error,omitempty"`
+	// 分账单号
+	RoyaltyId int64 `json:"royalty_id"`
 }

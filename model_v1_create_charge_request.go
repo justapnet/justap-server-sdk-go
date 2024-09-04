@@ -38,6 +38,8 @@ type V1CreateChargeRequest struct {
 	NotificationArea string `json:"notification_area"`
 	// [OPTIONAL] 通知地址，如不传则使用 APP 设置中的通知地址。若都为空，则不发送通知
 	NotifyUrl string `json:"notify_url"`
+	// [OPTIONAL] 支付来源。固定值: DEFAULT
+	Source string `json:"source"`
 	// [REQUIRED] 物品或服务名称（交易标题）
 	Subject string `json:"subject"`
 	// [OPTIONAL] 订单超时时间，单位秒

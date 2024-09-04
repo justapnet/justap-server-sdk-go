@@ -9,7 +9,7 @@
  */
 
 package justap
-// Tradev1Channel : - BALANCE: 余额支付  - AlipayQR: 支付宝扫码支付  - AlipayScan: 支付宝条码支付  - AlipayApp: 支付宝 App 支付  - AlipayWap: 支付宝手机网站支付  - AlipayPage: 支付宝电脑网站支付  - AlipayFace: 支付宝刷脸支付  - AlipayLite: 支付宝小程序支付  - AlipayJSAPI: 支付宝 JSAPI 支付  - WechatpayApp: 微信 App 支付  - WechatpayJSAPI: 微信 JSAPI 支付  - WechatpayH5: 微信 H5 支付  - WechatpayNative: 微信 Native 支付  - WechatpayLite: 微信小程序支付  - WechatpayFace: 刷脸支付  - WechatpayScan: 微信付款码支付  - UnionPayQr: 银联二维码支付（云闪付扫码）
+// Tradev1Channel : - BALANCE: 余额支付  - AlipayQR: 支付宝扫码支付  - AlipayScan: 支付宝条码支付  - AlipayApp: 支付宝 App 支付  - AlipayWap: 支付宝手机网站支付  - AlipayPage: 支付宝电脑网站支付  - AlipayFace: 支付宝刷脸支付  - AlipayLite: 支付宝小程序支付  - AlipayJSAPI: 支付宝 JSAPI 支付  - WechatpayApp: 微信 App 支付  - WechatpayJSAPI: 微信 JSAPI 支付  - WechatpayH5: 微信 H5 支付  - WechatpayNative: 微信 Native 支付  - WechatpayLite: 微信小程序支付  - WechatpayFace: 刷脸支付  - WechatpayScan: 微信付款码支付  - UnionPayQr: 银联二维码支付（云闪付扫码）  - UnionPayCardlessQuickPay: 银联无卡快捷支付  - UnionPayAgreementQuickPay: 银联协议快捷支付
 type Tradev1Channel string
 
 // List of tradev1Channel
@@ -32,4 +32,6 @@ const (
 	WECHATPAY_FACE Tradev1Channel = "WechatpayFace"
 	WECHATPAY_SCAN Tradev1Channel = "WechatpayScan"
 	UNION_PAY_QR Tradev1Channel = "UnionPayQr"
+	UNION_PAY_CARDLESS_QUICK_PAY Tradev1Channel = "UnionPayCardlessQuickPay"
+	UNION_PAY_AGREEMENT_QUICK_PAY Tradev1Channel = "UnionPayAgreementQuickPay"
 )

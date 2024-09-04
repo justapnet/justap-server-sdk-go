@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **AlipayQr** | [***V1ExtraAlipayQr**](v1ExtraAlipayQr.md) | 支付宝二维码支付元数据 | [optional] [default to null]
 **AlipayScan** | [***V1ExtraAlipayScan**](v1ExtraAlipayScan.md) | 支付宝扫码（被扫）支付元数据 | [optional] [default to null]
 **AlipayWap** | [***V1ExtraAlipayWap**](v1ExtraAlipayWap.md) | 支付宝手机网站支付元数据 | [optional] [default to null]
+**UnionpayCardlessQuickPay** | [***V1ExtraUnionPayCardlessQuickPay**](v1ExtraUnionPayCardlessQuickPay.md) | 银联无卡快捷支付元数据 | [optional] [default to null]
 **WechatpayApp** | [***V1ExtraWechatpayApp**](v1ExtraWechatpayApp.md) | 微信支付 APP 支付元数据 | [optional] [default to null]
 **WechatpayH5** | [***V1ExtraWechatpayH5**](v1ExtraWechatpayH5.md) | 微信支付 H5 支付元数据 | [optional] [default to null]
 **WechatpayJsapi** | [***V1ExtraWechatpayJsapi**](v1ExtraWechatpayJsapi.md) | 微信支付 JSAPI 支付元数据 | [optional] [default to null]

@@ -26,4 +26,8 @@ type V1CreateRefundRequest struct {
 	MerchantRefundId string `json:"merchant_refund_id"`
 	// [OPTIONAL] 参考元数据。
 	Metadata map[string]string `json:"metadata,omitempty"`
+	// [OPTIONAL] 接受通知服务器所在区域，为确保消息能够送达，请选择服务器所在国家的国家码。如不填默认为 CN
+	NotificationArea string `json:"notification_area"`
+	// [OPTIONAL] 退款成功后的异步通知地址。
+	NotifyUrl string `json:"notify_url,omitempty"`
 }

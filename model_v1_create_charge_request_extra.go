@@ -27,6 +27,8 @@ type V1CreateChargeRequestExtra struct {
 	AlipayScan *V1ExtraAlipayScan `json:"alipay_scan,omitempty"`
 	// 支付宝手机网站支付元数据
 	AlipayWap *V1ExtraAlipayWap `json:"alipay_wap,omitempty"`
+	// 银联无卡快捷支付元数据
+	UnionpayCardlessQuickPay *V1ExtraUnionPayCardlessQuickPay `json:"unionpay_cardless_quick_pay,omitempty"`
 	// 微信支付 APP 支付元数据
 	WechatpayApp *V1ExtraWechatpayApp `json:"wechatpay_app,omitempty"`
 	// 微信支付 H5 支付元数据

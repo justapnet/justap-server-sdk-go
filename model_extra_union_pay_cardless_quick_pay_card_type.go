@@ -10,8 +10,11 @@
 
 package justap
 
-type V1AcquirerPaymentNotifyResponse struct {
-	// 支付单 ID
-	ChargeId int64 `json:"charge_id"`
-	Error_ *V1ServiceError `json:"error,omitempty"`
-}
+type ExtraUnionPayCardlessQuickPayCardType string
+
+// List of ExtraUnionPayCardlessQuickPayCardType
+const (
+	CARD_TYPE_UNSET ExtraUnionPayCardlessQuickPayCardType = "CardTypeUnset"
+	CREDIT ExtraUnionPayCardlessQuickPayCardType = "Credit"
+	DEBIT ExtraUnionPayCardlessQuickPayCardType = "Debit"
+)

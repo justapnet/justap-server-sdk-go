@@ -59,11 +59,11 @@ info:
     url: "https://www.justap.cn/assets/img/logo/logo-developer.svg"
 host: "127.0.0.1:21011"
 tags:
-- name: "结算账户"
 - name: "商业用户"
+- name: "开源聚合®支付"
+- name: "结算账户"
 - name: "CheckoutService"
 - name: "CustomerService"
-- name: "开源聚合®支付"
 - name: "统一分账"
 schemes:
 - "http"
@@ -170,7 +170,8 @@ paths:
           小程序支付\n - AlipayJSAPI: 支付宝 JSAPI 支付\n - WechatpayApp: 微信 App 支付\n - WechatpayJSAPI:\
           \ 微信 JSAPI 支付\n - WechatpayH5: 微信 H5 支付\n - WechatpayNative: 微信 Native 支\
           付\n - WechatpayLite: 微信小程序支付\n - WechatpayFace: 刷脸支付\n - WechatpayScan:\
-          \ 微信付款码支付\n - UnionPayQr: 银联二维码支付（云闪付扫码）"
+          \ 微信付款码支付\n - UnionPayQr: 银联二维码支付（云闪付扫码）\n - UnionPayCardlessQuickPay: 银\
+          联无卡快捷支付\n - UnionPayAgreementQuickPay: 银联协议快捷支付"
         required: false
         type: "string"
         default: "CHANNEL_INVALID_UNSPECIFIED"
@@ -194,6 +195,8 @@ paths:
         - "WechatpayFace"
         - "WechatpayScan"
         - "UnionPayQr"
+        - "UnionPayCardlessQuickPay"
+        - "UnionPayAgreementQuickPay"
         x-exportParamName: "Channel"
         x-optionalDataType: "String"
       - name: "paid"
@@ -1157,7 +1160,8 @@ paths:
           小程序支付\n - AlipayJSAPI: 支付宝 JSAPI 支付\n - WechatpayApp: 微信 App 支付\n - WechatpayJSAPI:\
           \ 微信 JSAPI 支付\n - WechatpayH5: 微信 H5 支付\n - WechatpayNative: 微信 Native 支\
           付\n - WechatpayLite: 微信小程序支付\n - WechatpayFace: 刷脸支付\n - WechatpayScan:\
-          \ 微信付款码支付\n - UnionPayQr: 银联二维码支付（云闪付扫码）"
+          \ 微信付款码支付\n - UnionPayQr: 银联二维码支付（云闪付扫码）\n - UnionPayCardlessQuickPay: 银\
+          联无卡快捷支付\n - UnionPayAgreementQuickPay: 银联协议快捷支付"
         required: false
         type: "string"
         default: "CHANNEL_INVALID_UNSPECIFIED"
@@ -1181,6 +1185,8 @@ paths:
         - "WechatpayFace"
         - "WechatpayScan"
         - "UnionPayQr"
+        - "UnionPayCardlessQuickPay"
+        - "UnionPayAgreementQuickPay"
         x-exportParamName: "Channel"
         x-optionalDataType: "String"
       - name: "paid"
@@ -3061,6 +3067,23 @@ definitions:
         description: "支付宝用户ID"
     example:
       user_id: "user_id"
+  ExtraAlipayPageAlipayDirectPayForm:
+    type: "object"
+    required:
+    - "form_action"
+    - "form_fields"
+    properties:
+      form_action:
+        type: "string"
+        format: "string"
+        description: "[ONLY IN RESPONSE] 表单提交地址"
+      form_fields:
+        type: "string"
+        format: "string"
+        description: "[ONLY IN RESPONSE] 表单字段"
+    example:
+      form_action: "form_action"
+      form_fields: "form_fields"
   ExtraAlipaySettleInfoSettleDetailInfos:
     type: "object"
     properties:
@@ -3083,6 +3106,13 @@ definitions:
       summary_dimension: "summary_dimension"
       settle_entity_id: "settle_entity_id"
       trans_in_type: "trans_in_type"
+  ExtraUnionPayCardlessQuickPayCardType:
+    type: "string"
+    enum:
+    - "CardTypeUnset"
+    - "Credit"
+    - "Debit"
+    default: "CardTypeUnset"
   ExtraWechatpayDetailGoodsDetail:
     type: "object"
     properties:
@@ -3592,7 +3622,8 @@ definitions:
       \ 支付\n - WechatpayApp: 微信 App 支付\n - WechatpayJSAPI: 微信 JSAPI 支付\n - WechatpayH5:\
       \ 微信 H5 支付\n - WechatpayNative: 微信 Native 支付\n - WechatpayLite: 微信小程序支付\n -\
       \ WechatpayFace: 刷脸支付\n - WechatpayScan: 微信付款码支付\n - UnionPayQr: 银联二维码支付（云闪付\
-      扫码）"
+      扫码）\n - UnionPayCardlessQuickPay: 银联无卡快捷支付\n - UnionPayAgreementQuickPay: 银联\
+      协议快捷支付"
     enum:
     - "CHANNEL_INVALID_UNSPECIFIED"
     - "BALANCE"
@@ -3612,6 +3643,8 @@ definitions:
     - "WechatpayFace"
     - "WechatpayScan"
     - "UnionPayQr"
+    - "UnionPayCardlessQuickPay"
+    - "UnionPayAgreementQuickPay"
     default: "CHANNEL_INVALID_UNSPECIFIED"
   tradev1RoyaltyMethod:
     type: "string"
@@ -3675,6 +3708,16 @@ definitions:
         default: 0
   v1AcquirerPaymentNotifyResponse:
     type: "object"
+    required:
+    - "charge_id"
+    properties:
+      charge_id:
+        type: "integer"
+        format: "int64"
+        description: "支付单 ID"
+        default: 0
+      error:
+        $ref: "#/definitions/v1ServiceError"
   v1AcquirerQueryRefundResponse:
     type: "object"
     required:
@@ -3714,6 +3757,16 @@ definitions:
     type: "object"
   v1AcquirerRoyaltyNotifyResponse:
     type: "object"
+    required:
+    - "royalty_id"
+    properties:
+      error:
+        $ref: "#/definitions/v1ServiceError"
+      royalty_id:
+        type: "integer"
+        format: "int64"
+        description: "分账单号"
+        default: 0
   v1AlipayCallbackResponse:
     type: "object"
     properties:
@@ -4324,6 +4377,17 @@ definitions:
           goods_type: "goods_type"
           seller_id: "seller_id"
           pay_param: "pay_param"
+        unionpay_cardless_quick_pay:
+          buyer_mobile: "buyer_mobile"
+          bank_type: "bank_type"
+          buyer_card_number: "buyer_card_number"
+          bank_name: "bank_name"
+          buyer_name: "buyer_name"
+          credit_card_cvn2: "credit_card_cvn2"
+          bank_account_type: "personal"
+          support_card_type: {}
+          buyer_id_no: "buyer_id_no"
+          credit_card_expiry: "credit_card_expiry"
         alipay_wap:
           store_id: "store_id"
           extend_params:
@@ -4354,6 +4418,9 @@ definitions:
             body: "body"
             categories_tree: "categories_tree"
             show_url: "show_url"
+          direct_pay_form:
+            form_action: "form_action"
+            form_fields: "form_fields"
           pay_url: "pay_url"
           enable_pay_channels: "enable_pay_channels"
           fund_bill_list:
@@ -4506,6 +4573,9 @@ definitions:
             body: "body"
             categories_tree: "categories_tree"
             show_url: "show_url"
+          direct_pay_form:
+            form_action: "form_action"
+            form_fields: "form_fields"
           pay_url: "pay_url"
           enable_pay_channels: "enable_pay_channels"
           sub_merchant:
@@ -4732,6 +4802,9 @@ definitions:
       alipay_wap:
         description: "支付宝 手机网站 支付渠道元数据"
         $ref: "#/definitions/v1ExtraAlipayWap"
+      unionpay_cardless_quick_pay:
+        description: "银联无卡快捷支付渠道元数据"
+        $ref: "#/definitions/v1ExtraUnionPayCardlessQuickPay"
       wechatpay_app:
         description: "微信支付 App 支付渠道元数据"
         $ref: "#/definitions/v1ExtraWechatpayApp"
@@ -4951,6 +5024,17 @@ definitions:
         goods_type: "goods_type"
         seller_id: "seller_id"
         pay_param: "pay_param"
+      unionpay_cardless_quick_pay:
+        buyer_mobile: "buyer_mobile"
+        bank_type: "bank_type"
+        buyer_card_number: "buyer_card_number"
+        bank_name: "bank_name"
+        buyer_name: "buyer_name"
+        credit_card_cvn2: "credit_card_cvn2"
+        bank_account_type: "personal"
+        support_card_type: {}
+        buyer_id_no: "buyer_id_no"
+        credit_card_expiry: "credit_card_expiry"
       alipay_wap:
         store_id: "store_id"
         extend_params:
@@ -4981,6 +5065,9 @@ definitions:
           body: "body"
           categories_tree: "categories_tree"
           show_url: "show_url"
+        direct_pay_form:
+          form_action: "form_action"
+          form_fields: "form_fields"
         pay_url: "pay_url"
         enable_pay_channels: "enable_pay_channels"
         fund_bill_list:
@@ -5133,6 +5220,9 @@ definitions:
           body: "body"
           categories_tree: "categories_tree"
           show_url: "show_url"
+        direct_pay_form:
+          form_action: "form_action"
+          form_fields: "form_fields"
         pay_url: "pay_url"
         enable_pay_channels: "enable_pay_channels"
         sub_merchant:
@@ -5719,6 +5809,17 @@ definitions:
             goods_type: "goods_type"
             seller_id: "seller_id"
             pay_param: "pay_param"
+          unionpay_cardless_quick_pay:
+            buyer_mobile: "buyer_mobile"
+            bank_type: "bank_type"
+            buyer_card_number: "buyer_card_number"
+            bank_name: "bank_name"
+            buyer_name: "buyer_name"
+            credit_card_cvn2: "credit_card_cvn2"
+            bank_account_type: "personal"
+            support_card_type: {}
+            buyer_id_no: "buyer_id_no"
+            credit_card_expiry: "credit_card_expiry"
           alipay_wap:
             store_id: "store_id"
             extend_params:
@@ -5749,6 +5850,9 @@ definitions:
               body: "body"
               categories_tree: "categories_tree"
               show_url: "show_url"
+            direct_pay_form:
+              form_action: "form_action"
+              form_fields: "form_fields"
             pay_url: "pay_url"
             enable_pay_channels: "enable_pay_channels"
             fund_bill_list:
@@ -5901,6 +6005,9 @@ definitions:
               body: "body"
               categories_tree: "categories_tree"
               show_url: "show_url"
+            direct_pay_form:
+              form_action: "form_action"
+              form_fields: "form_fields"
             pay_url: "pay_url"
             enable_pay_channels: "enable_pay_channels"
             sub_merchant:
@@ -6488,6 +6595,17 @@ definitions:
             goods_type: "goods_type"
             seller_id: "seller_id"
             pay_param: "pay_param"
+          unionpay_cardless_quick_pay:
+            buyer_mobile: "buyer_mobile"
+            bank_type: "bank_type"
+            buyer_card_number: "buyer_card_number"
+            bank_name: "bank_name"
+            buyer_name: "buyer_name"
+            credit_card_cvn2: "credit_card_cvn2"
+            bank_account_type: "personal"
+            support_card_type: {}
+            buyer_id_no: "buyer_id_no"
+            credit_card_expiry: "credit_card_expiry"
           alipay_wap:
             store_id: "store_id"
             extend_params:
@@ -6518,6 +6636,9 @@ definitions:
               body: "body"
               categories_tree: "categories_tree"
               show_url: "show_url"
+            direct_pay_form:
+              form_action: "form_action"
+              form_fields: "form_fields"
             pay_url: "pay_url"
             enable_pay_channels: "enable_pay_channels"
             fund_bill_list:
@@ -6670,6 +6791,9 @@ definitions:
               body: "body"
               categories_tree: "categories_tree"
               show_url: "show_url"
+            direct_pay_form:
+              form_action: "form_action"
+              form_fields: "form_fields"
             pay_url: "pay_url"
             enable_pay_channels: "enable_pay_channels"
             sub_merchant:
@@ -7276,6 +7400,17 @@ definitions:
             goods_type: "goods_type"
             seller_id: "seller_id"
             pay_param: "pay_param"
+          unionpay_cardless_quick_pay:
+            buyer_mobile: "buyer_mobile"
+            bank_type: "bank_type"
+            buyer_card_number: "buyer_card_number"
+            bank_name: "bank_name"
+            buyer_name: "buyer_name"
+            credit_card_cvn2: "credit_card_cvn2"
+            bank_account_type: "personal"
+            support_card_type: {}
+            buyer_id_no: "buyer_id_no"
+            credit_card_expiry: "credit_card_expiry"
           alipay_wap:
             store_id: "store_id"
             extend_params:
@@ -7306,6 +7441,9 @@ definitions:
               body: "body"
               categories_tree: "categories_tree"
               show_url: "show_url"
+            direct_pay_form:
+              form_action: "form_action"
+              form_fields: "form_fields"
             pay_url: "pay_url"
             enable_pay_channels: "enable_pay_channels"
             fund_bill_list:
@@ -7458,6 +7596,9 @@ definitions:
               body: "body"
               categories_tree: "categories_tree"
               show_url: "show_url"
+            direct_pay_form:
+              form_action: "form_action"
+              form_fields: "form_fields"
             pay_url: "pay_url"
             enable_pay_channels: "enable_pay_channels"
             sub_merchant:
@@ -7692,6 +7833,7 @@ definitions:
     - "merchant_trade_id"
     - "notification_area"
     - "notify_url"
+    - "source"
     - "subject"
     - "ttl"
     properties:
@@ -7748,6 +7890,11 @@ definitions:
         type: "string"
         format: "string"
         description: "[OPTIONAL] 通知地址，如不传则使用 APP 设置中的通知地址。若都为空，则不发送通知"
+      source:
+        type: "string"
+        format: "string"
+        description: "[OPTIONAL] 支付来源。固定值: DEFAULT"
+        default: "Default"
       subject:
         type: "string"
         format: "string"
@@ -7787,6 +7934,9 @@ definitions:
       alipay_wap:
         description: "支付宝手机网站支付元数据"
         $ref: "#/definitions/v1ExtraAlipayWap"
+      unionpay_cardless_quick_pay:
+        description: "银联无卡快捷支付元数据"
+        $ref: "#/definitions/v1ExtraUnionPayCardlessQuickPay"
       wechatpay_app:
         description: "微信支付 APP 支付元数据"
         $ref: "#/definitions/v1ExtraWechatpayApp"
@@ -7853,6 +8003,7 @@ definitions:
     - "charge_id"
     - "description"
     - "merchant_refund_id"
+    - "notification_area"
     properties:
       amount:
         type: "number"
@@ -7884,6 +8035,14 @@ definitions:
         description: "[OPTIONAL] 参考元数据。"
         additionalProperties:
           type: "string"
+      notification_area:
+        type: "string"
+        format: "string"
+        description: "[OPTIONAL] 接受通知服务器所在区域，为确保消息能够送达，请选择服务器所在国家的国家码。如不填默认为 CN"
+        default: "CN"
+      notify_url:
+        type: "string"
+        description: "[OPTIONAL] 退款成功后的异步通知地址。"
     title: "创建 Refund 对象"
     description: "通过发起一次退款请求创建一个新的 refund 对象，只能对已经发生交易并且没有全额退款的 charge 对象发起退款。当进行全\
       额退款之前，可以进行多次退款，直至全额退款。当一次退款成功后，会发送 Webhooks 通知。"
@@ -8694,6 +8853,8 @@ definitions:
         type: "number"
         format: "int32"
         description: "业务扩展参数"
+      direct_pay_form:
+        $ref: "#/definitions/ExtraAlipayPageAlipayDirectPayForm"
       disable_pay_channels:
         type: "string"
         format: "string"
@@ -8794,6 +8955,9 @@ definitions:
         body: "body"
         categories_tree: "categories_tree"
         show_url: "show_url"
+      direct_pay_form:
+        form_action: "form_action"
+        form_fields: "form_fields"
       pay_url: "pay_url"
       enable_pay_channels: "enable_pay_channels"
       sub_merchant:
@@ -9241,6 +9405,8 @@ definitions:
         type: "string"
         format: "string"
         description: "业务扩展参数"
+      direct_pay_form:
+        $ref: "#/definitions/ExtraAlipayPageAlipayDirectPayForm"
       disable_pay_channels:
         type: "string"
         format: "string"
@@ -9331,6 +9497,9 @@ definitions:
         body: "body"
         categories_tree: "categories_tree"
         show_url: "show_url"
+      direct_pay_form:
+        form_action: "form_action"
+        form_fields: "form_fields"
       pay_url: "pay_url"
       enable_pay_channels: "enable_pay_channels"
       fund_bill_list:
@@ -9356,6 +9525,71 @@ definitions:
       auth_token: "auth_token"
       promo_params: "promo_params"
       seller_id: "seller_id"
+  v1ExtraUnionPayCardlessQuickPay:
+    type: "object"
+    required:
+    - "bank_account_type"
+    - "bank_name"
+    - "bank_type"
+    - "buyer_card_number"
+    - "buyer_id_no"
+    - "buyer_mobile"
+    - "buyer_name"
+    - "credit_card_cvn2"
+    - "credit_card_expiry"
+    - "support_card_type"
+    properties:
+      bank_account_type:
+        type: "string"
+        format: "string"
+        description: "银行卡类型"
+        default: "personal"
+      bank_name:
+        type: "string"
+        format: "string"
+        description: "银行名称"
+      bank_type:
+        type: "string"
+        format: "string"
+        description: "银行类型"
+      buyer_card_number:
+        type: "string"
+        format: "string"
+        description: "付款方银行卡号"
+      buyer_id_no:
+        type: "string"
+        format: "string"
+        description: "付款方身份证号"
+      buyer_mobile:
+        type: "string"
+        format: "string"
+        description: "付款方银行预留手机号"
+      buyer_name:
+        type: "string"
+        format: "string"
+        description: "付款方银行姓名"
+      credit_card_cvn2:
+        type: "string"
+        format: "string"
+        description: "信用卡背面的末三位数字"
+      credit_card_expiry:
+        type: "string"
+        format: "string"
+        description: "信用卡有效期"
+      support_card_type:
+        description: "支持的银行卡类型"
+        $ref: "#/definitions/ExtraUnionPayCardlessQuickPayCardType"
+    example:
+      buyer_mobile: "buyer_mobile"
+      bank_type: "bank_type"
+      buyer_card_number: "buyer_card_number"
+      bank_name: "bank_name"
+      buyer_name: "buyer_name"
+      credit_card_cvn2: "credit_card_cvn2"
+      bank_account_type: "personal"
+      support_card_type: {}
+      buyer_id_no: "buyer_id_no"
+      credit_card_expiry: "credit_card_expiry"
   v1ExtraWechatpayApp:
     type: "object"
     required:

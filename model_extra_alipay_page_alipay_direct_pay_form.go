@@ -10,8 +10,9 @@
 
 package justap
 
-type V1AcquirerPaymentNotifyResponse struct {
-	// 支付单 ID
-	ChargeId int64 `json:"charge_id"`
-	Error_ *V1ServiceError `json:"error,omitempty"`
+type ExtraAlipayPageAlipayDirectPayForm struct {
+	// [ONLY IN RESPONSE] 表单提交地址
+	FormAction string `json:"form_action"`
+	// [ONLY IN RESPONSE] 表单字段
+	FormFields string `json:"form_fields"`
 }

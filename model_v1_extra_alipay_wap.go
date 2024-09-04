@@ -15,6 +15,7 @@ type V1ExtraAlipayWap struct {
 	AuthToken string `json:"auth_token"`
 	// 业务扩展参数
 	BusinessParams string `json:"business_params"`
+	DirectPayForm *ExtraAlipayPageAlipayDirectPayForm `json:"direct_pay_form,omitempty"`
 	// 禁用渠道
 	DisablePayChannels string `json:"disable_pay_channels"`
 	// 可用渠道
